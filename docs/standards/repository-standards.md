@@ -121,3 +121,6 @@ Alternative versioning strategies may be adopted when justified by the project's
 ## References
 
 - `docs/lifecycle/01-foundation.md`
+- `docs/standards/work-item-taxonomy.md`
+- `docs/standards/work-item-types.md`
+- `docs/standards/project-views.md`
