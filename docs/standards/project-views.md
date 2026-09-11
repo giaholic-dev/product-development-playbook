@@ -53,6 +53,12 @@ The standard purposes are:
 | Roadmap | Strategic |
 | Calendar | Operational, Planning |
 
+## View Scope
+
+Operational and planning views should display work items rather than pull requests.
+
+When implemented in GitHub Projects, views intended to manage work should exclude pull requests unless explicitly required by the view's purpose.
+
 ## References
 
 - `docs/standards/repository-standards.md`
