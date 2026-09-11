@@ -61,3 +61,23 @@ The standard priority levels are:
 - High
 - Medium
 - Low
+
+## GitHub Field Mapping
+
+The Work Item Taxonomy is tool-agnostic.
+
+When implemented in GitHub Projects, taxonomy dimensions should reuse native fields whenever they accurately represent the same concept. Custom fields should be introduced only when the native platform does not provide an equivalent.
+
+| Taxonomy Dimension | GitHub Implementation |
+| ------------------ | --------------------- |
+| Lifecycle Phase | Custom field: **Phase** |
+| Work Type | Custom field: **Work Type** |
+| Artifact Type | Custom field: **Artifact Type** |
+| Priority | Native field: **Priority** |
+| Status | Native field: **Status** |
+| Assignee | Native field: **Assignees** |
+| Iteration *(optional)* | Native field: **Iteration** |
+| Target Date *(optional)* | Native field: **Date** |
+
+The Playbook favors native GitHub capabilities over custom fields whenever they provide equivalent semantics. This minimizes duplication while preserving a consistent, tool-independent taxonomy.
+
