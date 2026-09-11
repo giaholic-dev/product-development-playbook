@@ -52,3 +52,8 @@ The standard purposes are:
 | Timeline | Planning, Strategic |
 | Roadmap | Strategic |
 | Calendar | Operational, Planning |
+
+## References
+
+- `docs/standards/repository-standards.md`
+- `docs/standards/work-item-taxonomy.md`
