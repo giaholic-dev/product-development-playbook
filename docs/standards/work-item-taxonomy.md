@@ -81,3 +81,8 @@ When implemented in GitHub Projects, taxonomy dimensions should reuse native fie
 
 The Playbook favors native GitHub capabilities over custom fields whenever they provide equivalent semantics. This minimizes duplication while preserving a consistent, tool-independent taxonomy.
 
+## References
+
+- `docs/standards/repository-standards.md`
+- `docs/standards/work-item-types.md`
+- `docs/standards/project-views.md`
