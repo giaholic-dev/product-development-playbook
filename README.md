@@ -39,8 +39,10 @@ This playbook is intended for:
 - Anyone building software products using an iterative process
 
 ## Repository Structure
+
 - `docs/core/` — Fundamental philosophy, vision, mission, and principles
 - `docs/lifecycle/` — End-to-end product lifecycle
+- `docs/standards/` — Repository and engineering standards
 - `docs/practices/` — Operational guidelines and best practices
 - `templates/` *(future)* — Reusable templates and models
 - `examples/` *(future)* — Real-world case studies
