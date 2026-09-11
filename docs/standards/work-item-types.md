@@ -118,3 +118,8 @@ When implemented in GitHub, Issue Types and Work Types coexist and serve differe
 | Feature | Feature, Improvement |
 | Bug | Bug |
 | Task | Research, Technical Debt, Maintenance, Improvement |
+
+## References
+
+- `docs/standards/repository-standards.md`
+- `docs/standards/work-item-taxonomy.md`
