@@ -55,9 +55,14 @@ Current standards include:
 
 - [Repository Standards](docs/standards/repository-standards.md)
 - [Work Item Taxonomy](docs/standards/work-item-taxonomy.md)
+- [Work Item Types](docs/standards/work-item-types.md)
+- [Project Views](docs/standards/project-views.md)
 
 ## Current Status
-v0.1 — Foundation
+
+Current phase: **Foundation**
+
+Current version: **v0.1**
 
 ---
 *For more details on the process lifecycle, check the [Foundation Phase](docs/lifecycle/01-foundation.md).*
