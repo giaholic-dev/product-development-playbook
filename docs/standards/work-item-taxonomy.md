@@ -62,6 +62,12 @@ The standard priority levels are:
 - Medium
 - Low
 
+## Workflow State
+
+Workflow state is managed separately from the Playbook taxonomy.
+
+When implemented in GitHub, the native Status field provides the operational state of a work item.
+
 ## GitHub Field Mapping
 
 The Work Item Taxonomy is tool-agnostic.
