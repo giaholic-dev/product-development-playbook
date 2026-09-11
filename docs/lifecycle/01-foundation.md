@@ -43,9 +43,9 @@ The Product phase can begin without blocking questions regarding infrastructure,
 
 - Repository
 - `README.md`
-- Project Board
-- Tracking Labels
-- Delivery Milestones
+- Repository Standards
+- Work Item Taxonomy
+- GitHub Project
 - Workflow Specification
 
 ---
