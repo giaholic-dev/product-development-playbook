@@ -45,6 +45,8 @@ The Product phase can begin without blocking questions regarding infrastructure,
 - `README.md`
 - Repository Standards
 - Work Item Taxonomy
+- Work Item Types
+- Project Views
 - GitHub Project
 - Workflow Specification
 
