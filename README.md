@@ -47,6 +47,15 @@ This playbook is intended for:
 - `templates/` *(future)* — Reusable templates and models
 - `examples/` *(future)* — Real-world case studies
 
+## Standards
+
+The Playbook defines reusable engineering standards that can be adopted across projects.
+
+Current standards include:
+
+- [Repository Standards](docs/standards/repository-standards.md)
+- [Work Item Taxonomy](docs/standards/work-item-taxonomy.md)
+
 ## Current Status
 v0.1 — Foundation
 
