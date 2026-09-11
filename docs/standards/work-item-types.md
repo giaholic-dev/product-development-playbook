@@ -20,6 +20,10 @@ A **Work Type** is defined by the Playbook and represents the nature of the work
 
 Different platforms may provide different issue types, while the Playbook Work Types remain consistent across all implementations.
 
+Pull Requests are implementation and review artifacts rather than work items.
+
+A project management system may expose Pull Requests alongside work items, but they should not be treated as work items unless explicitly defined by the platform integration.
+
 ## Feature
 
 A Feature introduces new user-visible functionality or capabilities to the product.
