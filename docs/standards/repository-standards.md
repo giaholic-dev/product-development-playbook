@@ -40,6 +40,22 @@ All project documentation must:
 - Be kept up to date as the project evolves.
 - Favor references over repetition when linking related concepts.
 
+## Conceptual Standards
+
+Conceptual standards should generally follow a consistent document structure whenever applicable.
+
+The recommended structure is:
+
+- Purpose
+- Scope
+- Definition
+- Conceptual Model
+- Characteristics
+- Relationships
+- References
+
+Documents may omit sections that are not applicable to the concept being defined.
+
 ## Git Standards
 
 Git is the official version control system adopted by the Product Development Playbook.
