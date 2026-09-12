@@ -24,6 +24,11 @@ cp README.md "$EXPORT_DIR/" 2>/dev/null || true
 find . -path "./.git" -prune -o -path "./audit" -prune -o -type f -print | sort > "$EXPORT_DIR/repository-tree.txt"
 }
 export_issues(){ gh issue list --repo "$OWNER/$REPOSITORY" --state all --limit 500 --json number,title,body,state,stateReason,labels,milestone,assignees,createdAt,updatedAt,closedAt > "$EXPORT_DIR/issues.json"; }
+export_issue_comments(){ 
+    gh api \
+        "repos/$OWNER/$REPOSITORY/issues/comments?per_page=100" \
+        > "$EXPORT_DIR/issue-comments.json"
+}
 export_prs(){ gh pr list --repo "$OWNER/$REPOSITORY" --state all --limit 500 --json number,title,body,state,labels,author,createdAt,updatedAt,mergedAt,closedAt > "$EXPORT_DIR/pull-requests.json"; }
 export_labels(){ gh label list --repo "$OWNER/$REPOSITORY" --json name,color,description > "$EXPORT_DIR/labels.json"; }
 export_milestones(){ gh api "repos/$OWNER/$REPOSITORY/milestones?state=all" > "$EXPORT_DIR/milestones.json"; }
@@ -55,5 +60,5 @@ compress() {
 }
 
 summary(){ echo; echo "Repository : $OWNER/$REPOSITORY"; echo "Branch     : $BRANCH"; echo "Commit     : $SHORT_COMMIT"; echo; echo "Audit package:"; echo "  $ZIP_FILE"; }
-main(){ print_header; check_requirements; check_repository; load_repository; create_directories; export_repository; export_issues; export_prs; export_labels; export_milestones; export_releases; create_manifest; compress; summary; }
+main(){ print_header; check_requirements; check_repository; load_repository; create_directories; export_repository; export_issues; export_issue_comments; export_prs; export_labels; export_milestones; export_releases; create_manifest; compress; summary; }
 main
