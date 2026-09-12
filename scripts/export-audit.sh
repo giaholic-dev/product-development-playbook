@@ -39,7 +39,21 @@ cat > "$EXPORT_DIR/manifest.json" <<EOF
 }
 EOF
 }
-compress(){ (cd "$EXPORT_ROOT" && zip -qr "$(basename "$ZIP_FILE")" "exports/$TIMESTAMP"); }
+compress() {
+
+	ZIP_FILE="$EXPORT_ROOT/${REPOSITORY}-audit-${TIMESTAMP}.zip"
+    (
+        cd "$EXPORT_ROOT"
+        zip -qr "$(basename "$ZIP_FILE")" "exports/$TIMESTAMP"
+    )
+
+	if [ ! -f "$ZIP_FILE" ]; then
+		echo
+		echo "ERROR: Failed to create zip archive."
+		exit 1
+	fi
+}
+
 summary(){ echo; echo "Repository : $OWNER/$REPOSITORY"; echo "Branch     : $BRANCH"; echo "Commit     : $SHORT_COMMIT"; echo; echo "Audit package:"; echo "  $ZIP_FILE"; }
 main(){ print_header; check_requirements; check_repository; load_repository; create_directories; export_repository; export_issues; export_prs; export_labels; export_milestones; export_releases; create_manifest; compress; summary; }
 main
