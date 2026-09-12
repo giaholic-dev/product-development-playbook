@@ -13,18 +13,18 @@ Transform a product idea into a clearly defined product ready for refinement, de
 ## Activities
 
 - **P1 Product Vision:** Define the long-term vision for the product.
-- **P2 Problem Definition:** Clearly define the problem to be solved.
-- **P3 Users:** Identify target users and stakeholders.
+- **P2 Problem Statement:** Define the problem to be solved.
+- **P3 Users:** Identify the users whose needs, goals, or problems motivate the product.
 - **P4 Outcomes:** Define the desired business and user outcomes.
 - **P5 Product Scope:** Establish the initial product scope.
-- **P6 Product Backlog:** Create the initial backlog of work items.
+- **P6 Product Backlog:** Establish the initial product backlog.
 
 ## Outputs
 
 - Product Vision
 - Problem Statement
-- User Definition
-- Desired Outcomes
+- Users
+- Outcomes
 - Initial Product Scope
 - Initial Product Backlog
 
@@ -34,8 +34,8 @@ The Product phase is complete when:
 
 - The product vision is documented.
 - The problem is clearly defined.
-- Target users are identified.
-- Desired outcomes are established.
+- Users are identified.
+- Outcomes are established.
 - The initial product scope is defined.
 - The initial product backlog is established.
 
@@ -47,10 +47,10 @@ The product is sufficiently defined to begin UX, Architecture, and subsequent im
 
 - Product Vision
 - Problem Statement
-- User Definition
-- Outcome Definition
+- Users
+- Outcomes
 - Product Scope
-- Initial Product Backlog
+- Product Backlog
 
 ---
 
