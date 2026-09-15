@@ -107,6 +107,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Code Review Standard](docs/standards/code-review-standard.md)
 - [Definition of Ready](docs/standards/definition-of-ready.md)
 - [Definition of Done](docs/standards/definition-of-done.md)
+- [Versioning Standard](docs/standards/versioning-standard.md)
 - [Work Item Taxonomy](docs/standards/work-item-taxonomy.md)
 - [Work Item Types](docs/standards/work-item-types.md)
 - [Project Views](docs/standards/project-views.md)
@@ -131,7 +132,9 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 ## Current Status
 
-Current version: **v0.2.0**
+Latest published release: **[v0.1.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.1.0)**
+
+Development target: **Not established**
 
 Current phase: **Product**
 
