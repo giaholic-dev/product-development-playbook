@@ -108,6 +108,8 @@ The Playbook favors native GitHub capabilities over custom fields whenever they 
 
 ## References
 
-- `docs/standards/repository-standards.md`
-- `docs/standards/work-item-types.md`
-- `docs/standards/project-views.md`
+- [Repository Standards](repository-standards.md)
+- [Work Item Types](work-item-types.md)
+- [Product Backlog](product-backlog.md)
+- [Project Views](project-views.md)
+- [Artifact Standard issue — planned standard](https://github.com/giaholic-dev/product-development-playbook/issues/111)
