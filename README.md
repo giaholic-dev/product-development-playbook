@@ -129,6 +129,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Component Architecture](docs/standards/component-architecture.md)
 - [Data Model](docs/standards/data-model.md)
 - [API Design](docs/standards/api-design.md)
+- [Architecture Artifacts](docs/standards/architecture-artifacts.md)
 
 ### UX
 
