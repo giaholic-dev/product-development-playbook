@@ -73,7 +73,7 @@ The standard work types are:
 - Improvement
 - Research
 - Technical Debt
-- Maintenance
+- Operational Maintenance
 
 ## Artifact Type
 
