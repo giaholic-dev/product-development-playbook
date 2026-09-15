@@ -6,7 +6,7 @@ Define how the Product Development Playbook establishes, uses, and evolves share
 
 ## Scope
 
-This standard governs term ownership, naming, capitalization, aliases, and changes to terminology. It does not replace the definition of a governed concept: the document that owns a concept remains its primary source of truth. The [Glossary](https://github.com/giaholic-dev/product-development-playbook/issues/85) is the discoverable catalog of approved terms; it is maintained separately from this governance standard.
+This standard governs term ownership, naming, capitalization, aliases, and changes to terminology. It does not replace the definition of a governed concept: the document that owns a concept remains its primary source of truth. The [Glossary](glossary.md) is the discoverable catalog of approved terms; it is maintained separately from this governance standard.
 
 ## Normative Language
 
@@ -55,4 +55,4 @@ A repository can demonstrate adoption by maintaining a glossary or equivalent in
 - [Work Item Types](work-item-types.md)
 - [Project Views](project-views.md)
 - [Product Vision](product-vision.md)
-- [Glossary issue — planned catalog](https://github.com/giaholic-dev/product-development-playbook/issues/85)
+- [Glossary](glossary.md)
