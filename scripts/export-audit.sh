@@ -93,6 +93,18 @@ load_repository() {
   }
 }
 
+check_github_access() {
+  gh auth status --hostname github.com >/dev/null 2>&1 || {
+    echo "GitHub CLI is not authenticated for github.com. Run: gh auth login"
+    exit 1
+  }
+
+  gh repo view "$OWNER/$REPOSITORY" --json nameWithOwner --jq '.nameWithOwner' >/dev/null 2>&1 || {
+    echo "Unable to access GitHub repository: $OWNER/$REPOSITORY"
+    exit 1
+  }
+}
+
 create_directories() {
   mkdir -p "$EXPORT_DIR/repository" "$EXPORT_DIR/github" "$EXPORT_DIR/git"
 }
@@ -623,6 +635,7 @@ main() {
   check_requirements
   check_repository
   load_repository
+  check_github_access
   create_directories
   export_repository
   export_branches
