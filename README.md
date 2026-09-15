@@ -88,7 +88,8 @@ Current directories:
 - `docs/lifecycle/` — Existing lifecycle phase documents
 - `docs/standards/` — Reusable repository, documentation, and product standards
 - `examples/` — Concrete applications and case studies
-- `scripts/` — Supporting implementation utilities; [export-audit.sh](scripts/export-audit.sh) is a GitHub CLI-based audit exporter requiring Git, `gh`, `jq`, and `zip`. Its manifest records reproducibility metadata and collection counts; its collection exports may be incomplete until the pagination work is finished.
+- `.devcontainer/` — Reproducible GitHub Codespaces environment.
+- `scripts/` — Supporting implementation utilities; [export-audit.sh](scripts/export-audit.sh) is a GitHub CLI-based audit exporter requiring Git, `gh`, `jq`, and `zip`. Its manifest records reproducibility metadata and collection counts; its collection exports may be incomplete until the pagination work is finished. Run `bash scripts/check-export-audit.sh` in a configured Codespace to check shell syntax, formatting, and linting.
 
 Planned categories, not present in the current repository:
 
