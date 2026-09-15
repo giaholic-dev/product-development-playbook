@@ -38,5 +38,6 @@ An emergency deployment MAY abbreviate the normal sequence only when the reason,
 - [Release Phase](../lifecycle/06-release.md)
 - [Release Strategy](release-strategy.md)
 - [Release Notes](release-notes.md)
+- [Rollback Strategy](rollback-strategy.md)
 - [Definition of Done](definition-of-done.md)
 - [Artifact Standard](artifact-standard.md)

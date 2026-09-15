@@ -124,6 +124,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Release Strategy](docs/standards/release-strategy.md)
 - [Release Notes](docs/standards/release-notes.md)
 - [Deployment Strategy](docs/standards/deployment-strategy.md)
+- [Rollback Strategy](docs/standards/rollback-strategy.md)
 
 ### Documentation
 
