@@ -131,7 +131,16 @@ export_issues() {
 
 export_issue_comments() {
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/issues/comments?per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.issue_url, .id)' > "$EXPORT_DIR/github/issue-comments.json"
+    jq --slurpfile pull_requests "$EXPORT_DIR/github/pull-requests.json" '
+      ($pull_requests[0] | map(.number) | unique) as $pull_request_numbers
+      | [.[][]
+          | (.issue_url | split("/") | last | tonumber) as $issue_number
+          | select($pull_request_numbers | index($issue_number) | not)
+          | . + { issue_number: $issue_number }
+        ]
+      | unique_by(.id)
+      | sort_by(.issue_number, .id)
+    ' > "$EXPORT_DIR/github/issue-comments.json"
 }
 
 export_prs() {
@@ -253,8 +262,8 @@ main() {
   export_recent_commits
   export_repository_status
   export_issues
-  export_issue_comments
   export_prs
+  export_issue_comments
   export_labels
   export_milestones
   export_releases
