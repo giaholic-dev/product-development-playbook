@@ -39,6 +39,7 @@ Maintenance work may begin when the released increment has an identified operati
 - [Development Phase](05-development.md)
 - [Definition of Done](../standards/definition-of-done.md)
 - [Release Strategy](../standards/release-strategy.md)
+- [Release Notes](../standards/release-notes.md)
 - [Versioning Standard](../standards/versioning-standard.md)
 - [Testing Strategy](../standards/testing-strategy.md)
 - [Continuous Integration](../standards/continuous-integration.md)
