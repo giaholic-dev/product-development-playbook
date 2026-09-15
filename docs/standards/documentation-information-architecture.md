@@ -6,7 +6,7 @@ Define how Playbook-adopting repositories organize documentation by responsibili
 
 ## Scope
 
-This standard governs documentation categories, placement, relationships, and the representation of current and planned content. Writing conventions belong to the [Documentation Style Guide](https://github.com/giaholic-dev/product-development-playbook/issues/42); reading paths and links belong to the [Documentation Navigation Standard](https://github.com/giaholic-dev/product-development-playbook/issues/113). Neither GitHub nor a fixed directory tree is required by this conceptual architecture.
+This standard governs documentation categories, placement, relationships, and the representation of current and planned content. Writing conventions belong to the [Documentation Style Guide](https://github.com/giaholic-dev/product-development-playbook/issues/42); reading paths and links belong to the [Documentation Navigation Standard](documentation-navigation.md). Neither GitHub nor a fixed directory tree is required by this conceptual architecture.
 
 ## Category Responsibilities
 
@@ -40,4 +40,4 @@ A reader can inspect the root entry point and find: the current repository categ
 - [Repository Standards](repository-standards.md)
 - [Foundation Phase](../lifecycle/01-foundation.md)
 - [Documentation Style Guide issue](https://github.com/giaholic-dev/product-development-playbook/issues/42)
-- [Documentation Navigation Standard issue](https://github.com/giaholic-dev/product-development-playbook/issues/113)
+- [Documentation Navigation Standard](documentation-navigation.md)
