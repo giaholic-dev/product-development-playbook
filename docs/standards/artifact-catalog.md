@@ -14,6 +14,10 @@ This catalog is navigational. The [Artifact Standard](artifact-standard.md) gove
 | Implementation evidence | Source, configuration, test, or automation evidence when present | Repository implementation locations |
 | External evidence | Evidence retained outside the repository | Linked responsible work or governing document |
 
+## Scope
+
+This catalog covers artifact categories and representative repository locations. It does not govern artifact identity, classification, or work-item fields.
+
 ## Use
 
 Use this catalog to locate the governing artifact type. Do not use it to assign a work-item field or to replace the source of truth for a specific artifact.
