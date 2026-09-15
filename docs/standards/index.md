@@ -19,6 +19,7 @@ Provide one navigable catalog of the reusable standards in this Playbook. Each l
 - [Work Item Types](work-item-types.md)
 - [Project Views](project-views.md)
 - [Repository Project Field Standard](repository-project-field-standard.md)
+- [Repository Milestone Standard](repository-milestones.md)
 
 ## Documentation and shared vocabulary
 
