@@ -54,7 +54,7 @@ For a first reading of the Playbook, follow the documents that exist today:
 13. [Product Scope](docs/standards/product-scope.md)
 14. [Product Backlog](docs/standards/product-backlog.md)
 
-The Development, Release, and Maintenance phase documents are planned; they are not available yet. The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. The audit exporter is optional technical reading, not a prerequisite.
+The Release and Maintenance phase documents are planned; they are not available yet. The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. The audit exporter is optional technical reading, not a prerequisite.
 
 ## Lifecycle
 
@@ -68,7 +68,7 @@ The Product Development Playbook defines a complete conceptual lifecycle with se
 6. Release
 7. Maintenance
 
-Progression is ordered but not irreversible: new evidence or changes may require revisiting an earlier phase. Foundation, Product, UX, and Architecture currently have lifecycle documents; the remaining phase documents are planned. The current phase and completion status of this repository are reported separately below.
+Progression is ordered but not irreversible: new evidence or changes may require revisiting an earlier phase. Foundation, Product, UX, Architecture, and Development currently have lifecycle documents; the remaining phase documents are planned. The current phase and completion status of this repository are reported separately below.
 
 ## Audience
 This Playbook is intended for:
@@ -163,7 +163,7 @@ The lifecycle status below measures this repository's documentation coverage, no
 - **Documented** — the phase document and its current governing artifacts exist and have been reviewed against their documented criteria.
 - **Planned** — the phase is part of the lifecycle but its document is not yet available.
 
-Latest documented phase: **Architecture**
+Latest documented phase: **Development**
 
 Next planned phase: **UX**
 
@@ -173,7 +173,7 @@ Lifecycle documentation:
 - ✅ Product — documented
 - ✅ UX — documented
 - ✅ Architecture — documented
-- ⏳ Development — planned
+- ✅ Development — documented
 - ⏳ Release — planned
 - ⏳ Maintenance — planned
 
