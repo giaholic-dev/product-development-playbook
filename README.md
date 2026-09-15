@@ -125,6 +125,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Work Item Types](docs/standards/work-item-types.md)
 - [Project Views](docs/standards/project-views.md)
 - [Repository Project Field Standard](docs/standards/repository-project-field-standard.md)
+- [Repository Milestone Standard](docs/standards/repository-milestones.md)
 - [Terminology Standard](docs/standards/terminology-standard.md)
 - [Glossary](docs/standards/glossary.md)
 - [Artifact Standard](docs/standards/artifact-standard.md)
