@@ -84,6 +84,7 @@ load_repository() {
   EXPORT_ROOT="audit"
   EXPORT_DIR="$EXPORT_ROOT/exports/$TIMESTAMP"
   ZIP_FILE="$EXPORT_ROOT/${REPOSITORY}-audit-$TIMESTAMP.zip"
+  PROJECT_NUMBER="${GITHUB_PROJECT_NUMBER:-1}"
 
   [[ ! -e "$EXPORT_DIR" && ! -e "$ZIP_FILE" ]] || {
     echo "Refusing to overwrite an existing audit export for $TIMESTAMP."
@@ -211,6 +212,44 @@ export_milestones() {
   publish_json "$temporary" "$EXPORT_DIR/github/milestones.json" array
 }
 
+export_project_items() {
+  local temporary
+  temporary="$(temporary_json "$EXPORT_DIR/github/project-items.json")"
+
+  gh api graphql --paginate --slurp \
+    -f query='
+      query($login: String!, $number: Int!, $endCursor: String) {
+        organization(login: $login) {
+          projectV2(number: $number) {
+            items(first: 100, after: $endCursor) {
+              nodes {
+                id
+                type
+                createdAt
+                updatedAt
+                content {
+                  ... on Issue { id number title url }
+                  ... on PullRequest { id number title url }
+                  ... on DraftIssue { id title }
+                }
+              }
+              pageInfo { hasNextPage endCursor }
+            }
+          }
+        }
+      }
+    ' \
+    -f login="$OWNER" \
+    -F number="$PROJECT_NUMBER" |
+    jq '
+      [.[][].data.organization.projectV2.items.nodes[]]
+      | unique_by(.id)
+      | sort_by(.id)
+    ' > "$temporary"
+
+  publish_json "$temporary" "$EXPORT_DIR/github/project-items.json" array
+}
+
 export_releases() {
   local temporary
   temporary="$(temporary_json "$EXPORT_DIR/github/releases.json")"
@@ -253,6 +292,7 @@ create_manifest() {
     --argjson labels "$(collection_count "$EXPORT_DIR/github/labels.json")" \
     --argjson milestones "$(collection_count "$EXPORT_DIR/github/milestones.json")" \
     --argjson releases "$(collection_count "$EXPORT_DIR/github/releases.json")" \
+    --argjson project_items "$(collection_count "$EXPORT_DIR/github/project-items.json")" \
     '{
       schema_version: $schema_version,
       tool_version: $tool_version,
@@ -274,7 +314,8 @@ create_manifest() {
         pull_requests: $pull_requests,
         labels: $labels,
         milestones: $milestones,
-        releases: $releases
+        releases: $releases,
+        project_items: $project_items
       },
       collection_pagination: {
         issues: true,
@@ -282,7 +323,8 @@ create_manifest() {
         pull_requests: true,
         labels: true,
         milestones: true,
-        releases: true
+        releases: true,
+        project_items: true
       }
     }' > "$manifest_temporary"
   publish_json "$manifest_temporary" "$EXPORT_DIR/manifest.json" object
@@ -313,7 +355,8 @@ compress() {
     "exports/$TIMESTAMP/github/pull-requests.json" \
     "exports/$TIMESTAMP/github/labels.json" \
     "exports/$TIMESTAMP/github/milestones.json" \
-    "exports/$TIMESTAMP/github/releases.json"; do
+    "exports/$TIMESTAMP/github/releases.json" \
+    "exports/$TIMESTAMP/github/project-items.json"; do
     unzip -Z1 "$ZIP_FILE" | grep -Fx "$archive_entry" >/dev/null || {
       echo "ERROR: Audit package is missing $archive_entry."
       exit 1
@@ -348,6 +391,7 @@ main() {
   export_labels
   export_milestones
   export_releases
+  export_project_items
   create_manifest
   compress
   summary
