@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
+umask 077
 
 EXPORT_SCHEMA_VERSION="1.0.0"
 TOOL_VERSION="1.0.0"
