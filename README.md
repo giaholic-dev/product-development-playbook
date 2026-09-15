@@ -141,6 +141,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Continuous Integration](docs/standards/continuous-integration.md)
 - [Repository Automation Standard](docs/standards/repository-automation.md)
 - [AI Collaboration Standard](docs/standards/ai-collaboration.md)
+- [Security, Privacy, and Data Governance Standard](docs/standards/security-privacy-data-governance.md)
 - [Work Item Taxonomy](docs/standards/work-item-taxonomy.md)
 - [Work Item Types](docs/standards/work-item-types.md)
 - [Project Views](docs/standards/project-views.md)
