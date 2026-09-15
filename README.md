@@ -102,6 +102,10 @@ The [Documentation Information Architecture](docs/standards/documentation-inform
 
 The Playbook defines reusable standards that can be adopted across software products.
 
+### Standards Index
+
+- [Standards Index](docs/standards/index.md)
+
 ### Repository & Engineering
 
 - [Repository Standards](docs/standards/repository-standards.md)
