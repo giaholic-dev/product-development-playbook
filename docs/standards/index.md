@@ -2,23 +2,26 @@
 
 ## Purpose
 
-Provide one navigable catalog of the reusable standards in this Playbook. Each linked document remains the source of truth for its subject.
+Provide one navigable catalog of the reusable standards and supporting navigational documents published in this Playbook. Each linked document remains the source of truth for its subject.
 
 ## Scope
 
-This index catalogs the reusable standards and supporting navigational documents published in this Playbook. It does not replace their governing content or list external implementation artifacts.
+This index lists maintained standards and the catalogs that help readers locate them. It does not replace their governing content or enumerate implementation artifacts outside the documentation set.
 
 ## Repository and engineering
 
 - [Repository Standards](repository-standards.md)
 - [Branch Workflow](branch-workflow.md)
 - [Code Review Standard](code-review-standard.md)
+- [Pull Request Template Standard](pull-request-template-standard.md)
+- [Issue Template Standard](issue-template-standard.md)
 - [Definition of Ready](definition-of-ready.md)
 - [Definition of Done](definition-of-done.md)
 - [Versioning Standard](versioning-standard.md)
 - [Coding Standards](coding-standards.md)
 - [Testing Strategy](testing-strategy.md)
 - [Continuous Integration](continuous-integration.md)
+- [Repository Automation Standard](repository-automation.md)
 - [Work Item Taxonomy](work-item-taxonomy.md)
 - [Work Item Types](work-item-types.md)
 - [Project Views](project-views.md)
@@ -34,13 +37,41 @@ This index catalogs the reusable standards and supporting navigational documents
 - [Terminology Standard](terminology-standard.md)
 - [Glossary](glossary.md)
 - [Artifact Standard](artifact-standard.md)
+- [Artifact Catalog](artifact-catalog.md)
+- [Standards Relationship Map](standards-relationship-map.md)
 
-## Product, experience, and architecture
+## Product
 
 - [Product Vision](product-vision.md)
+- [Problem Statement](problem-statement.md)
+- [Users](users.md)
+- [Outcomes](outcomes.md)
+- [Product Scope](product-scope.md)
+- [Product Backlog](product-backlog.md)
+- [Product Evolution](product-evolution.md)
+
+## Experience
+
 - [UX Vision](ux-vision.md)
+- [User Journey](user-journey.md)
+- [Personas](personas.md)
+- [User Flows](user-flows.md)
+- [UX Information Architecture](ux-information-architecture.md)
+- [Wireframes](wireframes.md)
+- [Prototypes](prototypes.md)
+- [UX Validation](ux-validation.md)
+- [UX Artifacts](ux-artifacts.md)
+
+## Architecture
+
 - [Architecture Vision](architecture-vision.md)
+- [System Context](system-context.md)
 - [Architecture Decision Records](architecture-decision-records.md)
+- [High-Level Architecture](high-level-architecture.md)
+- [Component Architecture](component-architecture.md)
+- [Data Model](data-model.md)
+- [API Design](api-design.md)
+- [Architecture Artifacts](architecture-artifacts.md)
 
 ## Release and maintenance
 
