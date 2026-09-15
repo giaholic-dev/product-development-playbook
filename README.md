@@ -32,6 +32,8 @@ The Playbook intentionally remains independent of:
 - Platform-specific architectures
 - Tool-specific implementations
 
+The conceptual method is independent of hosting vendors. This repository deliberately uses Git and includes GitHub mappings and supporting automation as implementation guidance, not as product-technology requirements.
+
 ## Documentation Language
 
 The primary documentation language of this repository is English.
@@ -58,12 +60,20 @@ This Playbook is intended for:
 
 ## Repository Structure
 
-- `docs/core/` — Fundamental philosophy, vision, mission, and principles
-- `docs/lifecycle/` — End-to-end product lifecycle
-- `docs/standards/` — Reusable standards governing repository, engineering, and product concepts
-- `docs/practices/` — Operational guidelines and best practices
-- `templates/` *(future)* — Reusable templates and models
-- `examples/` *(future)* — Real-world case studies
+Current directories:
+
+- `docs/lifecycle/` — Existing lifecycle phase documents
+- `docs/standards/` — Reusable repository, documentation, and product standards
+- `scripts/` — Supporting implementation utilities; [export-audit.sh](scripts/export-audit.sh) is a GitHub CLI-based audit exporter requiring Git, `gh`, and `zip`. Its collection exports may be incomplete until the pagination work is finished.
+
+Planned categories, not present in the current repository:
+
+- `docs/core/` — Enduring philosophy, vision, mission, and principles
+- `docs/practices/` — Operational guidance that applies standards without redefining them
+- `templates/` — Reusable starting material
+- `examples/` — Concrete applications and case studies
+
+The [Documentation Information Architecture](docs/standards/documentation-information-architecture.md) defines these responsibilities without requiring fixed directory names or placeholder content.
 
 ## Standards
 
@@ -75,6 +85,10 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Work Item Taxonomy](docs/standards/work-item-taxonomy.md)
 - [Work Item Types](docs/standards/work-item-types.md)
 - [Project Views](docs/standards/project-views.md)
+
+### Documentation
+
+- [Documentation Information Architecture](docs/standards/documentation-information-architecture.md)
 
 ### Product
 
