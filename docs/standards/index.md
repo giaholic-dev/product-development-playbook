@@ -22,6 +22,7 @@ This index lists maintained standards and the catalogs that help readers locate 
 - [Testing Strategy](testing-strategy.md)
 - [Continuous Integration](continuous-integration.md)
 - [Repository Automation Standard](repository-automation.md)
+- [AI Collaboration Standard](ai-collaboration.md)
 - [Work Item Taxonomy](work-item-taxonomy.md)
 - [Work Item Types](work-item-types.md)
 - [Project Views](project-views.md)
