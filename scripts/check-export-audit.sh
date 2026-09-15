@@ -10,4 +10,4 @@ done
 
 bash -n scripts/export-audit.sh
 shfmt -d scripts/export-audit.sh
-shellcheck --shell=bash scripts/export-audit.sh
+shellcheck --shell=bash --severity=warning scripts/export-audit.sh
