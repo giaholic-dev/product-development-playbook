@@ -82,12 +82,14 @@ load_repository() {
 
   TIMESTAMP="$(date -u +"%Y-%m-%dT%H-%M-%SZ")"
   EXPORT_ROOT="audit"
-  EXPORT_DIR="$EXPORT_ROOT/exports/$TIMESTAMP"
+  FINAL_EXPORT_DIR="$EXPORT_ROOT/exports/$TIMESTAMP"
+  STAGING_DIR="$EXPORT_ROOT/.staging/$TIMESTAMP-$"
+  EXPORT_DIR="$STAGING_DIR"
   ZIP_FILE="$EXPORT_ROOT/${REPOSITORY}-audit-$TIMESTAMP.zip"
   PROJECT_NUMBER="${GITHUB_PROJECT_NUMBER:-1}"
   EXPORT_DISCUSSIONS="${GITHUB_EXPORT_DISCUSSIONS:-false}"
 
-  [[ ! -e "$EXPORT_DIR" && ! -e "$ZIP_FILE" ]] || {
+  [[ ! -e "$FINAL_EXPORT_DIR" && ! -e "$ZIP_FILE" && ! -e "$STAGING_DIR" ]] || {
     echo "Refusing to overwrite an existing audit export for $TIMESTAMP."
     exit 1
   }
@@ -103,6 +105,19 @@ check_github_access() {
     echo "Unable to access GitHub repository: $OWNER/$REPOSITORY"
     exit 1
   }
+}
+
+cleanup_staging() {
+  if [[ -n "${STAGING_DIR:-}" && -d "$STAGING_DIR" && "$STAGING_DIR" == "$EXPORT_ROOT/.staging/"* ]]; then
+    rm -rf "$STAGING_DIR"
+  fi
+}
+
+publish_export() {
+  mkdir -p "$(dirname "$FINAL_EXPORT_DIR")"
+  mv "$STAGING_DIR" "$FINAL_EXPORT_DIR"
+  EXPORT_DIR="$FINAL_EXPORT_DIR"
+  STAGING_DIR=""
 }
 
 create_directories() {
@@ -635,6 +650,7 @@ main() {
   check_requirements
   check_repository
   load_repository
+  trap cleanup_staging EXIT
   check_github_access
   create_directories
   export_repository
@@ -656,6 +672,7 @@ main() {
   export_discussions
   create_manifest
   validate_integrity
+  publish_export
   compress
   summary
 }
