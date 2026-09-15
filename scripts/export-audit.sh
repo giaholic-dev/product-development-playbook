@@ -286,6 +286,34 @@ export_project_fields() {
   publish_json "$temporary" "$EXPORT_DIR/github/project-fields.json" array
 }
 
+export_project_views() {
+  local temporary
+  temporary="$(temporary_json "$EXPORT_DIR/github/project-views.json")"
+
+  gh api graphql --paginate --slurp \
+    -f query='
+      query($login: String!, $number: Int!, $endCursor: String) {
+        organization(login: $login) {
+          projectV2(number: $number) {
+            views(first: 100, after: $endCursor) {
+              nodes { id number name layout }
+              pageInfo { hasNextPage endCursor }
+            }
+          }
+        }
+      }
+    ' \
+    -f login="$OWNER" \
+    -F number="$PROJECT_NUMBER" |
+    jq '
+      [.[] | .data.organization.projectV2.views.nodes[]]
+      | unique_by(.id)
+      | sort_by(.number)
+    ' > "$temporary"
+
+  publish_json "$temporary" "$EXPORT_DIR/github/project-views.json" array
+}
+
 export_releases() {
   local temporary
   temporary="$(temporary_json "$EXPORT_DIR/github/releases.json")"
@@ -330,6 +358,7 @@ create_manifest() {
     --argjson releases "$(collection_count "$EXPORT_DIR/github/releases.json")" \
     --argjson project_items "$(collection_count "$EXPORT_DIR/github/project-items.json")" \
     --argjson project_fields "$(collection_count "$EXPORT_DIR/github/project-fields.json")" \
+    --argjson project_views "$(collection_count "$EXPORT_DIR/github/project-views.json")" \
     '{
       schema_version: $schema_version,
       tool_version: $tool_version,
@@ -353,7 +382,8 @@ create_manifest() {
         milestones: $milestones,
         releases: $releases,
         project_items: $project_items,
-        project_fields: $project_fields
+        project_fields: $project_fields,
+        project_views: $project_views
       },
       collection_pagination: {
         issues: true,
@@ -363,7 +393,8 @@ create_manifest() {
         milestones: true,
         releases: true,
         project_items: true,
-        project_fields: true
+        project_fields: true,
+        project_views: true
       }
     }' > "$manifest_temporary"
   publish_json "$manifest_temporary" "$EXPORT_DIR/manifest.json" object
@@ -396,7 +427,8 @@ compress() {
     "exports/$TIMESTAMP/github/milestones.json" \
     "exports/$TIMESTAMP/github/releases.json" \
     "exports/$TIMESTAMP/github/project-items.json" \
-    "exports/$TIMESTAMP/github/project-fields.json"; do
+    "exports/$TIMESTAMP/github/project-fields.json" \
+    "exports/$TIMESTAMP/github/project-views.json"; do
     unzip -Z1 "$ZIP_FILE" | grep -Fx "$archive_entry" >/dev/null || {
       echo "ERROR: Audit package is missing $archive_entry."
       exit 1
@@ -433,6 +465,7 @@ main() {
   export_releases
   export_project_items
   export_project_fields
+  export_project_views
   create_manifest
   compress
   summary
