@@ -180,7 +180,9 @@ Alternative versioning strategies MAY be adopted when justified by the project's
 
 ## References
 
-- `docs/lifecycle/01-foundation.md`
-- `docs/standards/work-item-taxonomy.md`
-- `docs/standards/work-item-types.md`
-- `docs/standards/project-views.md`
+- [Foundation Phase](../lifecycle/01-foundation.md)
+- [Work Item Taxonomy](work-item-taxonomy.md)
+- [Work Item Types](work-item-types.md)
+- [Project Views](project-views.md)
+- [Documentation Information Architecture](documentation-information-architecture.md)
+- [Documentation Navigation Standard](documentation-navigation.md)
