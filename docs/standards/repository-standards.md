@@ -45,9 +45,9 @@ Platform mappings MUST preserve the meaning of the rules they implement. A platf
 
 ## Repository Structure
 
-Every repository adopting the Product Development Playbook SHOULD follow a clear and predictable structure.
+Every repository adopting the Product Development Playbook MUST provide a clear and predictable structure appropriate to its purpose.
 
-Unless justified by the project's nature, repositories SHOULD organize their content into the following categories:
+Repository structure is defined through content responsibilities rather than mandatory directory names. Applicable responsibilities include:
 
 - Documentation
 - Source code
@@ -57,7 +57,13 @@ Unless justified by the project's nature, repositories SHOULD organize their con
 - Templates
 - Examples
 
-Projects MAY extend this structure when necessary, provided the overall organization remains consistent and easy to navigate.
+A repository MUST include only the responsibilities needed for its purpose. It MUST NOT create empty directories or placeholder content solely to reproduce this list.
+
+The root documentation MUST identify the repository's purpose, describe its top-level organization, and provide navigation to its primary content.
+
+Directory names and nesting MAY vary across documentation repositories, applications, services, libraries, and other repository types. The chosen structure SHOULD keep related content together and make each applicable responsibility easy to locate.
+
+Projects MAY add responsibilities or extend the structure when necessary. Any deviation from a `MUST` rule requires a recorded exception as defined in this document.
 
 ## Documentation Standards
 
