@@ -116,6 +116,10 @@ export_tags() {
   git for-each-ref --sort=refname --format='%(refname:short) %(objectname) %(objecttype)' refs/tags > "$EXPORT_DIR/git/tags.txt"
 }
 
+export_recent_commits() {
+  git log -n 100 --date=iso-strict --format='%H%x09%P%x09%an%x09%ae%x09%ad%x09%s' > "$EXPORT_DIR/git/recent-commits.tsv"
+}
+
 export_issues() {
   gh issue list --repo "$OWNER/$REPOSITORY" --state all --limit 500 --json number,title,body,state,stateReason,labels,milestone,assignees,createdAt,updatedAt,closedAt > "$EXPORT_DIR/github/issues.json"
 }
@@ -228,6 +232,7 @@ main() {
   export_repository
   export_branches
   export_tags
+  export_recent_commits
   export_issues
   export_issue_comments
   export_prs
