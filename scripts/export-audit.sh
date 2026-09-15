@@ -242,7 +242,7 @@ export_project_items() {
     -f login="$OWNER" \
     -F number="$PROJECT_NUMBER" |
     jq '
-      [.[][].data.organization.projectV2.items.nodes[]]
+      [.[] | .data.organization.projectV2.items.nodes[]]
       | unique_by(.id)
       | sort_by(.id)
     ' > "$temporary"
