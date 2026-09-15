@@ -36,5 +36,6 @@ After a rollback, record the customer or operational impact, unresolved risk, an
 - [Release Phase](../lifecycle/06-release.md)
 - [Release Strategy](release-strategy.md)
 - [Deployment Strategy](deployment-strategy.md)
+- [Incident Management](incident-management.md)
 - [Definition of Done](definition-of-done.md)
 - [Artifact Standard](artifact-standard.md)
