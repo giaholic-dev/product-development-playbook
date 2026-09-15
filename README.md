@@ -52,7 +52,7 @@ For a first reading of the Playbook, follow the documents that exist today:
 11. [Product Scope](docs/standards/product-scope.md)
 12. [Product Backlog](docs/standards/product-backlog.md)
 
-The Architecture, Development, Release, and Maintenance phase documents are planned; they are not available yet. The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. The audit exporter is optional technical reading, not a prerequisite.
+The Development, Release, and Maintenance phase documents are planned; they are not available yet. The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. The audit exporter is optional technical reading, not a prerequisite.
 
 ## Lifecycle
 
@@ -66,7 +66,7 @@ The Product Development Playbook defines a complete conceptual lifecycle with se
 6. Release
 7. Maintenance
 
-Progression is ordered but not irreversible: new evidence or changes may require revisiting an earlier phase. Foundation, Product, and UX currently have lifecycle documents; the remaining phase documents are planned. The current phase and completion status of this repository are reported separately below.
+Progression is ordered but not irreversible: new evidence or changes may require revisiting an earlier phase. Foundation, Product, UX, and Architecture currently have lifecycle documents; the remaining phase documents are planned. The current phase and completion status of this repository are reported separately below.
 
 ## Audience
 This Playbook is intended for:
@@ -159,7 +159,7 @@ Lifecycle documentation:
 - ✅ Foundation — documented
 - ✅ Product — documented
 - ✅ UX — documented
-- ⏳ Architecture — planned
+- ✅ Architecture — documented
 - ⏳ Development — planned
 - ⏳ Release — planned
 - ⏳ Maintenance — planned
