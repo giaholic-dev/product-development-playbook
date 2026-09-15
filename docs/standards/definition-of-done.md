@@ -4,6 +4,10 @@
 
 Define the minimum evidence that a work item or change has achieved its intended completion state.
 
+## Scope
+
+This standard applies to the evidence required to complete a work item or outcome. It does not define release criteria, deployment steps, or a platform workflow.
+
 ## Completion Rule
 
 A work item is done when its stated outcome or decision has been achieved, the relevant acceptance evidence has been reviewed, and any remaining risk is explicitly accepted or represented by a linked follow-up item.
