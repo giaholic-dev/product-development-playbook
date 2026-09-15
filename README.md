@@ -108,6 +108,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 ### Examples
 
 - [Product Definition Example](examples/product-definition-example.md)
+- [AI Collaboration Example](examples/ai-collaboration-example.md)
 
 ### Standards Index
 
