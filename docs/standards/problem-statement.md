@@ -43,5 +43,5 @@ As the Product phase progresses, the identified problem is progressively refined
 
 ## References
 
-- `docs/lifecycle/02-product.md`
-- `docs/standards/product-vision.md`
+- [Product Phase](../lifecycle/02-product.md)
+- [Product Vision](product-vision.md)

@@ -41,8 +41,8 @@ As the Product phase progresses, the defined scope provides the basis for creati
 
 ## References
 
-- `docs/lifecycle/02-product.md`
-- `docs/standards/product-vision.md`
-- `docs/standards/problem-statement.md`
-- `docs/standards/users.md`
-- `docs/standards/outcomes.md`
+- [Product Phase](../lifecycle/02-product.md)
+- [Product Vision](product-vision.md)
+- [Problem Statement](problem-statement.md)
+- [Users](users.md)
+- [Outcomes](outcomes.md)

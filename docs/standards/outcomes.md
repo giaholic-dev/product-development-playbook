@@ -45,7 +45,7 @@ As the Product phase progresses, outcomes guide the definition of product scope 
 
 ## References
 
-- `docs/lifecycle/02-product.md`
-- `docs/standards/product-vision.md`
-- `docs/standards/problem-statement.md`
-- `docs/standards/users.md`
+- [Product Phase](../lifecycle/02-product.md)
+- [Product Vision](product-vision.md)
+- [Problem Statement](problem-statement.md)
+- [Users](users.md)
