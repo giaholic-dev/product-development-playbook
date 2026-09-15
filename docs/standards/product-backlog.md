@@ -43,9 +43,11 @@ As the product evolves, feedback from later phases may refine the Product Backlo
 
 ## References
 
-- `docs/lifecycle/02-product.md`
-- `docs/standards/product-vision.md`
-- `docs/standards/problem-statement.md`
-- `docs/standards/users.md`
-- `docs/standards/outcomes.md`
-- `docs/standards/product-scope.md`
+- [Product Phase](../lifecycle/02-product.md)
+- [Product Vision](product-vision.md)
+- [Problem Statement](problem-statement.md)
+- [Users](users.md)
+- [Outcomes](outcomes.md)
+- [Product Scope](product-scope.md)
+- [Work Item Taxonomy](work-item-taxonomy.md)
+- [Work Item Types](work-item-types.md)
