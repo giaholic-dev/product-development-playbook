@@ -41,6 +41,7 @@ Maintenance is continuous for an active product. A maintenance increment exits w
 - [Incident Management](../standards/incident-management.md)
 - [Bug Management](../standards/bug-management.md)
 - [Technical Debt Management](../standards/technical-debt-management.md)
+- [Product Monitoring](../standards/product-monitoring.md)
 - [Definition of Done](../standards/definition-of-done.md)
 - [Artifact Standard](../standards/artifact-standard.md)
 
