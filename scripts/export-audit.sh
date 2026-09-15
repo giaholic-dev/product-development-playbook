@@ -125,7 +125,11 @@ create_directories() {
 }
 
 export_repository() {
-  cp README.md "$EXPORT_DIR/repository/" 2>/dev/null || true
+  [[ -f README.md ]] || {
+    echo "README.md is required for an audit export."
+    exit 1
+  }
+  cp README.md "$EXPORT_DIR/repository/"
 
   mkdir -p "$EXPORT_DIR/repository/config"
   for path in .editorconfig .gitignore .shellcheckrc .gitattributes CODEOWNERS Makefile; do
