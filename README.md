@@ -113,6 +113,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Branch Workflow](docs/standards/branch-workflow.md)
 - [Code Review Standard](docs/standards/code-review-standard.md)
 - [Pull Request Template Standard](docs/standards/pull-request-template-standard.md)
+- [Issue Template Standard](docs/standards/issue-template-standard.md)
 - [Definition of Ready](docs/standards/definition-of-ready.md)
 - [Definition of Done](docs/standards/definition-of-done.md)
 - [Versioning Standard](docs/standards/versioning-standard.md)
