@@ -228,9 +228,11 @@ collection_count() {
 create_manifest() {
   local branch_json=null
   local default_branch_json=null
+  local manifest_temporary
 
   [[ -n "$BRANCH" ]] && branch_json="$(jq -n --arg value "$BRANCH" '$value')"
   [[ -n "$DEFAULT_BRANCH" ]] && default_branch_json="$(jq -n --arg value "$DEFAULT_BRANCH" '$value')"
+  manifest_temporary="$(temporary_json "$EXPORT_DIR/manifest.json")"
 
   jq -n \
     --arg schema_version "$EXPORT_SCHEMA_VERSION" \
@@ -282,8 +284,8 @@ create_manifest() {
         milestones: true,
         releases: true
       }
-    }' > "$(temporary_json "$EXPORT_DIR/manifest.json")"
-  publish_json "$EXPORT_DIR/manifest.json".* "$EXPORT_DIR/manifest.json" object
+    }' > "$manifest_temporary"
+  publish_json "$manifest_temporary" "$EXPORT_DIR/manifest.json" object
 }
 
 compress() {
