@@ -45,12 +45,14 @@ For a first reading of the Playbook, follow the documents that exist today:
 4. [Work Item Types](docs/standards/work-item-types.md)
 5. [Project Views](docs/standards/project-views.md)
 6. [Product Phase](docs/lifecycle/02-product.md)
-7. [Product Vision](docs/standards/product-vision.md)
-8. [Problem Statement](docs/standards/problem-statement.md)
-9. [Users](docs/standards/users.md)
-10. [Outcomes](docs/standards/outcomes.md)
-11. [Product Scope](docs/standards/product-scope.md)
-12. [Product Backlog](docs/standards/product-backlog.md)
+7. [UX Phase](docs/lifecycle/03-ux.md)
+8. [Architecture Phase](docs/lifecycle/04-architecture.md)
+9. [Product Vision](docs/standards/product-vision.md)
+10. [Problem Statement](docs/standards/problem-statement.md)
+11. [Users](docs/standards/users.md)
+12. [Outcomes](docs/standards/outcomes.md)
+13. [Product Scope](docs/standards/product-scope.md)
+14. [Product Backlog](docs/standards/product-backlog.md)
 
 The Development, Release, and Maintenance phase documents are planned; they are not available yet. The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. The audit exporter is optional technical reading, not a prerequisite.
 
@@ -158,7 +160,7 @@ The lifecycle status below measures this repository's documentation coverage, no
 - **Documented** — the phase document and its current governing artifacts exist and have been reviewed against their documented criteria.
 - **Planned** — the phase is part of the lifecycle but its document is not yet available.
 
-Latest documented phase: **Product**
+Latest documented phase: **Architecture**
 
 Next planned phase: **UX**
 
