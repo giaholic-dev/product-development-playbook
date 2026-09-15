@@ -51,3 +51,4 @@ As the product evolves, feedback from later phases may refine the Product Backlo
 - [Product Scope](product-scope.md)
 - [Work Item Taxonomy](work-item-taxonomy.md)
 - [Work Item Types](work-item-types.md)
+- [Project Views](project-views.md)
