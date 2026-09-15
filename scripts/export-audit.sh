@@ -23,6 +23,7 @@ check_requirements() {
   require gh
   require jq
   require zip
+  require unzip
 }
 
 check_repository() {
@@ -233,11 +234,31 @@ compress() {
     zip -qr "$(basename "$ZIP_FILE")" "exports/$TIMESTAMP"
   )
 
-  [[ -f "$ZIP_FILE" ]] || {
+  [[ -s "$ZIP_FILE" ]] || {
     echo
-    echo "ERROR: Failed to create zip archive."
+    echo "ERROR: Failed to create a non-empty zip archive."
     exit 1
   }
+
+  unzip -tq "$ZIP_FILE" >/dev/null || {
+    echo "ERROR: Audit package integrity check failed."
+    exit 1
+  }
+
+  local archive_entry
+  for archive_entry in \
+    "exports/$TIMESTAMP/manifest.json" \
+    "exports/$TIMESTAMP/github/issues.json" \
+    "exports/$TIMESTAMP/github/issue-comments.json" \
+    "exports/$TIMESTAMP/github/pull-requests.json" \
+    "exports/$TIMESTAMP/github/labels.json" \
+    "exports/$TIMESTAMP/github/milestones.json" \
+    "exports/$TIMESTAMP/github/releases.json"; do
+    unzip -Z1 "$ZIP_FILE" | grep -Fx "$archive_entry" >/dev/null || {
+      echo "ERROR: Audit package is missing $archive_entry."
+      exit 1
+    }
+  done
 }
 
 summary() {
