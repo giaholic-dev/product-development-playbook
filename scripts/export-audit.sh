@@ -138,7 +138,26 @@ create_manifest() {
   [[ -n "$BRANCH" ]] && branch_json="$(jq -n --arg value "$BRANCH" '$value')"
   [[ -n "$DEFAULT_BRANCH" ]] && default_branch_json="$(jq -n --arg value "$DEFAULT_BRANCH" '$value')"
 
-  jq -n     --arg schema_version "$EXPORT_SCHEMA_VERSION"     --arg tool_version "$TOOL_VERSION"     --arg owner "$OWNER"     --arg repository "$REPOSITORY"     --arg remote_identity "$REMOTE_IDENTITY"     --arg selected_ref "$SELECTED_REF"     --arg commit "$COMMIT"     --arg generated_at "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"     --argjson branch "$branch_json"     --argjson default_branch "$default_branch_json"     --argjson detached_head "$DETACHED_HEAD"     --argjson dirty "$DIRTY"     --argjson issues "$(collection_count "$EXPORT_DIR/issues.json")"     --argjson issue_comments "$(collection_count "$EXPORT_DIR/issue-comments.json")"     --argjson pull_requests "$(collection_count "$EXPORT_DIR/pull-requests.json")"     --argjson labels "$(collection_count "$EXPORT_DIR/labels.json")"     --argjson milestones "$(collection_count "$EXPORT_DIR/milestones.json")"     --argjson releases "$(collection_count "$EXPORT_DIR/releases.json")"     '{
+  jq -n \
+    --arg schema_version "$EXPORT_SCHEMA_VERSION" \
+    --arg tool_version "$TOOL_VERSION" \
+    --arg owner "$OWNER" \
+    --arg repository "$REPOSITORY" \
+    --arg remote_identity "$REMOTE_IDENTITY" \
+    --arg selected_ref "$SELECTED_REF" \
+    --arg commit "$COMMIT" \
+    --arg generated_at "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
+    --argjson branch "$branch_json" \
+    --argjson default_branch "$default_branch_json" \
+    --argjson detached_head "$DETACHED_HEAD" \
+    --argjson dirty "$DIRTY" \
+    --argjson issues "$(collection_count "$EXPORT_DIR/issues.json")" \
+    --argjson issue_comments "$(collection_count "$EXPORT_DIR/issue-comments.json")" \
+    --argjson pull_requests "$(collection_count "$EXPORT_DIR/pull-requests.json")" \
+    --argjson labels "$(collection_count "$EXPORT_DIR/labels.json")" \
+    --argjson milestones "$(collection_count "$EXPORT_DIR/milestones.json")" \
+    --argjson releases "$(collection_count "$EXPORT_DIR/releases.json")" \
+    '{
       schema_version: $schema_version,
       tool_version: $tool_version,
       repository: {
