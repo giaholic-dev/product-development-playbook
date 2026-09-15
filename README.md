@@ -109,6 +109,13 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 - [Playbook Core Principles](docs/core/principles.md)
 
+### Templates
+
+- [Conformance Declaration](templates/conformance-declaration.md)
+- [Foundation Adoption Checklist](templates/foundation-adoption-checklist.md)
+- [Exception Record](templates/exception-record.md)
+- [Decision Record](templates/decision-record.md)
+
 ### Examples
 
 - [Product Definition Example](examples/product-definition-example.md)
