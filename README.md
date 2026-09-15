@@ -118,6 +118,10 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Documentation Navigation Standard](docs/standards/documentation-navigation.md)
 - [Documentation Style Guide](docs/standards/documentation-style-guide.md)
 
+### Architecture
+
+- [Architecture Vision](docs/standards/architecture-vision.md)
+
 ### UX
 
 - [UX Vision](docs/standards/ux-vision.md)
