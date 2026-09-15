@@ -91,40 +91,40 @@ load_repository() {
 }
 
 create_directories() {
-  mkdir -p "$EXPORT_DIR"
+  mkdir -p "$EXPORT_DIR/repository" "$EXPORT_DIR/github" "$EXPORT_DIR/git"
 }
 
 export_repository() {
-  cp README.md "$EXPORT_DIR/" 2>/dev/null || true
-  [[ -d docs ]] && cp -R docs "$EXPORT_DIR/"
-  [[ -d templates ]] && cp -R templates "$EXPORT_DIR/"
-  [[ -d examples ]] && cp -R examples "$EXPORT_DIR/"
+  cp README.md "$EXPORT_DIR/repository/" 2>/dev/null || true
+  [[ -d docs ]] && cp -R docs "$EXPORT_DIR/repository/"
+  [[ -d templates ]] && cp -R templates "$EXPORT_DIR/repository/"
+  [[ -d examples ]] && cp -R examples "$EXPORT_DIR/repository/"
   find . -path "./.git" -prune -o -path "./audit" -prune -o -type f -print |
-    sort > "$EXPORT_DIR/repository-tree.txt"
+    sort > "$EXPORT_DIR/repository/repository-tree.txt"
 }
 
 export_issues() {
-  gh issue list --repo "$OWNER/$REPOSITORY" --state all --limit 500 --json number,title,body,state,stateReason,labels,milestone,assignees,createdAt,updatedAt,closedAt > "$EXPORT_DIR/issues.json"
+  gh issue list --repo "$OWNER/$REPOSITORY" --state all --limit 500 --json number,title,body,state,stateReason,labels,milestone,assignees,createdAt,updatedAt,closedAt > "$EXPORT_DIR/github/issues.json"
 }
 
 export_issue_comments() {
-  gh api "repos/$OWNER/$REPOSITORY/issues/comments?per_page=100" > "$EXPORT_DIR/issue-comments.json"
+  gh api "repos/$OWNER/$REPOSITORY/issues/comments?per_page=100" > "$EXPORT_DIR/github/issue-comments.json"
 }
 
 export_prs() {
-  gh pr list --repo "$OWNER/$REPOSITORY" --state all --limit 500 --json number,title,body,state,labels,author,createdAt,updatedAt,mergedAt,closedAt > "$EXPORT_DIR/pull-requests.json"
+  gh pr list --repo "$OWNER/$REPOSITORY" --state all --limit 500 --json number,title,body,state,labels,author,createdAt,updatedAt,mergedAt,closedAt > "$EXPORT_DIR/github/pull-requests.json"
 }
 
 export_labels() {
-  gh label list --repo "$OWNER/$REPOSITORY" --json name,color,description > "$EXPORT_DIR/labels.json"
+  gh label list --repo "$OWNER/$REPOSITORY" --json name,color,description > "$EXPORT_DIR/github/labels.json"
 }
 
 export_milestones() {
-  gh api "repos/$OWNER/$REPOSITORY/milestones?state=all" > "$EXPORT_DIR/milestones.json"
+  gh api "repos/$OWNER/$REPOSITORY/milestones?state=all" > "$EXPORT_DIR/github/milestones.json"
 }
 
 export_releases() {
-  gh release list --repo "$OWNER/$REPOSITORY" --json name,tagName,isDraft,isLatest,publishedAt > "$EXPORT_DIR/releases.json"
+  gh release list --repo "$OWNER/$REPOSITORY" --json name,tagName,isDraft,isLatest,publishedAt > "$EXPORT_DIR/github/releases.json"
 }
 
 collection_count() {
@@ -151,12 +151,12 @@ create_manifest() {
     --argjson default_branch "$default_branch_json" \
     --argjson detached_head "$DETACHED_HEAD" \
     --argjson dirty "$DIRTY" \
-    --argjson issues "$(collection_count "$EXPORT_DIR/issues.json")" \
-    --argjson issue_comments "$(collection_count "$EXPORT_DIR/issue-comments.json")" \
-    --argjson pull_requests "$(collection_count "$EXPORT_DIR/pull-requests.json")" \
-    --argjson labels "$(collection_count "$EXPORT_DIR/labels.json")" \
-    --argjson milestones "$(collection_count "$EXPORT_DIR/milestones.json")" \
-    --argjson releases "$(collection_count "$EXPORT_DIR/releases.json")" \
+    --argjson issues "$(collection_count "$EXPORT_DIR/github/issues.json")" \
+    --argjson issue_comments "$(collection_count "$EXPORT_DIR/github/issue-comments.json")" \
+    --argjson pull_requests "$(collection_count "$EXPORT_DIR/github/pull-requests.json")" \
+    --argjson labels "$(collection_count "$EXPORT_DIR/github/labels.json")" \
+    --argjson milestones "$(collection_count "$EXPORT_DIR/github/milestones.json")" \
+    --argjson releases "$(collection_count "$EXPORT_DIR/github/releases.json")" \
     '{
       schema_version: $schema_version,
       tool_version: $tool_version,
