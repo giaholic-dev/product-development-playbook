@@ -12,6 +12,25 @@ This document defines the classification dimensions used to describe work items 
 
 The taxonomy is independent of any specific project management platform and may be implemented using labels, custom fields, issue types, or equivalent mechanisms.
 
+## Work Item Model
+
+A **work item** is a trackable unit of intended work with a stated objective or outcome. Its identity is the work being tracked, not the issue, card, label, or field used to represent it in a tool. A work item may be represented by a tool record, but the record's issue type does not determine the Playbook's conceptual classification.
+
+Each dimension answers a different question:
+
+| Dimension | Question answered |
+| --------- | ----------------- |
+| Lifecycle Phase | Where in the product lifecycle is the work primarily being addressed? |
+| Work Type | What is the primary nature of the work? |
+| Artifact Type | What kind of primary artifact is produced, when applicable? |
+| Priority | What is the work's relative planning priority? |
+| Issue Type | How does the chosen management platform represent the work item? |
+| Workflow State | What is the work item's current progress state? |
+
+Lifecycle Phase and Work Type are independent dimensions: a work type does not imply a lifecycle phase, and a phase does not determine the nature of work. Artifact Type describes an output, not the kind of work or its phase. Priority describes relative planning importance, not workflow progress. Issue Type is an implementation choice rather than a Playbook Work Type; Workflow State records progress rather than classification.
+
+This section defines responsibilities only. Primary-classification exceptions, Artifact Type multiplicity, priority decision criteria, and platform-specific field configuration are addressed in later increments and their dedicated standards.
+
 ## Lifecycle Phase
 
 Every work item should be associated with exactly one phase of the product development lifecycle.
