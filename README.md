@@ -59,7 +59,7 @@ The UX, Architecture, Development, Release, and Maintenance phase documents are 
 
 ## Lifecycle
 
-The Product Development Playbook is organized into seven sequential phases:
+The Product Development Playbook defines a complete conceptual lifecycle with seven ordered phases:
 
 1. Foundation
 2. Product
@@ -68,6 +68,8 @@ The Product Development Playbook is organized into seven sequential phases:
 5. Development
 6. Release
 7. Maintenance
+
+Progression is ordered but not irreversible: new evidence or changes may require revisiting an earlier phase. Only Foundation and Product have lifecycle documents today; the remaining phase documents are planned. The current phase and completion status of this repository are reported separately below.
 
 ## Audience
 This Playbook is intended for:
