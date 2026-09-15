@@ -96,6 +96,11 @@ create_directories() {
 
 export_repository() {
   cp README.md "$EXPORT_DIR/repository/" 2>/dev/null || true
+
+  mkdir -p "$EXPORT_DIR/repository/config"
+  for path in .editorconfig .gitignore .shellcheckrc .gitattributes CODEOWNERS Makefile; do
+    [[ -f "$path" ]] && cp "$path" "$EXPORT_DIR/repository/config/"
+  done
   [[ -d docs ]] && cp -R docs "$EXPORT_DIR/repository/"
   [[ -d templates ]] && cp -R templates "$EXPORT_DIR/repository/"
   [[ -d examples ]] && cp -R examples "$EXPORT_DIR/repository/"
