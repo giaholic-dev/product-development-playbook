@@ -125,5 +125,6 @@ When implemented in GitHub, Issue Types and Work Types coexist and serve differe
 
 ## References
 
-- `docs/standards/repository-standards.md`
-- `docs/standards/work-item-taxonomy.md`
+- [Repository Standards](repository-standards.md)
+- [Work Item Taxonomy](work-item-taxonomy.md)
+- [Product Backlog](product-backlog.md)
