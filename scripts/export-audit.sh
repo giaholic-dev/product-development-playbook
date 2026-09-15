@@ -120,6 +120,10 @@ export_recent_commits() {
   git log -n 100 --date=iso-strict --format='%H%x09%P%x09%an%x09%ae%x09%ad%x09%s' > "$EXPORT_DIR/git/recent-commits.tsv"
 }
 
+export_repository_status() {
+  git status --porcelain=v1 --branch > "$EXPORT_DIR/git/status.txt"
+}
+
 export_issues() {
   gh issue list --repo "$OWNER/$REPOSITORY" --state all --limit 500 --json number,title,body,state,stateReason,labels,milestone,assignees,createdAt,updatedAt,closedAt > "$EXPORT_DIR/github/issues.json"
 }
@@ -233,6 +237,7 @@ main() {
   export_branches
   export_tags
   export_recent_commits
+  export_repository_status
   export_issues
   export_issue_comments
   export_prs
