@@ -125,12 +125,47 @@ export_repository_status() {
   git status --porcelain=v1 --branch > "$EXPORT_DIR/git/status.txt"
 }
 
+temporary_json() {
+  mktemp "$1.XXXXXX"
+}
+
+publish_json() {
+  local temporary="$1"
+  local target="$2"
+  local expected_type="$3"
+
+  if ! jq --exit-status --arg expected_type "$expected_type" '
+    if type != $expected_type then
+      error("expected " + $expected_type)
+    elif $expected_type == "object" and
+      ((has("schema_version") and has("repository") and has("generated_at")) | not) then
+      error("missing required manifest metadata")
+    else
+      .
+    end
+  ' "$temporary" >/dev/null; then
+    rm -f "$temporary"
+    echo "ERROR: Invalid JSON output: $target"
+    exit 1
+  fi
+
+  mv "$temporary" "$target"
+}
+
 export_issues() {
+  local temporary
+  temporary="$(temporary_json "$EXPORT_DIR/github/issues.json")"
+
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/issues?state=all&per_page=100" |
-    jq '[.[][] | select(.pull_request | not)] | unique_by(.id) | sort_by(.number)' > "$EXPORT_DIR/github/issues.json"
+    jq '[.[][] | select(.pull_request | not)] | unique_by(.id) | sort_by(.number)' > "$temporary"
+
+  publish_json "$temporary" "$EXPORT_DIR/github/issues.json" array
 }
 
 export_issue_comments() {
+  local temporary
+  temporary="$(temporary_json "$EXPORT_DIR/github/issue-comments.json")"
+
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/issues/comments?per_page=100" |
     jq --slurpfile pull_requests "$EXPORT_DIR/github/pull-requests.json" '
       ($pull_requests[0] | map(.number) | unique) as $pull_request_numbers
@@ -141,27 +176,49 @@ export_issue_comments() {
         ]
       | unique_by(.id)
       | sort_by(.issue_number, .id)
-    ' > "$EXPORT_DIR/github/issue-comments.json"
+    ' > "$temporary"
+
+  publish_json "$temporary" "$EXPORT_DIR/github/issue-comments.json" array
 }
 
 export_prs() {
+  local temporary
+  temporary="$(temporary_json "$EXPORT_DIR/github/pull-requests.json")"
+
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/pulls?state=all&per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.number)' > "$EXPORT_DIR/github/pull-requests.json"
+    jq '[.[][]] | unique_by(.id) | sort_by(.number)' > "$temporary"
+
+  publish_json "$temporary" "$EXPORT_DIR/github/pull-requests.json" array
 }
 
 export_labels() {
+  local temporary
+  temporary="$(temporary_json "$EXPORT_DIR/github/labels.json")"
+
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/labels?per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.name)' > "$EXPORT_DIR/github/labels.json"
+    jq '[.[][]] | unique_by(.id) | sort_by(.name)' > "$temporary"
+
+  publish_json "$temporary" "$EXPORT_DIR/github/labels.json" array
 }
 
 export_milestones() {
+  local temporary
+  temporary="$(temporary_json "$EXPORT_DIR/github/milestones.json")"
+
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/milestones?state=all&per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.number)' > "$EXPORT_DIR/github/milestones.json"
+    jq '[.[][]] | unique_by(.id) | sort_by(.number)' > "$temporary"
+
+  publish_json "$temporary" "$EXPORT_DIR/github/milestones.json" array
 }
 
 export_releases() {
+  local temporary
+  temporary="$(temporary_json "$EXPORT_DIR/github/releases.json")"
+
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/releases?per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.id)' > "$EXPORT_DIR/github/releases.json"
+    jq '[.[][]] | unique_by(.id) | sort_by(.id)' > "$temporary"
+
+  publish_json "$temporary" "$EXPORT_DIR/github/releases.json" array
 }
 
 collection_count() {
@@ -171,9 +228,11 @@ collection_count() {
 create_manifest() {
   local branch_json=null
   local default_branch_json=null
+  local manifest_temporary
 
   [[ -n "$BRANCH" ]] && branch_json="$(jq -n --arg value "$BRANCH" '$value')"
   [[ -n "$DEFAULT_BRANCH" ]] && default_branch_json="$(jq -n --arg value "$DEFAULT_BRANCH" '$value')"
+  manifest_temporary="$(temporary_json "$EXPORT_DIR/manifest.json")"
 
   jq -n \
     --arg schema_version "$EXPORT_SCHEMA_VERSION" \
@@ -225,7 +284,8 @@ create_manifest() {
         milestones: true,
         releases: true
       }
-    }' > "$EXPORT_DIR/manifest.json"
+    }' > "$manifest_temporary"
+  publish_json "$manifest_temporary" "$EXPORT_DIR/manifest.json" object
 }
 
 compress() {
