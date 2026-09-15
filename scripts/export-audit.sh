@@ -347,6 +347,24 @@ export_issue_timeline() {
   publish_json "$temporary" "$EXPORT_DIR/github/issue-timeline.json" array
 }
 
+export_review_comments() {
+  local temporary
+  temporary="$(temporary_json "$EXPORT_DIR/github/review-comments.json")"
+
+  gh api --paginate --slurp \
+    "repos/$OWNER/$REPOSITORY/pulls/comments?per_page=100" |
+    jq '
+      [.[][]
+        | (.pull_request_url | split("/") | last | tonumber) as $pull_request_number
+        | . + { pull_request_number: $pull_request_number }
+      ]
+      | unique_by(.id)
+      | sort_by(.pull_request_number, .path, .line, .id)
+    ' > "$temporary"
+
+  publish_json "$temporary" "$EXPORT_DIR/github/review-comments.json" array
+}
+
 export_releases() {
   local temporary
   temporary="$(temporary_json "$EXPORT_DIR/github/releases.json")"
@@ -393,6 +411,7 @@ create_manifest() {
     --argjson project_fields "$(collection_count "$EXPORT_DIR/github/project-fields.json")" \
     --argjson project_views "$(collection_count "$EXPORT_DIR/github/project-views.json")" \
     --argjson issue_timeline "$(collection_count "$EXPORT_DIR/github/issue-timeline.json")" \
+    --argjson review_comments "$(collection_count "$EXPORT_DIR/github/review-comments.json")" \
     '{
       schema_version: $schema_version,
       tool_version: $tool_version,
@@ -418,7 +437,8 @@ create_manifest() {
         project_items: $project_items,
         project_fields: $project_fields,
         project_views: $project_views,
-        issue_timeline: $issue_timeline
+        issue_timeline: $issue_timeline,
+        review_comments: $review_comments
       },
       collection_pagination: {
         issues: true,
@@ -430,7 +450,8 @@ create_manifest() {
         project_items: true,
         project_fields: true,
         project_views: true,
-        issue_timeline: true
+        issue_timeline: true,
+        review_comments: true
       }
     }' > "$manifest_temporary"
   publish_json "$manifest_temporary" "$EXPORT_DIR/manifest.json" object
@@ -465,7 +486,8 @@ compress() {
     "exports/$TIMESTAMP/github/project-items.json" \
     "exports/$TIMESTAMP/github/project-fields.json" \
     "exports/$TIMESTAMP/github/project-views.json" \
-    "exports/$TIMESTAMP/github/issue-timeline.json"; do
+    "exports/$TIMESTAMP/github/issue-timeline.json" \
+    "exports/$TIMESTAMP/github/review-comments.json"; do
     unzip -Z1 "$ZIP_FILE" | grep -Fx "$archive_entry" >/dev/null || {
       echo "ERROR: Audit package is missing $archive_entry."
       exit 1
@@ -504,6 +526,7 @@ main() {
   export_project_fields
   export_project_views
   export_issue_timeline
+  export_review_comments
   create_manifest
   compress
   summary
