@@ -4,6 +4,10 @@
 
 Define the minimum information issue templates request so proposed work is understandable, traceable, and ready for responsible assessment.
 
+## Scope
+
+This standard covers the information requested by an issue template. It does not replace work-item classification, readiness, or completion rules.
+
 ## Required Content
 
 An issue template MUST request:

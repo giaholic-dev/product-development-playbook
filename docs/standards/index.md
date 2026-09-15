@@ -4,6 +4,10 @@
 
 Provide one navigable catalog of the reusable standards in this Playbook. Each linked document remains the source of truth for its subject.
 
+## Scope
+
+This index catalogs the reusable standards and supporting navigational documents published in this Playbook. It does not replace their governing content or list external implementation artifacts.
+
 ## Repository and engineering
 
 - [Repository Standards](repository-standards.md)

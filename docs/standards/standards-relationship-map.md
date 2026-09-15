@@ -4,6 +4,10 @@
 
 Show the principal ownership and dependency relationships among the Playbook standards without duplicating their rules.
 
+## Scope
+
+This map covers principal ownership and dependency relationships among published Playbook standards. It does not define their detailed rules or create additional dependencies.
+
 ## Core relationships
 
 | Concern | Governing standard | Key related standards |

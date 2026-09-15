@@ -4,6 +4,10 @@
 
 Define the minimum evidence that makes a work item ready to begin without pretending that every uncertainty has been removed.
 
+## Scope
+
+This standard applies to work items before responsible work begins. It does not prescribe delivery methodology, estimation, or workflow states.
+
 ## Readiness Rule
 
 A work item is ready when the accountable owner can make an informed start decision and the team has enough shared understanding to perform the next planned work safely.

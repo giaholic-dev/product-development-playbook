@@ -95,6 +95,7 @@ Planned categories, not present in the current repository:
 - `docs/core/` — Enduring philosophy, vision, mission, and principles
 - `docs/practices/` — Operational guidance that applies standards without redefining them
 - `templates/` — Reusable starting material
+
 The [Documentation Information Architecture](docs/standards/documentation-information-architecture.md) defines these responsibilities without requiring fixed directory names or placeholder content.
 
 ## Standards

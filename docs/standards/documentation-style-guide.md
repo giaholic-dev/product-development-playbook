@@ -6,6 +6,10 @@ Define the detailed writing and Markdown conventions for documentation adopting 
 
 This guide expresses the repository-level documentation contract. It does not replace requirements for documentation ownership, accuracy, navigation, or conformance.
 
+## Scope
+
+This guide covers writing and Markdown conventions for maintained Playbook documentation. It does not replace rules for documentation ownership, navigation, or repository governance.
+
 ## Language and Audience
 
 A repository MUST declare its primary documentation language. This Playbook uses English.

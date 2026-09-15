@@ -6,6 +6,10 @@ Define how a project may implement the Playbook work-item model in GitHub Projec
 
 This standard is an implementation mapping. The [Work Item Taxonomy](work-item-taxonomy.md) remains applicable when a project uses another tool.
 
+## Scope
+
+This standard covers a GitHub Projects mapping of the Playbook work-item model. It does not make GitHub configuration a requirement for adopting the conceptual taxonomy.
+
 ## Configuration Principles
 
 - A GitHub Project does not automatically contain every field named by this Playbook.
