@@ -20,6 +20,7 @@ Provide one navigable catalog of the reusable standards in this Playbook. Each l
 - [Project Views](project-views.md)
 - [Repository Project Field Standard](repository-project-field-standard.md)
 - [Repository Milestone Standard](repository-milestones.md)
+- [Repository Label Standard](repository-labels.md)
 
 ## Documentation and shared vocabulary
 
