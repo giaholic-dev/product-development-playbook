@@ -38,6 +38,25 @@ The conceptual method is independent of hosting vendors. This repository deliber
 
 The primary documentation language of this repository is English.
 
+## Start Here
+
+For a first reading of the Playbook, follow the documents that exist today:
+
+1. [Foundation Phase](docs/lifecycle/01-foundation.md)
+2. [Repository Standards](docs/standards/repository-standards.md)
+3. [Work Item Taxonomy](docs/standards/work-item-taxonomy.md)
+4. [Work Item Types](docs/standards/work-item-types.md)
+5. [Project Views](docs/standards/project-views.md)
+6. [Product Phase](docs/lifecycle/02-product.md)
+7. [Product Vision](docs/standards/product-vision.md)
+8. [Problem Statement](docs/standards/problem-statement.md)
+9. [Users](docs/standards/users.md)
+10. [Outcomes](docs/standards/outcomes.md)
+11. [Product Scope](docs/standards/product-scope.md)
+12. [Product Backlog](docs/standards/product-backlog.md)
+
+The UX, Architecture, Development, Release, and Maintenance phase documents are planned; they are not available yet. The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. The audit exporter is optional technical reading, not a prerequisite.
+
 ## Lifecycle
 
 The Product Development Playbook is organized into seven sequential phases:
@@ -89,6 +108,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 ### Documentation
 
 - [Documentation Information Architecture](docs/standards/documentation-information-architecture.md)
+- [Documentation Navigation Standard](docs/standards/documentation-navigation.md)
 
 ### Product
 
