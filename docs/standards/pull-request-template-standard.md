@@ -4,6 +4,10 @@
 
 Define the minimum information a pull request provides so reviewers can evaluate scope, evidence, risk, and traceability efficiently.
 
+## Scope
+
+This standard covers the information requested by a pull-request template. It does not replace branch, review, or completion rules.
+
 ## Required Content
 
 A pull request template MUST request:
