@@ -122,6 +122,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 - [UX Vision](docs/standards/ux-vision.md)
 - [User Journey](docs/standards/user-journey.md)
+- [Personas](docs/standards/personas.md)
 
 ### Product
 
