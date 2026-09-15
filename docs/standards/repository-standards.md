@@ -69,13 +69,20 @@ Projects MAY add responsibilities or extend the structure when necessary. Any de
 
 Documentation is a first-class artifact of the product development process.
 
-All project documentation MUST:
+Each project MUST declare a primary documentation language. Documentation MUST use that language consistently except when preserving external material, source identifiers, or other content that requires its original form.
 
-- Be written in clear and consistent language.
-- Have a single, well-defined responsibility.
-- Avoid duplicating information available elsewhere.
-- Be kept up to date as the project evolves.
-- Favor references over repetition when linking related concepts.
+Every maintained document MUST:
+
+- State or make evident its purpose and intended responsibility.
+- Have one primary source of truth for each governed concept.
+- Distinguish current behavior from planned or historical information.
+- Use references instead of duplicating governed content.
+- Keep internal references resolvable from the document's location.
+- Be reviewed when a change affects the concept, process, product behavior, or decision it describes.
+
+Conformance evidence consists of the document being reachable through the project's documented navigation, its internal references resolving, and its content matching the repository state or being explicitly identified as planned or historical.
+
+Detailed writing conventions, document organization, and navigation rules are owned by the Documentation Style Guide, Documentation Information Architecture, and Documentation Navigation Standard respectively. Platform-specific validation MAY automate these checks but does not replace their conceptual requirements.
 
 ## Conceptual Standards
 
