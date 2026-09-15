@@ -24,6 +24,7 @@ A correction MUST preserve traceability to the defect record and include validat
 
 - [Maintenance Phase](../lifecycle/07-maintenance.md)
 - [Incident Management](incident-management.md)
+- [Technical Debt Management](technical-debt-management.md)
 - [Testing Strategy](testing-strategy.md)
 - [Definition of Done](definition-of-done.md)
 - [Artifact Standard](artifact-standard.md)
