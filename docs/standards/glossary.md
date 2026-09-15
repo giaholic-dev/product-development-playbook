@@ -16,6 +16,10 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Work Item | A traceable unit of work classified with the adopted taxonomy and type model. | [Work Item Taxonomy](work-item-taxonomy.md) |
 | Work Type | The nature of work being performed, distinct from its lifecycle phase and workflow state. | [Work Item Types](work-item-types.md) |
 
+## Scope
+
+This catalog covers approved cross-cutting vocabulary and links to its primary owners. It does not redefine terms or replace their governing standards.
+
 ## Maintenance
 
 Add or change a term through its primary owner. Update this catalog when the approved vocabulary or its discoverability changes.
