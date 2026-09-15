@@ -85,6 +85,7 @@ load_repository() {
   EXPORT_DIR="$EXPORT_ROOT/exports/$TIMESTAMP"
   ZIP_FILE="$EXPORT_ROOT/${REPOSITORY}-audit-$TIMESTAMP.zip"
   PROJECT_NUMBER="${GITHUB_PROJECT_NUMBER:-1}"
+  EXPORT_DISCUSSIONS="${GITHUB_EXPORT_DISCUSSIONS:-false}"
 
   [[ ! -e "$EXPORT_DIR" && ! -e "$ZIP_FILE" ]] || {
     echo "Refusing to overwrite an existing audit export for $TIMESTAMP."
@@ -365,6 +366,44 @@ export_review_comments() {
   publish_json "$temporary" "$EXPORT_DIR/github/review-comments.json" array
 }
 
+export_discussions() {
+  [[ "$EXPORT_DISCUSSIONS" == "true" ]] || return 0
+
+  local temporary
+  temporary="$(temporary_json "$EXPORT_DIR/github/discussions.json")"
+
+  gh api graphql --paginate --slurp \
+    -f query='
+      query($owner: String!, $repository: String!, $endCursor: String) {
+        repository(owner: $owner, name: $repository) {
+          discussions(first: 100, after: $endCursor) {
+            nodes {
+              id
+              number
+              title
+              body
+              createdAt
+              updatedAt
+              url
+              category { id name }
+              author { login }
+            }
+            pageInfo { hasNextPage endCursor }
+          }
+        }
+      }
+    ' \
+    -f owner="$OWNER" \
+    -f repository="$REPOSITORY" |
+    jq '
+      [.[] | .data.repository.discussions.nodes[]]
+      | unique_by(.id)
+      | sort_by(.number)
+    ' > "$temporary"
+
+  publish_json "$temporary" "$EXPORT_DIR/github/discussions.json" array
+}
+
 export_releases() {
   local temporary
   temporary="$(temporary_json "$EXPORT_DIR/github/releases.json")"
@@ -601,6 +640,7 @@ main() {
   export_project_views
   export_issue_timeline
   export_review_comments
+  export_discussions
   create_manifest
   validate_integrity
   compress
