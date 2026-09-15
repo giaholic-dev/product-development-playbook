@@ -112,4 +112,4 @@ The Playbook favors native GitHub capabilities over custom fields whenever they 
 - [Work Item Types](work-item-types.md)
 - [Product Backlog](product-backlog.md)
 - [Project Views](project-views.md)
-- [Artifact Standard issue — planned standard](https://github.com/giaholic-dev/product-development-playbook/issues/111)
+- [Artifact Standard](artifact-standard.md)
