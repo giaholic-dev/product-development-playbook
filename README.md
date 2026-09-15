@@ -132,6 +132,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Incident Management](docs/standards/incident-management.md)
 - [Bug Management](docs/standards/bug-management.md)
 - [Technical Debt Management](docs/standards/technical-debt-management.md)
+- [Product Monitoring](docs/standards/product-monitoring.md)
 
 ### Documentation
 
