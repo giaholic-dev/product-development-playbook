@@ -61,5 +61,6 @@ When implemented in GitHub Projects, views intended to manage work should exclud
 
 ## References
 
-- `docs/standards/repository-standards.md`
-- `docs/standards/work-item-taxonomy.md`
+- [Repository Standards](repository-standards.md)
+- [Work Item Taxonomy](work-item-taxonomy.md)
+- [Product Backlog](product-backlog.md)
