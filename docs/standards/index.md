@@ -63,6 +63,7 @@ This index lists maintained standards and the catalogs that help readers locate 
 - [Prototypes](prototypes.md)
 - [UX Validation](ux-validation.md)
 - [UX Artifacts](ux-artifacts.md)
+- [Accessibility and Inclusive Experience Standard](accessibility-inclusive-experience.md)
 
 ## Architecture
 
