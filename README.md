@@ -118,6 +118,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Coding Standards](docs/standards/coding-standards.md)
 - [Testing Strategy](docs/standards/testing-strategy.md)
 - [Continuous Integration](docs/standards/continuous-integration.md)
+- [Repository Automation Standard](docs/standards/repository-automation.md)
 - [Work Item Taxonomy](docs/standards/work-item-taxonomy.md)
 - [Work Item Types](docs/standards/work-item-types.md)
 - [Project Views](docs/standards/project-views.md)
