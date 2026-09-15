@@ -115,7 +115,7 @@ The ZIP contains an `exports/<timestamp>/` root with `repository/`, `git/`, `git
 
 By default, the exporter targets Organization Project #1. Set `GITHUB_PROJECT_NUMBER` to select another project. Set `GITHUB_EXPORT_DISCUSSIONS=true` only for repositories that use GitHub Discussions.
 
-Audit packages can contain issue bodies, comments, and other sensitive repository data. Store and share them only through approved local locations and access controls. A failed export exits non-zero and is not reported as successful.
+Audit packages can contain issue bodies, comments, and other sensitive repository data. The exporter creates them with owner-only permissions; store and share them only through approved local locations and access controls. A failed export exits non-zero, removes its staged output, and is not reported as successful. Re-run after correcting the failure; an existing timestamped package is never overwritten.
 
 ## Standards
 
