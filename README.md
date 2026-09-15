@@ -128,6 +128,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Wireframes](docs/standards/wireframes.md)
 - [Prototypes](docs/standards/prototypes.md)
 - [UX Validation](docs/standards/ux-validation.md)
+- [UX Artifacts](docs/standards/ux-artifacts.md)
 
 ### Product
 
