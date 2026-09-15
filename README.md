@@ -32,6 +32,10 @@ The Playbook intentionally remains independent of:
 - Platform-specific architectures
 - Tool-specific implementations
 
+## Documentation Language
+
+The primary documentation language of this repository is English.
+
 ## Lifecycle
 
 The Product Development Playbook is organized into seven sequential phases:
