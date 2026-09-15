@@ -124,6 +124,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [System Context](docs/standards/system-context.md)
 - [Architecture Decision Records](docs/standards/architecture-decision-records.md)
 - [High-Level Architecture](docs/standards/high-level-architecture.md)
+- [Component Architecture](docs/standards/component-architecture.md)
 
 ### UX
 
