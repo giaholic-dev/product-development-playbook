@@ -130,6 +130,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 ### Maintenance
 
 - [Incident Management](docs/standards/incident-management.md)
+- [Bug Management](docs/standards/bug-management.md)
 
 ### Documentation
 
