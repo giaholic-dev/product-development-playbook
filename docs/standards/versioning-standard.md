@@ -4,6 +4,10 @@
 
 Define how a repository communicates published releases and any explicitly established development version without treating a working-tree label as a release.
 
+## Scope
+
+This standard covers version meaning and change communication for a repository or product. It does not prescribe a release cadence or distribution platform.
+
 ## Versioning Approach
 
 A repository MUST choose a versioning approach appropriate to its product type and audience. Semantic Versioning is suitable when consumers depend on compatibility promises. A documentation repository, internal service, or experimental product MAY use another approach when it documents the meaning of its versions.
