@@ -107,6 +107,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Definition of Ready](docs/standards/definition-of-ready.md)
 - [Definition of Done](docs/standards/definition-of-done.md)
 - [Versioning Standard](docs/standards/versioning-standard.md)
+- [Coding Standards](docs/standards/coding-standards.md)
 - [Work Item Taxonomy](docs/standards/work-item-taxonomy.md)
 - [Work Item Types](docs/standards/work-item-types.md)
 - [Project Views](docs/standards/project-views.md)
