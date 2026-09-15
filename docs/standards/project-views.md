@@ -6,6 +6,10 @@ Define how projects select, configure, and evolve views that make work visible f
 
 A project view is a conceptual presentation of work items. It is not synonymous with a GitHub Project view or any other vendor feature.
 
+## Scope
+
+This standard covers the conceptual purpose, composition, ownership, and evolution of project views. It does not prescribe a specific project-management platform or configuration.
+
 ## Principles
 
 - A view MUST have a named purpose and an owner.
