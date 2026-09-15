@@ -2,44 +2,29 @@
 
 ## Purpose
 
-Define what a Product Backlog is and establish its role within the Product Development Playbook.
+Define the evolving collection of work that represents the current understanding of how the product may be advanced.
 
 ## Scope
 
-This document defines the concept of Product Backlog independently of any specific product management framework or methodology.
+This document defines Product Backlog independently of a product management platform or delivery framework.
 
 ## Definition
 
-A Product Backlog is an ordered collection of work items representing the current understanding of the product.
-
-It organizes the work required to evolve the product while remaining aligned with its vision, problem, users, outcomes, and scope.
+A Product Backlog is an ordered collection of work items aligned with the Product Vision, Problem Statement, Users, Outcomes, and Product Scope.
 
 ## Conceptual Model
 
-The Product Backlog transforms the defined product scope into actionable work.
+The Product Backlog turns the current Product Scope into work that can be refined, selected, and delivered. Its order expresses a comparative planning decision among available items; it is not by itself a delivery commitment, a committed execution sequence, a workflow state, a target date, or a priority value.
 
-It provides a continuously evolving representation of the product, supporting prioritization, planning, refinement, and delivery.
-
-The Product Backlog does not prescribe implementation details, technical architecture, or execution sequencing beyond the prioritization of work items.
+Priority, work-item classification, workflow state, and platform mapping are governed by the [Work Item Taxonomy](work-item-taxonomy.md), [Work Item Types](work-item-types.md), and [Repository Project Field Standard](repository-project-field-standard.md).
 
 ## Characteristics
 
-A Product Backlog should be:
-
-- Ordered
-- Continuously refined
-- Aligned with the Product Vision
-- Derived from the defined product scope
-- Transparent to stakeholders
-- Adaptable as product understanding evolves
+A Product Backlog SHOULD be ordered, continuously refined, transparent to relevant stakeholders, adaptable to evidence, and traceable to the product boundary it serves.
 
 ## Relationships
 
-The Product Backlog is created from the defined Product Scope.
-
-It serves as the primary input for the UX, Architecture, Development, Release, and Maintenance phases.
-
-As the product evolves, feedback from later phases may refine the Product Backlog while preserving alignment with the Product Vision.
+The Product Backlog is created from Product Scope and informs work in later lifecycle phases. Evidence from later phases MAY refine it while preserving alignment with Product Vision.
 
 ## References
 
@@ -51,4 +36,5 @@ As the product evolves, feedback from later phases may refine the Product Backlo
 - [Product Scope](product-scope.md)
 - [Work Item Taxonomy](work-item-taxonomy.md)
 - [Work Item Types](work-item-types.md)
+- [Repository Project Field Standard](repository-project-field-standard.md)
 - [Project Views](project-views.md)
