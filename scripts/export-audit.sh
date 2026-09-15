@@ -314,6 +314,39 @@ export_project_views() {
   publish_json "$temporary" "$EXPORT_DIR/github/project-views.json" array
 }
 
+export_issue_timeline() {
+  local temporary
+  local timeline_directory
+  local issue_number
+
+  temporary="$(temporary_json "$EXPORT_DIR/github/issue-timeline.json")"
+  timeline_directory="$(mktemp -d "$EXPORT_DIR/github/timeline.XXXXXX")"
+
+  while IFS= read -r issue_number; do
+    gh api --paginate --slurp \
+      -H "Accept: application/vnd.github+json" \
+      "repos/$OWNER/$REPOSITORY/issues/$issue_number/timeline?per_page=100" |
+      jq --argjson issue_number "$issue_number" '
+        [.[][] | . + { issue_number: $issue_number }]
+        | unique_by(.id)
+        | sort_by(.created_at, .id)
+      ' > "$timeline_directory/$issue_number.json"
+  done < <(jq -r '.[].number' "$EXPORT_DIR/github/issues.json")
+
+  if compgen -G "$timeline_directory/*.json" >/dev/null; then
+    jq -s '
+      add
+      | unique_by(.issue_number, .id)
+      | sort_by(.issue_number, .created_at, .id)
+    ' "$timeline_directory"/*.json > "$temporary"
+  else
+    printf '[]\n' > "$temporary"
+  fi
+
+  rm -rf "$timeline_directory"
+  publish_json "$temporary" "$EXPORT_DIR/github/issue-timeline.json" array
+}
+
 export_releases() {
   local temporary
   temporary="$(temporary_json "$EXPORT_DIR/github/releases.json")"
@@ -359,6 +392,7 @@ create_manifest() {
     --argjson project_items "$(collection_count "$EXPORT_DIR/github/project-items.json")" \
     --argjson project_fields "$(collection_count "$EXPORT_DIR/github/project-fields.json")" \
     --argjson project_views "$(collection_count "$EXPORT_DIR/github/project-views.json")" \
+    --argjson issue_timeline "$(collection_count "$EXPORT_DIR/github/issue-timeline.json")" \
     '{
       schema_version: $schema_version,
       tool_version: $tool_version,
@@ -383,7 +417,8 @@ create_manifest() {
         releases: $releases,
         project_items: $project_items,
         project_fields: $project_fields,
-        project_views: $project_views
+        project_views: $project_views,
+        issue_timeline: $issue_timeline
       },
       collection_pagination: {
         issues: true,
@@ -394,7 +429,8 @@ create_manifest() {
         releases: true,
         project_items: true,
         project_fields: true,
-        project_views: true
+        project_views: true,
+        issue_timeline: true
       }
     }' > "$manifest_temporary"
   publish_json "$manifest_temporary" "$EXPORT_DIR/manifest.json" object
@@ -428,7 +464,8 @@ compress() {
     "exports/$TIMESTAMP/github/releases.json" \
     "exports/$TIMESTAMP/github/project-items.json" \
     "exports/$TIMESTAMP/github/project-fields.json" \
-    "exports/$TIMESTAMP/github/project-views.json"; do
+    "exports/$TIMESTAMP/github/project-views.json" \
+    "exports/$TIMESTAMP/github/issue-timeline.json"; do
     unzip -Z1 "$ZIP_FILE" | grep -Fx "$archive_entry" >/dev/null || {
       echo "ERROR: Audit package is missing $archive_entry."
       exit 1
@@ -466,6 +503,7 @@ main() {
   export_project_items
   export_project_fields
   export_project_views
+  export_issue_timeline
   create_manifest
   compress
   summary
