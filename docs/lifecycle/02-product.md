@@ -57,4 +57,4 @@ The Product definition may inform a subsequent lifecycle phase when that phase's
 
 **Previous Phase:** [01 — Foundation](01-foundation.md)
 
-**Next Phase:** 03 — UX (planned; phase document not yet available)
+**Next Phase:** [03 — UX](03-ux.md)
