@@ -35,13 +35,13 @@ check_repository() {
 parse_remote() {
   local remote="$1"
 
-  if [[ "$remote" =~ ^git@github\.com:([^/[:space:]]+)/([^/[:space:]]+?)(\.git)?$ ]]; then
+  if [[ "$remote" =~ ^git@github\.com:([^/[:space:]]+)/([^/[:space:]]+)(\.git)?$ ]]; then
     OWNER="${BASH_REMATCH[1]}"
     REPOSITORY="${BASH_REMATCH[2]%.git}"
-  elif [[ "$remote" =~ ^ssh://git@github\.com/([^/[:space:]]+)/([^/[:space:]]+?)(\.git)?$ ]]; then
+  elif [[ "$remote" =~ ^ssh://git@github\.com/([^/[:space:]]+)/([^/[:space:]]+)(\.git)?$ ]]; then
     OWNER="${BASH_REMATCH[1]}"
     REPOSITORY="${BASH_REMATCH[2]%.git}"
-  elif [[ "$remote" =~ ^https://github\.com/([^/[:space:]]+)/([^/[:space:]]+?)(\.git)?$ ]]; then
+  elif [[ "$remote" =~ ^https://github\.com/([^/[:space:]]+)/([^/[:space:]]+)(\.git)?$ ]]; then
     OWNER="${BASH_REMATCH[1]}"
     REPOSITORY="${BASH_REMATCH[2]%.git}"
   else
