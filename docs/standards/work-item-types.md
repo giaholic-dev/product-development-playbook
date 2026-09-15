@@ -14,11 +14,11 @@ It also explains how these concepts map to issue types provided by different pro
 
 The Product Development Playbook distinguishes between **Issue Type** and **Work Type**.
 
-An **Issue Type** is defined by the project management platform and represents the operational behavior of a work item.
+A **Work Type** is defined by the Playbook and describes the primary nature of the work being performed, independently of its lifecycle phase.
 
-A **Work Type** is defined by the Playbook and represents the nature of the work being performed.
+An **Issue Type** is a category used by a chosen management platform to represent a work item. It may influence platform features or presentation, but it does not define the work's Playbook Work Type, lifecycle phase, or identity.
 
-Different platforms may provide different issue types, while the Playbook Work Types remain consistent across all implementations.
+Different platforms may provide different issue types, while the Playbook Work Types remain consistent across implementations. The distinct responsibilities of all work item dimensions are defined in the [Work Item Taxonomy](work-item-taxonomy.md).
 
 Pull Requests are implementation and review artifacts rather than work items.
 
