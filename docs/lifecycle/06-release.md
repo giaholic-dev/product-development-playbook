@@ -51,4 +51,4 @@ Maintenance work may begin when the released increment has an identified operati
 
 **Previous Phase:** [05 — Development](05-development.md)
 
-**Next Phase:** 07 — Maintenance (planned; phase document not yet available)
+**Next Phase:** [07 — Maintenance](07-maintenance.md)
