@@ -87,6 +87,7 @@ This Playbook is intended for:
 
 Current directories:
 
+- `docs/core/` — Enduring principles and conceptual boundaries
 - `docs/lifecycle/` — Existing lifecycle phase documents
 - `docs/standards/` — Reusable repository, documentation, and product standards
 - `examples/` — Concrete applications and case studies
@@ -95,7 +96,6 @@ Current directories:
 
 Planned categories, not present in the current repository:
 
-- `docs/core/` — Enduring philosophy, vision, mission, and principles
 - `docs/practices/` — Operational guidance that applies standards without redefining them
 - `templates/` — Reusable starting material
 
@@ -104,6 +104,10 @@ The [Documentation Information Architecture](docs/standards/documentation-inform
 ## Standards
 
 The Playbook defines reusable standards that can be adopted across software products.
+
+### Core
+
+- [Playbook Core Principles](docs/core/principles.md)
 
 ### Examples
 
