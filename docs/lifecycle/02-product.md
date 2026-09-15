@@ -2,55 +2,56 @@
 
 ## Purpose
 
-Transform a product idea into a clearly defined product ready for refinement, design, architecture, and implementation.
+Transform a product idea or opportunity into an evidence-based product definition that can inform later lifecycle work.
 
 ## Inputs
 
 - A completed Foundation phase.
 - A product idea or business opportunity.
-- Identified stakeholders.
+- Available context, assumptions, and evidence relevant to the opportunity.
 
 ## Activities
 
-- **P1 Product Vision:** Define the long-term vision for the product.
-- **P2 Problem Statement:** Define the problem to be solved.
-- **P3 Users:** Identify the users whose needs, goals, or problems motivate the product.
-- **P4 Outcomes:** Define the desired business and user outcomes.
-- **P5 Product Scope:** Establish the initial product scope.
-- **P6 Product Backlog:** Establish the initial product backlog.
+- **P1 [Product Vision](../standards/product-vision.md):** Define the durable direction for the product.
+- **P2 [Problem Statement](../standards/problem-statement.md):** Define the problem or opportunity to address.
+- **P3 [Users](../standards/users.md):** Identify relevant users and other actor roles when they materially affect the decision.
+- **P4 [Outcomes](../standards/outcomes.md):** Define desired changes and their appropriate evidence.
+- **P5 [Product Scope](../standards/product-scope.md):** Establish the product boundary.
+- **P6 [Product Backlog](../standards/product-backlog.md):** Establish the initial ordered collection of work.
 
-## Outputs
+## Outputs and Artifacts
 
 - Product Vision
 - Problem Statement
-- Users
-- Outcomes
-- Initial Product Scope
-- Initial Product Backlog
+- Users and relevant actor roles
+- Outcomes and their evidence
+- Product Scope
+- Product Backlog
+
+Each output is represented by the correspondingly named governing artifact or standard. “Initial” describes the Product-phase baseline of a living artifact; it is not a separate artifact type.
 
 ## Definition of Done
 
-The Product phase is complete when:
+The Product phase is complete when evidence exists that:
 
-- The product vision is documented.
-- The problem is clearly defined.
-- Users are identified.
-- Outcomes are established.
-- The initial product scope is defined.
-- The initial product backlog is established.
+- the Product Vision states the durable direction;
+- the Problem Statement identifies the relevant problem or opportunity and its context;
+- relevant users and other material actor roles are identified;
+- Outcomes state the desired changes and their appropriate evidence;
+- Product Scope records the current boundary and exclusions; and
+- the Product Backlog contains an initial ordered set of traceable work items.
+
+The phase-level evidence does not replace the work-item completion rules in the [Definition of Done](../standards/definition-of-done.md).
 
 ## Exit Criteria
 
-The product is sufficiently defined to begin UX, Architecture, and subsequent implementation phases.
+The Product definition may inform a subsequent lifecycle phase when that phase's own entry conditions are met. The ordered lifecycle does not imply that UX, Architecture, or implementation start in parallel solely because Product is complete.
 
-## Artifacts
+## References
 
-- Product Vision
-- Problem Statement
-- Users
-- Outcomes
-- Product Scope
-- Product Backlog
+- [Definition of Ready](../standards/definition-of-ready.md)
+- [Definition of Done](../standards/definition-of-done.md)
+- [Work Item Taxonomy](../standards/work-item-taxonomy.md)
 
 ---
 
