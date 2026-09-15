@@ -129,6 +129,20 @@ Examples include:
 - Monitoring improvements
 - Preventive maintenance activities
 
+## Classification Examples
+
+The following examples illustrate a primary classification. They do not prescribe a platform issue type, priority, or workflow state.
+
+| Work | Primary Lifecycle Phase | Primary Work Type | Reason |
+| --- | --- | --- | --- |
+| Improve keyboard navigation and visible focus treatment in an existing checkout flow | UX | Improvement | It improves the user experience of an existing capability without changing its fundamental purpose. |
+| Refactor a duplicated authorization module while preserving its external behavior | Development | Technical Debt | Its intended outcome is lower internal complexity and future change cost, not a user-visible change. |
+| Rotate an expiring production certificate and verify service health | Maintenance | Operational Maintenance | It preserves operational continuity and supportability. |
+| Compare two notification providers and publish a recommendation before implementation is selected | Architecture | Research | Its outcome is evidence that reduces an implementation decision's uncertainty. |
+| Address a security concern that needs a new product requirement and a deployment safeguard | Product; Release | Feature; Operational Maintenance | The requirement decision and the operational safeguard have separate outcomes and evidence, so they are planned and traced separately. |
+
+A cross-phase concern is not automatically an exception. Use the exception record in the [Work Item Taxonomy](work-item-taxonomy.md) only when one inseparable objective cannot be split into related work items without losing traceability or creating material coordination cost.
+
 ## Platform Mapping
 
 The Product Development Playbook defines Work Types independently of any project management platform.
