@@ -133,17 +133,24 @@ Latest published release: **[v0.1.0](https://github.com/giaholic-dev/product-dev
 
 Development target: **Not established**
 
-Current phase: **Product**
+The lifecycle status below measures this repository's documentation coverage, not execution status for an external product:
 
-Lifecycle progress:
+- **Documented** — the phase document and its current governing artifacts exist and have been reviewed against their documented criteria.
+- **Planned** — the phase is part of the lifecycle but its document is not yet available.
 
-- ✅ Foundation
-- ✅ Product
-- ⏳ UX
-- ⏳ Architecture
-- ⏳ Development
-- ⏳ Release
-- ⏳ Maintenance
+Latest documented phase: **Product**
+
+Next planned phase: **UX**
+
+Lifecycle documentation:
+
+- ✅ Foundation — documented
+- ✅ Product — documented
+- ⏳ UX — planned
+- ⏳ Architecture — planned
+- ⏳ Development — planned
+- ⏳ Release — planned
+- ⏳ Maintenance — planned
 
 ---
-*For more details on the process lifecycle, check the [Product Phase](docs/lifecycle/02-product.md).*
+*For the latest documented lifecycle phase, see [Product Phase](docs/lifecycle/02-product.md).*
