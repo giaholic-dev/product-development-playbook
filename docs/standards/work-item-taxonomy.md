@@ -91,13 +91,25 @@ A work item MAY link additional artifacts without assigning multiple primary Art
 
 ## Priority
 
-Work items may be assigned a relative execution priority to support planning and scheduling.
+Priority is an optional relative planning decision: it indicates the comparative attention a work item deserves when the project chooses among competing work. It does not express Workflow State, a committed execution sequence, a target date, or the order of items in a Product Backlog.
 
-The standard priority levels are:
+The standard levels are:
 
-- High
-- Medium
-- Low
+- **High** — delay would materially threaten a stated outcome, significant risk, a required dependency, or an explicitly time-sensitive commitment.
+- **Medium** — meaningful work that supports current objectives but can be scheduled after higher-priority work.
+- **Low** — useful or anticipated work that can be deferred without material near-term impact.
+
+A project MAY use a different scale when it defines equivalent decision criteria. Priority SHOULD be reassessed when evidence, risk, dependency, or commitment changes.
+
+Priority differs from related concepts:
+
+| Concept | Question answered |
+| --- | --- |
+| Priority | How much relative planning attention does this work need? |
+| Backlog order | Where does this item stand among alternatives in a managed list? |
+| Urgency | How quickly must action occur because of time sensitivity? |
+| Committed sequence | What work has been agreed to occur in a particular delivery order? |
+| Target date | When is a milestone or commitment expected? |
 
 ## Workflow State
 
