@@ -6,7 +6,7 @@ Define how repositories adopt automation that improves consistency, verification
 
 ## Scope
 
-This standard applies to repository-local automation, including scripts, checks, workflows, bots, and generated evidence. It does not require a particular automation platform.
+This standard applies to repository-local automation, including scripts, checks, workflows, bots, and generated evidence. It does not require a particular automation platform. The [AI Collaboration Standard](ai-collaboration.md) owns AI-specific authority, evidence, provider-independence, and manual-fallback rules.
 
 ## Automation Requirements
 
@@ -26,3 +26,4 @@ Changes to automation MUST be reviewed according to their risk and include valid
 - [Continuous Integration](continuous-integration.md)
 - [Code Review Standard](code-review-standard.md)
 - [Artifact Standard](artifact-standard.md)
+- [AI Collaboration Standard](ai-collaboration.md)
