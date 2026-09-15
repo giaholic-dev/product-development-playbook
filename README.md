@@ -106,6 +106,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Work Item Taxonomy](docs/standards/work-item-taxonomy.md)
 - [Work Item Types](docs/standards/work-item-types.md)
 - [Project Views](docs/standards/project-views.md)
+- [Terminology Standard](docs/standards/terminology-standard.md)
 
 ### Documentation
 
