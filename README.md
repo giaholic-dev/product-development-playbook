@@ -122,6 +122,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 ### Release
 
 - [Release Strategy](docs/standards/release-strategy.md)
+- [Release Notes](docs/standards/release-notes.md)
 
 ### Documentation
 
