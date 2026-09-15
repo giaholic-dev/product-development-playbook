@@ -31,6 +31,23 @@ Lifecycle Phase and Work Type are independent dimensions: a work type does not i
 
 This section defines responsibilities only. Primary-classification exceptions, Artifact Type multiplicity, priority decision criteria, and platform-specific field configuration are addressed in later increments and their dedicated standards.
 
+## Primary Classification and Exceptions
+
+A work item MUST have one primary Lifecycle Phase and one primary Work Type. Artifact Type is optional and, when used, records one primary artifact category with an optional subtype as defined by the [Artifact Standard](artifact-standard.md). Priority, Issue Type, and Workflow State use their own rules and do not replace primary classification.
+
+A concern that spans phases or work types SHOULD be represented as related work items when the objectives, owners, or completion evidence differ. A single work item MAY carry an exception only when splitting it would obscure one inseparable objective or materially increase coordination without improving traceability.
+
+A classification exception MUST record:
+
+- the primary classification retained;
+- the additional phase or work-type concern;
+- why separate linked work items are not appropriate;
+- the affected scope and traceability links;
+- the owner responsible for reassessment; and
+- the condition or date that ends or rechecks the exception.
+
+The exception record follows the Repository Standards exception mechanism. It does not create a new lifecycle phase, Work Type, or Artifact Type.
+
 ## Lifecycle Phase
 
 Every work item should be associated with exactly one phase of the product development lifecycle.
@@ -60,16 +77,17 @@ The standard work types are:
 
 ## Artifact Type
 
-Some work items produce a primary project artifact.
+Artifact Type is optional. When it improves planning, reporting, or traceability, it identifies the primary artifact category and optional subtype governed by the [Artifact Standard](artifact-standard.md).
 
-When applicable, the artifact should be classified using one of the following types:
+The standard categories are:
 
-- Documentation
-- Standard
-- Practice
+- Documentation — optional subtypes include Standard, Practice, Decision Record (ADR), Specification, Guide, and Record
 - Template
 - Example
-- ADR
+- Implementation evidence — optional subtypes include Configuration, Source, Test, and Automation
+- External evidence
+
+A work item MAY link additional artifacts without assigning multiple primary Artifact Types.
 
 ## Priority
 
