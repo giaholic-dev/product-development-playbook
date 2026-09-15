@@ -114,6 +114,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 - [Documentation Information Architecture](docs/standards/documentation-information-architecture.md)
 - [Documentation Navigation Standard](docs/standards/documentation-navigation.md)
+- [Documentation Style Guide](docs/standards/documentation-style-guide.md)
 
 ### Product
 
