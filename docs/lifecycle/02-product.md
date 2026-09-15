@@ -54,4 +54,6 @@ The product is sufficiently defined to begin UX, Architecture, and subsequent im
 
 ---
 
-**Next Phase:** [03 — UX](03-ux.md)
+**Previous Phase:** [01 — Foundation](01-foundation.md)
+
+**Next Phase:** 03 — UX (planned; phase document not yet available)
