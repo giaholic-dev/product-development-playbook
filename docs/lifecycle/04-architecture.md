@@ -42,4 +42,4 @@ Development may begin when the selected architecture provides enough direction t
 
 **Previous Phase:** [03 — UX](03-ux.md)
 
-**Next Phase:** 05 — Development (planned; phase document not yet available)
+**Next Phase:** [05 — Development](05-development.md)
