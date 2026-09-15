@@ -104,6 +104,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 - [Repository Standards](docs/standards/repository-standards.md)
 - [Branch Workflow](docs/standards/branch-workflow.md)
+- [Code Review Standard](docs/standards/code-review-standard.md)
 - [Work Item Taxonomy](docs/standards/work-item-taxonomy.md)
 - [Work Item Types](docs/standards/work-item-types.md)
 - [Project Views](docs/standards/project-views.md)
