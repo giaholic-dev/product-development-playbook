@@ -119,6 +119,10 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Terminology Standard](docs/standards/terminology-standard.md)
 - [Artifact Standard](docs/standards/artifact-standard.md)
 
+### Release
+
+- [Release Strategy](docs/standards/release-strategy.md)
+
 ### Documentation
 
 - [Documentation Information Architecture](docs/standards/documentation-information-architecture.md)
