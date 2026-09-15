@@ -87,6 +87,7 @@ Current directories:
 
 - `docs/lifecycle/` — Existing lifecycle phase documents
 - `docs/standards/` — Reusable repository, documentation, and product standards
+- `examples/` — Concrete applications and case studies
 - `scripts/` — Supporting implementation utilities; [export-audit.sh](scripts/export-audit.sh) is a GitHub CLI-based audit exporter requiring Git, `gh`, and `zip`. Its collection exports may be incomplete until the pagination work is finished.
 
 Planned categories, not present in the current repository:
@@ -94,13 +95,15 @@ Planned categories, not present in the current repository:
 - `docs/core/` — Enduring philosophy, vision, mission, and principles
 - `docs/practices/` — Operational guidance that applies standards without redefining them
 - `templates/` — Reusable starting material
-- `examples/` — Concrete applications and case studies
-
 The [Documentation Information Architecture](docs/standards/documentation-information-architecture.md) defines these responsibilities without requiring fixed directory names or placeholder content.
 
 ## Standards
 
 The Playbook defines reusable standards that can be adopted across software products.
+
+### Examples
+
+- [Product Definition Example](examples/product-definition-example.md)
 
 ### Standards Index
 
