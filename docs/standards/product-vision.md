@@ -41,4 +41,4 @@ As the Product phase progresses, these concepts progressively refine the Product
 
 ## References
 
-- `docs/lifecycle/02-product.md`
+- [Product Phase](../lifecycle/02-product.md)
