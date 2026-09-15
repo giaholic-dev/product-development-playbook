@@ -28,6 +28,7 @@ Close an incident only when the service state, impact, resolution or accepted re
 
 - [Maintenance Phase](../lifecycle/07-maintenance.md)
 - [Rollback Strategy](rollback-strategy.md)
+- [Bug Management](bug-management.md)
 - [Deployment Strategy](deployment-strategy.md)
 - [Definition of Done](definition-of-done.md)
 - [Artifact Standard](artifact-standard.md)

@@ -39,6 +39,7 @@ Maintenance is continuous for an active product. A maintenance increment exits w
 - [Deployment Strategy](../standards/deployment-strategy.md)
 - [Rollback Strategy](../standards/rollback-strategy.md)
 - [Incident Management](../standards/incident-management.md)
+- [Bug Management](../standards/bug-management.md)
 - [Definition of Done](../standards/definition-of-done.md)
 - [Artifact Standard](../standards/artifact-standard.md)
 
