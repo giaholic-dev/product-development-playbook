@@ -45,4 +45,4 @@ Release work may begin when the selected increment is integrated, has the requir
 
 **Previous Phase:** [04 — Architecture](04-architecture.md)
 
-**Next Phase:** 06 — Release (planned; phase document not yet available)
+**Next Phase:** [06 — Release](06-release.md)

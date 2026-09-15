@@ -47,14 +47,16 @@ For a first reading of the Playbook, follow the documents that exist today:
 6. [Product Phase](docs/lifecycle/02-product.md)
 7. [UX Phase](docs/lifecycle/03-ux.md)
 8. [Architecture Phase](docs/lifecycle/04-architecture.md)
-9. [Product Vision](docs/standards/product-vision.md)
-10. [Problem Statement](docs/standards/problem-statement.md)
-11. [Users](docs/standards/users.md)
-12. [Outcomes](docs/standards/outcomes.md)
-13. [Product Scope](docs/standards/product-scope.md)
-14. [Product Backlog](docs/standards/product-backlog.md)
+9. [Development Phase](docs/lifecycle/05-development.md)
+10. [Release Phase](docs/lifecycle/06-release.md)
+11. [Product Vision](docs/standards/product-vision.md)
+12. [Problem Statement](docs/standards/problem-statement.md)
+13. [Users](docs/standards/users.md)
+14. [Outcomes](docs/standards/outcomes.md)
+15. [Product Scope](docs/standards/product-scope.md)
+16. [Product Backlog](docs/standards/product-backlog.md)
 
-The Release and Maintenance phase documents are planned; they are not available yet. The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. The audit exporter is optional technical reading, not a prerequisite.
+The Maintenance phase document is planned; it is not available yet. The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. The audit exporter is optional technical reading, not a prerequisite.
 
 ## Lifecycle
 
@@ -68,7 +70,7 @@ The Product Development Playbook defines a complete conceptual lifecycle with se
 6. Release
 7. Maintenance
 
-Progression is ordered but not irreversible: new evidence or changes may require revisiting an earlier phase. Foundation, Product, UX, Architecture, and Development currently have lifecycle documents; the remaining phase documents are planned. The current phase and completion status of this repository are reported separately below.
+Progression is ordered but not irreversible: new evidence or changes may require revisiting an earlier phase. Foundation, Product, UX, Architecture, Development, and Release currently have lifecycle documents; the Maintenance phase document is planned. The current phase and completion status of this repository are reported separately below.
 
 ## Audience
 This Playbook is intended for:
@@ -166,9 +168,9 @@ The lifecycle status below measures this repository's documentation coverage, no
 - **Documented** — the phase document and its current governing artifacts exist and have been reviewed against their documented criteria.
 - **Planned** — the phase is part of the lifecycle but its document is not yet available.
 
-Latest documented phase: **Development**
+Latest documented phase: **Release**
 
-Next planned phase: **UX**
+Next planned phase: **Maintenance**
 
 Lifecycle documentation:
 
@@ -177,8 +179,8 @@ Lifecycle documentation:
 - ✅ UX — documented
 - ✅ Architecture — documented
 - ✅ Development — documented
-- ⏳ Release — planned
+- ✅ Release — documented
 - ⏳ Maintenance — planned
 
 ---
-*For the latest documented lifecycle phase, see [Product Phase](docs/lifecycle/02-product.md).*
+*For the latest documented lifecycle phase, see [Release Phase](docs/lifecycle/06-release.md).*
