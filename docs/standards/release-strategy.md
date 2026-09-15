@@ -39,6 +39,7 @@ An emergency release MAY use an abbreviated process when delay would create grea
 
 - [Release Phase](../lifecycle/06-release.md)
 - [Release Notes](release-notes.md)
+- [Deployment Strategy](deployment-strategy.md)
 - [Versioning Standard](versioning-standard.md)
 - [Definition of Done](definition-of-done.md)
 - [Artifact Standard](artifact-standard.md)
