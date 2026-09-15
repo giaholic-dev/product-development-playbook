@@ -108,6 +108,10 @@ export_repository() {
     sort > "$EXPORT_DIR/repository/repository-tree.txt"
 }
 
+export_branches() {
+  git for-each-ref --sort=refname --format='%(refname:short) %(objectname) %(upstream:short)' refs/heads refs/remotes > "$EXPORT_DIR/git/branches.txt"
+}
+
 export_issues() {
   gh issue list --repo "$OWNER/$REPOSITORY" --state all --limit 500 --json number,title,body,state,stateReason,labels,milestone,assignees,createdAt,updatedAt,closedAt > "$EXPORT_DIR/github/issues.json"
 }
@@ -218,6 +222,7 @@ main() {
   load_repository
   create_directories
   export_repository
+  export_branches
   export_issues
   export_issue_comments
   export_prs
