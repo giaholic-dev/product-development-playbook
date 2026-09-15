@@ -41,7 +41,7 @@ Artifacts are the inspectable records that evidence Foundation outputs. A projec
 - A documented workflow configuration or explicit links to the adopted workflow, readiness, review, and completion standards.
 - A record of unresolved Foundation decisions, when any exist.
 
-The detailed Artifact Standard, Terminology Standard, Definition of Ready, Definition of Done, Branch Workflow, Code Review, and project-management standards are governed by their dedicated follow-up issues; Foundation adopts their outputs rather than restating them.
+The Artifact Standard, Terminology Standard, Definition of Ready, Definition of Done, Branch Workflow, Code Review Standard, and project-management standards own their detailed rules. Foundation adopts their outputs rather than restating them.
 
 ## Definition of Done
 
@@ -66,11 +66,12 @@ The Product phase may begin when the product team or individual can create, clas
 - [Project Views](../standards/project-views.md)
 - [Documentation Information Architecture](../standards/documentation-information-architecture.md)
 - [Documentation Navigation Standard](../standards/documentation-navigation.md)
-- [Artifact Standard issue — planned standard](https://github.com/giaholic-dev/product-development-playbook/issues/111)
-- [Terminology Standard issue — planned standard](https://github.com/giaholic-dev/product-development-playbook/issues/86)
-- [Definition of Ready issue — planned standard](https://github.com/giaholic-dev/product-development-playbook/issues/69)
-- [Definition of Done issue — planned standard](https://github.com/giaholic-dev/product-development-playbook/issues/70)
-- [Branch Workflow issue — planned standard](https://github.com/giaholic-dev/product-development-playbook/issues/71)
+- [Artifact Standard](../standards/artifact-standard.md)
+- [Terminology Standard](../standards/terminology-standard.md)
+- [Definition of Ready](../standards/definition-of-ready.md)
+- [Definition of Done](../standards/definition-of-done.md)
+- [Branch Workflow](../standards/branch-workflow.md)
+- [Code Review Standard](../standards/code-review-standard.md)
 
 ---
 
