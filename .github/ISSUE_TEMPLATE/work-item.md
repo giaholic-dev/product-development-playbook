@@ -6,6 +6,8 @@ labels: ""
 assignees: ""
 ---
 
+<!-- Use this template to capture a traceable work item. Governed by [Issue Template Standard](../../docs/standards/issue-template-standard.md). -->
+
 ## Outcome or problem
 
 ## Scope
