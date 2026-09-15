@@ -17,7 +17,7 @@ Foundation establishes sufficient repository, governance, workflow, and document
 - **F1 Repository Setup:** Establish an accessible repository with the structure, access, and version-control baseline appropriate to the product.
 - **F2 Repository Standards Adoption:** Adopt the [Repository Standards](../standards/repository-standards.md); configure applicable choices and record any project-specific extension or exception without redefining the reusable baseline.
 - **F3 Governance and Tracking:** Establish a work-tracking and planning model appropriate to the product, including ownership and any applicable milestones. A GitHub Project is one possible platform mapping, not a conceptual requirement.
-- **F4 Workflow Adoption:** Adopt the Playbook lifecycle and establish the applicable workflow, readiness, review, and completion gates. Detailed branch workflow and review rules are owned by their dedicated standards.
+- **F4 Workflow Adoption:** Adopt the Playbook lifecycle and establish the applicable workflow, readiness, review, and completion gates. Record applicable AI capabilities and authority boundaries, or a deliberate manual-only choice, without making AI a prerequisite. Detailed branch workflow, review, and AI-collaboration rules are owned by their dedicated standards.
 - **F5 Documentation Foundation:** Establish the documentation architecture, primary language declaration, root entry point, and navigation required by the repository standards.
 
 ## Outputs
@@ -38,7 +38,8 @@ Artifacts are the inspectable records that evidence Foundation outputs. A projec
 - [Repository Standards](../standards/repository-standards.md) adoption, including recorded extensions or exceptions where applicable.
 - Applicable work item and project-view configuration, evidenced by the [Work Item Taxonomy](../standards/work-item-taxonomy.md), [Work Item Types](../standards/work-item-types.md), and [Project Views](../standards/project-views.md).
 - Documentation architecture and navigation, evidenced by the [Documentation Information Architecture](../standards/documentation-information-architecture.md) and [Documentation Navigation Standard](../standards/documentation-navigation.md).
-- A documented workflow configuration or explicit links to the adopted workflow, readiness, review, and completion standards.
+- A documented workflow configuration or explicit links to the adopted workflow, readiness, review, completion, and AI-collaboration standards.
+- A record of applicable AI capabilities and authority boundaries, or a deliberate manual-only choice, when relevant.
 - A record of unresolved Foundation decisions, when any exist.
 
 The Artifact Standard, Terminology Standard, Definition of Ready, Definition of Done, Branch Workflow, Code Review Standard, and project-management standards own their detailed rules. Foundation adopts their outputs rather than restating them.
@@ -72,6 +73,7 @@ The Product phase may begin when the product team or individual can create, clas
 - [Definition of Done](../standards/definition-of-done.md)
 - [Branch Workflow](../standards/branch-workflow.md)
 - [Code Review Standard](../standards/code-review-standard.md)
+- [AI Collaboration Standard](../standards/ai-collaboration.md)
 
 ---
 

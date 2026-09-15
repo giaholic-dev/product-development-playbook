@@ -80,6 +80,10 @@ A Pull Request is one possible change-request record. A repository MAY use anoth
 
 The [Definition of Done](definition-of-done.md) owns completion evidence for work items and changes.
 
+## AI-enabled Execution
+
+The [AI Collaboration Standard](ai-collaboration.md) owns the rules for manual, AI-assisted, and authorized AI-automated execution. A repository MAY adopt any of these modes, but it MUST retain the same accountability, evidence, review, completion, and exception obligations. Provider-specific configuration is an implementation artifact, not a Playbook prerequisite.
+
 ## Versioning
 
 A repository MUST use the [Versioning Standard](versioning-standard.md) to distinguish published releases from any explicit development target. Semantic Versioning is appropriate when compatibility promises are needed; another documented approach MAY be adopted when it better fits the product and audience.
@@ -111,3 +115,4 @@ Conformance is demonstrated by the declaration, resolvable documentation, tracea
 - [Work Item Taxonomy](work-item-taxonomy.md)
 - [Work Item Types](work-item-types.md)
 - [Project Views](project-views.md)
+- [AI Collaboration Standard](ai-collaboration.md)
