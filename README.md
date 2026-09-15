@@ -126,6 +126,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [User Flows](docs/standards/user-flows.md)
 - [UX Information Architecture](docs/standards/ux-information-architecture.md)
 - [Wireframes](docs/standards/wireframes.md)
+- [Prototypes](docs/standards/prototypes.md)
 
 ### Product
 
