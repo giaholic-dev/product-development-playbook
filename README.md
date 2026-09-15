@@ -31,6 +31,8 @@ The Playbook intentionally remains independent of:
 
 The conceptual method is independent of hosting vendors. This repository deliberately uses Git and includes GitHub mappings and supporting automation as implementation guidance, not as product-technology requirements.
 
+The Playbook supports manual, AI-assisted, and authorized AI-automated execution. No lifecycle phase, standard, or workflow requires an AI provider, model, prompt, integration, or automation platform; every execution mode follows the same accountability, evidence, review, and completion rules.
+
 ## Documentation Language
 
 The primary documentation language of this repository is English.
