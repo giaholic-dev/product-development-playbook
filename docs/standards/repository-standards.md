@@ -6,17 +6,48 @@ Define the repository-level standards that ensure consistency, maintainability, 
 
 ## Scope
 
-This document defines the mandatory repository standards adopted by projects following the Product Development Playbook.
+This document defines the baseline repository standards adopted by projects following the Product Development Playbook.
 
 These standards establish consistent rules for repository organization, documentation, version control, branching, commits, pull requests, and versioning.
 
-Technology-specific implementation details are intentionally out of scope.
+The Playbook remains independent of programming languages, frameworks, product architectures, and repository-hosting vendors. It explicitly adopts Git as its version control baseline. Platform-specific behavior is implementation guidance unless a project selects that platform and the relevant mapping identifies a requirement.
+
+## Normative Language
+
+The keywords `MUST`, `SHOULD`, and `MAY` define the strength of a rule in this document:
+
+- **MUST** indicates a requirement for conformance with the Playbook.
+- **SHOULD** indicates the expected default. A project may deviate when the exception is explicitly recorded.
+- **MAY** indicates an optional practice.
+
+Statements that do not use a normative keyword are explanatory and do not create an independent conformance requirement.
+
+A recorded exception MUST identify:
+
+- The rule being excepted
+- The reason for the exception
+- The affected scope
+- The known impact or risk
+- The person or role responsible for reviewing it
+- The condition or date that triggers reassessment
+
+An exception changes only the identified project implementation. It does not modify the Playbook standard.
+
+## Standards Layers
+
+Repository standards are organized into three layers:
+
+1. **Conceptual rules** define portable repository responsibilities and expected outcomes independently of programming language, framework, architecture, or hosting vendor.
+2. **Git baseline rules** define version control conventions explicitly adopted by the Playbook.
+3. **Platform mappings** explain how conceptual and Git rules are implemented in a specific service, such as GitHub.
+
+Platform mappings MUST preserve the meaning of the rules they implement. A platform-specific mechanism becomes a project requirement only when the project adopts that platform and the mapping marks the mechanism as required.
 
 ## Repository Structure
 
-Every repository adopting the Product Development Playbook should follow a clear and predictable structure.
+Every repository adopting the Product Development Playbook SHOULD follow a clear and predictable structure.
 
-Unless justified by the project's nature, repositories should organize their content into the following categories:
+Unless justified by the project's nature, repositories SHOULD organize their content into the following categories:
 
 - Documentation
 - Source code
@@ -26,13 +57,13 @@ Unless justified by the project's nature, repositories should organize their con
 - Templates
 - Examples
 
-Projects may extend this structure when necessary, provided the overall organization remains consistent and easy to navigate.
+Projects MAY extend this structure when necessary, provided the overall organization remains consistent and easy to navigate.
 
 ## Documentation Standards
 
 Documentation is a first-class artifact of the product development process.
 
-All project documentation must:
+All project documentation MUST:
 
 - Be written in clear and consistent language.
 - Have a single, well-defined responsibility.
@@ -42,7 +73,7 @@ All project documentation must:
 
 ## Conceptual Standards
 
-Conceptual standards should generally follow a consistent document structure whenever applicable.
+Conceptual standards SHOULD generally follow a consistent document structure whenever applicable.
 
 The recommended structure is:
 
@@ -54,25 +85,25 @@ The recommended structure is:
 - Relationships
 - References
 
-Documents may omit sections that are not applicable to the concept being defined.
+Documents MAY omit sections that are not applicable to the concept being defined.
 
 ## Git Standards
 
 Git is the official version control system adopted by the Product Development Playbook.
 
-All changes must be tracked through Git, preserving a complete, traceable, and auditable project history.
+All changes MUST be tracked through Git, preserving a complete, traceable, and auditable project history.
 
-Repositories should favor small, incremental, and reversible changes over large, monolithic updates.
+Repositories SHOULD favor small, incremental, and reversible changes over large, monolithic updates.
 
 ## Branch Strategy
 
 The default branch represents the stable state of the project.
 
-All changes should be developed in short-lived branches and integrated through Pull Requests.
+All changes SHOULD be developed in short-lived branches and integrated through Pull Requests.
 
-Branch names should clearly communicate the purpose of the work being performed.
+Branch names SHOULD clearly communicate the purpose of the work being performed.
 
-Repositories should adopt the following branch prefixes:
+Repositories SHOULD adopt the following branch prefixes:
 
 - `feature/`
 - `fix/`
@@ -86,7 +117,7 @@ Repositories should adopt the following branch prefixes:
 
 The Product Development Playbook adopts the Conventional Commits specification as the default commit convention.
 
-Commit messages should:
+Commit messages SHOULD:
 
 - Be written in the imperative mood.
 - Describe a single logical change.
@@ -107,9 +138,9 @@ Common commit types include:
 
 ## Pull Request Standard
 
-All changes must be integrated through Pull Requests.
+All changes MUST be integrated through Pull Requests.
 
-Every Pull Request should:
+Every Pull Request SHOULD:
 
 - Focus on a single logical change.
 - Include a clear summary of the proposed changes.
@@ -117,10 +148,10 @@ Every Pull Request should:
 - Reference related process artifacts when applicable (e.g., phase, issue, ADR, milestone).
 - Be reviewed before merging into the default branch.
 - Be merged only after successful review.
-  
+
 ## Versioning Strategy
 
-Projects should adopt Semantic Versioning (SemVer) as the default versioning strategy.
+Projects SHOULD adopt Semantic Versioning (SemVer) as the default versioning strategy.
 
 Version numbers follow the format:
 
@@ -132,7 +163,7 @@ Where:
 - **MINOR** — Backward-compatible features and enhancements.
 - **PATCH** — Backward-compatible bug fixes and maintenance changes.
 
-Alternative versioning strategies may be adopted when justified by the project's nature.
+Alternative versioning strategies MAY be adopted when justified by the project's nature.
 
 ## References
 
