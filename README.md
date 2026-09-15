@@ -1,15 +1,12 @@
 # Product Development Playbook
 
-A practical, technology-agnostic playbook for planning, building, releasing, and evolving software products.
+A practical, technology-agnostic framework for turning an idea into a software product and evolving it over time.
 
 ## What is it?
-This repository answers one fundamental question:
 
 > "If I have an idea today, how does it become a product?"
 
-The Product Development Playbook is a structured framework for defining, building, releasing, and evolving software products.
-
-It defines the concepts, lifecycle, practices, and standards used to guide software product development from inception to long-term maintenance.
+The Product Development Playbook defines the concepts, lifecycle, practices, and standards that guide software product development from inception to long-term maintenance.
 
 ## Vision
 Enable individuals and teams to build software products through a consistent, technology-agnostic, and continuously improving development process.
