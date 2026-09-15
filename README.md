@@ -94,12 +94,28 @@ Current directories:
 - `templates/` — Reusable starting material
 - `docs/practices/` — Operational guidance that applies standards
 - `.devcontainer/` — Reproducible GitHub Codespaces environment.
-- `scripts/` — Supporting implementation utilities; [export-audit.sh](scripts/export-audit.sh) is a GitHub CLI-based audit exporter requiring Git, `gh`, `jq`, and `zip`. Its manifest records reproducibility metadata and collection counts; its collection exports may be incomplete until the pagination work is finished. Run `shfmt -w scripts/*.sh` to apply the repository formatting convention, then run `bash scripts/check-export-audit.sh` in a configured Codespace to check shell syntax, formatting, and linting.
+- `scripts/` — Supporting implementation utilities. Run `bash scripts/check-export-audit.sh` in a configured Codespace to check shell syntax, formatting, linting, and regression fixtures.
 
 Planned categories, not present in the current repository:
 
 
 The [Documentation Information Architecture](docs/standards/documentation-information-architecture.md) defines these responsibilities without requiring fixed directory names or placeholder content.
+
+## Audit exporter
+
+[`scripts/export-audit.sh`](scripts/export-audit.sh) creates a timestamped, offline audit package for the current Git repository.
+
+Requirements: Git, GitHub CLI (`gh`), `jq`, `zip`, and `unzip`. Authenticate with `gh auth login` and ensure the account can access the repository, then run:
+
+```bash
+bash scripts/export-audit.sh
+```
+
+The ZIP contains an `exports/<timestamp>/` root with `repository/`, `git/`, `github/`, and a root `manifest.json`. The manifest records the source commit, selected ref, collection counts, and pagination completion.
+
+By default, the exporter targets Organization Project #1. Set `GITHUB_PROJECT_NUMBER` to select another project. Set `GITHUB_EXPORT_DISCUSSIONS=true` only for repositories that use GitHub Discussions.
+
+Audit packages can contain issue bodies, comments, and other sensitive repository data. Store and share them only through approved local locations and access controls. A failed export exits non-zero and is not reported as successful.
 
 ## Standards
 
