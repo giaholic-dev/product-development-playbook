@@ -140,6 +140,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Bug Management](docs/standards/bug-management.md)
 - [Technical Debt Management](docs/standards/technical-debt-management.md)
 - [Product Monitoring](docs/standards/product-monitoring.md)
+- [Product Evolution](docs/standards/product-evolution.md)
 
 ### Documentation
 
@@ -178,6 +179,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Outcomes](docs/standards/outcomes.md)
 - [Product Scope](docs/standards/product-scope.md)
 - [Product Backlog](docs/standards/product-backlog.md)
+- [Product Evolution](docs/standards/product-evolution.md)
 
 ## Current Status
 
