@@ -40,6 +40,6 @@ As the Product phase progresses, user understanding contributes to defining desi
 
 ## References
 
-- `docs/lifecycle/02-product.md`
-- `docs/standards/product-vision.md`
-- `docs/standards/problem-statement.md`
+- [Product Phase](../lifecycle/02-product.md)
+- [Product Vision](product-vision.md)
+- [Problem Statement](problem-statement.md)
