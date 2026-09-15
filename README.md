@@ -122,6 +122,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 - [Architecture Vision](docs/standards/architecture-vision.md)
 - [System Context](docs/standards/system-context.md)
+- [Architecture Decision Records](docs/standards/architecture-decision-records.md)
 
 ### UX
 
