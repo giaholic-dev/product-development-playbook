@@ -125,27 +125,33 @@ export_repository_status() {
 }
 
 export_issues() {
-  gh issue list --repo "$OWNER/$REPOSITORY" --state all --limit 500 --json number,title,body,state,stateReason,labels,milestone,assignees,createdAt,updatedAt,closedAt > "$EXPORT_DIR/github/issues.json"
+  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/issues?state=all&per_page=100" |
+    jq '[.[][] | select(.pull_request | not)] | unique_by(.id) | sort_by(.number)' > "$EXPORT_DIR/github/issues.json"
 }
 
 export_issue_comments() {
-  gh api "repos/$OWNER/$REPOSITORY/issues/comments?per_page=100" > "$EXPORT_DIR/github/issue-comments.json"
+  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/issues/comments?per_page=100" |
+    jq '[.[][]] | unique_by(.id) | sort_by(.issue_url, .id)' > "$EXPORT_DIR/github/issue-comments.json"
 }
 
 export_prs() {
-  gh pr list --repo "$OWNER/$REPOSITORY" --state all --limit 500 --json number,title,body,state,labels,author,createdAt,updatedAt,mergedAt,closedAt > "$EXPORT_DIR/github/pull-requests.json"
+  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/pulls?state=all&per_page=100" |
+    jq '[.[][]] | unique_by(.id) | sort_by(.number)' > "$EXPORT_DIR/github/pull-requests.json"
 }
 
 export_labels() {
-  gh label list --repo "$OWNER/$REPOSITORY" --json name,color,description > "$EXPORT_DIR/github/labels.json"
+  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/labels?per_page=100" |
+    jq '[.[][]] | unique_by(.id) | sort_by(.name)' > "$EXPORT_DIR/github/labels.json"
 }
 
 export_milestones() {
-  gh api "repos/$OWNER/$REPOSITORY/milestones?state=all" > "$EXPORT_DIR/github/milestones.json"
+  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/milestones?state=all&per_page=100" |
+    jq '[.[][]] | unique_by(.id) | sort_by(.number)' > "$EXPORT_DIR/github/milestones.json"
 }
 
 export_releases() {
-  gh release list --repo "$OWNER/$REPOSITORY" --json name,tagName,isDraft,isLatest,publishedAt > "$EXPORT_DIR/github/releases.json"
+  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/releases?per_page=100" |
+    jq '[.[][]] | unique_by(.id) | sort_by(.id)' > "$EXPORT_DIR/github/releases.json"
 }
 
 collection_count() {
@@ -200,6 +206,14 @@ create_manifest() {
         labels: $labels,
         milestones: $milestones,
         releases: $releases
+      },
+      collection_pagination: {
+        issues: true,
+        issue_comments: true,
+        pull_requests: true,
+        labels: true,
+        milestones: true,
+        releases: true
       }
     }' > "$EXPORT_DIR/manifest.json"
 }
