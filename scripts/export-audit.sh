@@ -457,6 +457,80 @@ create_manifest() {
   publish_json "$manifest_temporary" "$EXPORT_DIR/manifest.json" object
 }
 
+validate_integrity() {
+  local collection
+  local file
+  local declared_count
+  local actual_count
+  local collections=(
+    "issues:issues.json"
+    "issue_comments:issue-comments.json"
+    "pull_requests:pull-requests.json"
+    "labels:labels.json"
+    "milestones:milestones.json"
+    "releases:releases.json"
+    "project_items:project-items.json"
+    "project_fields:project-fields.json"
+    "project_views:project-views.json"
+    "issue_timeline:issue-timeline.json"
+    "review_comments:review-comments.json"
+  )
+
+  [[ -f "$EXPORT_DIR/manifest.json" ]] || {
+    echo "ERROR: Missing audit manifest."
+    exit 1
+  }
+
+  for collection in "${collections[@]}"; do
+    local name="${collection%%:*}"
+    file="$EXPORT_DIR/github/${collection#*:}"
+    [[ -f "$file" ]] || {
+      echo "ERROR: Missing required collection: $file"
+      exit 1
+    }
+
+    jq --exit-status 'type == "array" and (map(.id) | length == (unique | length))' "$file" >/dev/null || {
+      echo "ERROR: Invalid or duplicate records in $file"
+      exit 1
+    }
+
+    actual_count="$(jq length "$file")"
+    declared_count="$(jq --raw-output --arg name "$name" '.collection_counts[$name]' "$EXPORT_DIR/manifest.json")"
+    [[ "$actual_count" == "$declared_count" ]] || {
+      echo "ERROR: Manifest count mismatch for $name."
+      exit 1
+    }
+  done
+
+  jq --exit-status '.collection_pagination | all(.[]; . == true)' "$EXPORT_DIR/manifest.json" >/dev/null || {
+    echo "ERROR: Manifest does not confirm pagination completion."
+    exit 1
+  }
+
+  jq --exit-status --slurpfile issues "$EXPORT_DIR/github/issues.json" '
+    all(.[]; .issue_number as $number | $issues[0] | any(.[]; .number == $number))
+  ' "$EXPORT_DIR/github/issue-comments.json" >/dev/null || {
+    echo "ERROR: Issue comments reference missing issues."
+    exit 1
+  }
+
+  jq --exit-status --slurpfile issues "$EXPORT_DIR/github/issues.json" '
+    all(.[]; .issue_number as $number | $issues[0] | any(.[]; .number == $number))
+  ' "$EXPORT_DIR/github/issue-timeline.json" >/dev/null || {
+    echo "ERROR: Timeline events reference missing issues."
+    exit 1
+  }
+
+  jq --exit-status --slurpfile pull_requests "$EXPORT_DIR/github/pull-requests.json" '
+    all(.[]; .pull_request_number as $number | $pull_requests[0] | any(.[]; .number == $number))
+  ' "$EXPORT_DIR/github/review-comments.json" >/dev/null || {
+    echo "ERROR: Review comments reference missing pull requests."
+    exit 1
+  }
+
+  echo "Integrity checks passed."
+}
+
 compress() {
   (
     cd "$EXPORT_ROOT"
@@ -528,6 +602,7 @@ main() {
   export_issue_timeline
   export_review_comments
   create_manifest
+  validate_integrity
   compress
   summary
 }
