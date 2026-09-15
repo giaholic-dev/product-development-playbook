@@ -20,9 +20,27 @@ An **Issue Type** is a category used by a chosen management platform to represen
 
 Different platforms may provide different issue types, while the Playbook Work Types remain consistent across implementations. The distinct responsibilities of all work item dimensions are defined in the [Work Item Taxonomy](work-item-taxonomy.md).
 
-Pull Requests are implementation and review artifacts rather than work items.
+Pull Requests are implementation and review artifacts rather than work items. They MAY be linked to a work item for traceability, but they MUST NOT replace the work item's primary classification.
 
-A project management system may expose Pull Requests alongside work items, but they should not be treated as work items unless explicitly defined by the platform integration.
+A platform MAY display Pull Requests beside work items. Treating a Pull Request as a work item requires an explicit, documented platform integration rule that preserves the Work Item Model; platform display alone is not such a rule.
+
+## Classification Rules
+
+Select the Work Type by the work's primary intended outcome:
+
+| If the work primarily… | Use |
+| --- | --- |
+| Introduces a new user- or stakeholder-relevant capability | Feature |
+| Restores expected behavior after an unintended deviation | Bug |
+| Improves an existing capability or its user/stakeholder-perceived quality without changing its fundamental purpose | Improvement |
+| Reduces internal future cost, risk, or complexity while preserving intended external behavior | Technical Debt |
+| Investigates uncertainty before committing to implementation | Research |
+| Preserves or restores operational health, stability, supportability, or required routine operation | Operational Maintenance |
+
+When one change has more than one outcome, use its primary outcome and create linked work items for independently planned outcomes. The exception process in [Work Item Taxonomy](work-item-taxonomy.md) applies only when those outcomes are inseparable.
+
+**Maintenance** is a Lifecycle Phase: it answers where the work is primarily addressed. **Operational Maintenance** is a Work Type: it answers what the work primarily does. Any Work Type MAY occur in any Lifecycle Phase when the primary classification remains clear.
+
 
 ## Feature
 
@@ -97,11 +115,11 @@ Examples include:
 - Test coverage enhancements
 - Internal code cleanup
 
-## Maintenance
+## Operational Maintenance
 
-Maintenance preserves the operational health, stability, and supportability of the product throughout its lifecycle.
+Operational Maintenance preserves the operational health, stability, and supportability of the product throughout its lifecycle.
 
-Maintenance work keeps existing functionality operational without introducing new capabilities or significantly changing existing behavior.
+Operational Maintenance work keeps existing functionality operational without introducing new capabilities or significantly changing existing behavior.
 
 Examples include:
 
@@ -121,7 +139,7 @@ When implemented in GitHub, Issue Types and Work Types coexist and serve differe
 | ----------------- | --------------------------- |
 | Feature | Feature, Improvement |
 | Bug | Bug |
-| Task | Research, Technical Debt, Maintenance, Improvement |
+| Task | Research, Technical Debt, Operational Maintenance, Improvement |
 
 ## References
 
