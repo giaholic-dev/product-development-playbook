@@ -11,3 +11,7 @@ done
 bash -n scripts/export-audit.sh
 shfmt -d scripts/export-audit.sh
 shellcheck --shell=bash --severity=warning scripts/export-audit.sh
+
+jq --exit-status '
+  [.[][]] | unique_by(.id) | sort_by(.number) | map(.number) == [1, 2, 3]
+' scripts/fixtures/paginated-issues.json >/dev/null
