@@ -141,3 +141,13 @@ An unresolved material execution condition SHOULD be escalated when its treatmen
 When material, an Escalation SHOULD preserve relevant Protocol Inputs, Protocol Result, Protocol State, Execution Evidence Linkage, prior Execution Disposition, and Exception context. It MUST preserve traceability to the originating governed execution attempt when material. Escalation MUST NOT silently transfer Assignment, Authority, Accountability, ownership, or responsibility.
 
 Escalation does not establish Approval, Exception, Validation, Completion, release, Re-entry, or a Workflow State. The response to an Escalation is governed by the standards and Authority applicable to that response; absence of immediate resolution MUST NOT be treated as successful resolution. This standard defines no escalation hierarchy, level, severity, timeout, SLA, notification mechanism, queue, routing algorithm, or workflow.
+
+## Re-entry Boundary
+
+Re-entry remains a Work Management decision governed by the Work Management Standard. This standard defines only the attempt-level traceability boundary: when Work Management determines that Re-entry is required, relevant execution context SHOULD remain traceable when material.
+
+A governed execution attempt MUST NOT automatically cause Re-entry solely because it failed, produced an unexpected result, received an Execution Disposition, encountered an Exception, or was escalated. Relevant context MAY include applicable Protocol Inputs, Protocol Result, Protocol State, Execution Evidence Linkage, Execution Disposition, Exception, Escalation, and Handoff information.
+
+Re-entry MUST NOT erase or replace traceability of the originating execution attempt. A re-entered Work Item or context does not retroactively alter the historical Protocol Result or evidence of that attempt. This standard does not determine where work re-enters, which activity follows, whether a new Work Item is created, or how Workflow State changes.
+
+Re-entry does not authorize another execution attempt. Any subsequent governed execution attempt MUST independently satisfy its applicable protocol requirements.
