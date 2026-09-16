@@ -314,6 +314,12 @@ Material Improvement decisions SHOULD remain traceable when they change governed
 - [Roles and Actor Assignment Standard](roles-and-actor-assignment.md)
 - [AI Collaboration Standard](ai-collaboration.md)
 - [Security, Privacy, and Data Governance Standard](security-privacy-data-governance.md)
+- [Project Views](project-views.md)
+- [Repository Project Field Standard](repository-project-field-standard.md)
+- [Code Review Standard](code-review-standard.md)
+- [Testing Strategy](testing-strategy.md)
+- [Release Strategy](release-strategy.md)
+- [Maintenance Phase](../lifecycle/07-maintenance.md)
 
 ## Blocking
 
