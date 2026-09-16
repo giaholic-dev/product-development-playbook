@@ -27,6 +27,7 @@ This index lists maintained standards and the catalogs that help readers locate 
 - [Roles and Actor Assignment Standard](roles-and-actor-assignment.md)
 - [Work Management Standard](work-management.md)
 - [Execution Protocol Standard](execution-protocol.md)
+- [Master Execution Checklist](master-execution-checklist.md)
 - [Work Item Taxonomy](work-item-taxonomy.md)
 - [Work Item Types](work-item-types.md)
 - [Project Views](project-views.md)
