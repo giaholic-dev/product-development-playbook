@@ -227,3 +227,23 @@ Execution MUST occur within applicable Role Assignments, Authority boundaries, a
 Execution MUST NOT itself mean that work is complete. Completion requires applicable completion requirements and evidence governed by Definition of Done or other authoritative standards. Execution MUST NOT itself constitute review or validation; where either is required, the applicable governing standards remain authoritative.
 
 This standard does not define execution states, activity taxonomies, transitions, handoffs, blocking, escalation, metrics, service levels, tools, provider-specific mechanisms, or a universal execution procedure. The future Execution Protocol Standard remains the owner of execution-protocol concerns where applicable.
+
+## Validation
+
+Validation is the evaluation of work, evidence, or an outcome against applicable requirements to determine whether those requirements have been satisfied for the applicable purpose. It is not a Work Management Activity and is distinct from Execution, Review, Readiness, Completion, and Workflow State.
+
+Validation MAY evaluate required outcomes, acceptance criteria, evidence, functional requirements, quality requirements, governance requirements, security, privacy, or data requirements, or applicable technical or operational requirements. These examples are illustrative and do not create a validation taxonomy. Validation MUST use the requirements applicable to the work and its governing context.
+
+Execution produces or changes work; Validation evaluates resulting work, evidence, or outcomes. Execution MUST NOT itself constitute Validation. Validation MAY occur during or after Execution when applicable and MAY identify that additional Execution, Preparation, Refinement, or other management action is required. This does not define rework semantics or execution transitions.
+
+Review and Validation may overlap in practice but MUST remain conceptually distinct. Review concerns examination or evaluation by a Reviewer when a Reviewer responsibility is applicable; Validation concerns whether applicable requirements have been satisfied. The Roles and Actor Assignment Standard remains authoritative for Reviewer responsibility, and this standard does not create a universal reviewer requirement.
+
+Validation MAY provide evidence used in a Readiness evaluation but MUST NOT itself declare work Ready. Definition of Ready remains authoritative for readiness requirements. Validation MAY also provide evidence relevant to Completion but MUST NOT itself mean that work is complete. Definition of Done and other applicable completion requirements remain authoritative.
+
+Validation MUST NOT automatically constitute Approval. Where an approval decision is required, the Approver role and applicable Authority remain governed by the Roles and Actor Assignment Standard and other applicable standards.
+
+Validation SHOULD rely on appropriate evidence when the applicable requirement requires evidence. The form, sufficiency, and retention of evidence remain governed by the applicable standard. This standard does not prescribe a universal evidence format, test framework, tool, or storage mechanism.
+
+Validation MAY determine that applicable requirements are not satisfied. An unmet requirement MUST NOT automatically define a workflow transition. The result may inform additional Execution, Preparation, Refinement, or another applicable management action; this does not define Blocking, Re-entry, or workflow transitions.
+
+Validation MAY be repeated when work, requirements, or evidence change, a previous validation result becomes outdated, or additional work is performed. These examples are non-exhaustive and do not define a validation cadence.
