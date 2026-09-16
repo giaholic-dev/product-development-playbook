@@ -17,3 +17,7 @@ This standard defines responsibility and assignment semantics. It does not redef
 ### Role
 
 A Role represents a responsibility within Playbook execution. A Role MUST NOT represent a specific person, job title, team, AI agent, automation, provider, or tool. Separating responsibility from the entity performing work allows the same responsibility model across execution modes and organizational structures.
+
+### Actor
+
+An Actor is an entity that performs or participates in Playbook work. An Actor MAY be an individual human, team, AI agent, automation, or hybrid execution arrangement; these illustrations are not exhaustive. An Actor MUST NOT, by itself, determine which Role it fulfills, its authority, or its accountability.
