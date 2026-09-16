@@ -105,3 +105,19 @@ Prioritization is not equivalent to backlog order or execution sequence. Relativ
 Prioritization MUST NOT by itself select work for execution, pull work, commit work, or authorize execution. Higher relative importance MUST NOT automatically mean immediate execution; selection, commitment, and execution remain distinct concepts.
 
 Prioritization MAY recur when relevant evidence, risk, urgency, dependencies, obligations, objectives, or operating conditions change. Reconsidering relative importance MUST NOT require a specific ceremony or cadence.
+
+## Ordering
+
+Ordering is the Work Management Activity through which a relative precedence relationship is established or reconsidered among retained potential work or Work Items for an applicable management purpose. It is distinct from Prioritization, Priority, Selection, commitment, and execution sequence.
+
+Ordering MAY establish that one item should be considered before, after, or in relation to another item for an applicable management purpose. It MAY consider relative importance, dependencies, sequencing constraints, risk, urgency, obligations, availability of required inputs, coordination needs, or applicable timing constraints. These considerations are non-exhaustive. This standard does not prescribe a universal ordering method.
+
+Prioritization evaluates relative importance, while Ordering establishes a relative precedence relationship. Prioritization MAY inform Ordering, but relative importance MUST NOT be treated as the only possible basis for Ordering. A lower-priority item MAY legitimately precede a higher-priority item when another applicable constraint or management reason requires it.
+
+Ordering MUST NOT require every retained item to receive a unique position in one fully ranked list. Items MAY remain unordered relative to each other when no management decision requires a precedence relationship.
+
+Where work is represented in a Product Backlog, Ordering MAY inform its ordering or another applicable management representation. Product Backlog remains governed by its existing authoritative standard; Ordering does not require all Playbook work to exist in one Product Backlog.
+
+Ordering MUST NOT by itself select work, pull work, commit work, authorize execution, or establish that work has started. An item appearing earlier in an ordering MUST NOT automatically mean that it is selected, committed, or executable. Ordering is not an immutable execution sequence; applicable conditions MAY cause work to be selected or executed differently from an existing ordering.
+
+Ordering MAY be reconsidered when relevant priorities, dependencies, constraints, risks, obligations, inputs, or operating conditions change. Reordering MUST NOT require a specific ceremony, cadence, or workflow transition.
