@@ -31,3 +31,7 @@ An Assignment is the explicit relationship through which an Actor fulfills a Rol
 An Actor MAY fulfill multiple Roles within Playbook execution. Each Role remains a distinct responsibility; combining Roles in one Actor MUST NOT collapse or redefine them. Each Assignment MUST remain independently identifiable within its applicable scope.
 
 Multiple Actors MAY contribute to the same Role within a defined scope of Playbook work. The Role remains one distinct responsibility, and each Actor's Assignment MUST remain independently identifiable. Multiple contributing Actors MUST NOT make responsibility attribution ambiguous.
+
+## Accountability and authority
+
+Accountability identifies the Actor answerable for a material responsibility, decision, approval, exception, or completion declaration within a defined scope. Participation does not automatically imply accountability, and multiple Actors contributing to the same Role do not automatically share it. Where accountability is required by the Playbook or another governing rule, the accountable Actor MUST be explicitly identifiable. Assigning work to AI, automation, or another Actor MUST NOT silently transfer accountability; accountability MUST remain traceable when work is delegated, assisted, or automated.
