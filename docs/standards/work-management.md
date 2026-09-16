@@ -37,3 +37,31 @@ Intake MAY originate from user or stakeholder requests, observations, defects, i
 Intake does not redefine Work Item. If captured potential work becomes a governed Work Item, the Work Item Taxonomy remains authoritative for its classification. Intake does not determine Lifecycle Phase, Work Type, Priority, Workflow State, readiness, or commitment.
 
 Intake is not restricted to the beginning of a product or Lifecycle Phase. New potential work MAY be captured at any time. Feedback, incidents, validation findings, maintenance observations, or other developments MAY produce additional potential work that enters management through Intake when appropriate.
+
+## Preparation
+
+Preparation is the Work Management Activity through which retained potential work or an existing Work Item is developed to a level of understanding sufficient for an applicable subsequent management decision or action. Preparation MUST be purpose-oriented and proportional; it does not imply that every work item requires the same amount or type of preparation.
+
+Preparation MAY develop or clarify information such as:
+
+- intended outcome or problem;
+- scope;
+- constraints;
+- dependencies;
+- assumptions;
+- uncertainty;
+- relevant evidence;
+- acceptance evidence;
+- applicable classification;
+- ownership or decision responsibility; or
+- an actionable next step.
+
+This list is illustrative, not a mandatory preparation schema. Where another authoritative standard requires specific information, that standard remains authoritative. Preparation MUST preserve known material uncertainty rather than manufacture certainty merely to make work appear prepared.
+
+Intake captures and identifies potential work for management; Preparation develops the understanding needed to manage retained work further. Intake MUST NOT imply that Preparation is complete. Preparation MAY begin with information captured during Intake, but the two Activities remain conceptually distinct and do not require a transition between them.
+
+Preparation MAY apply before or after potential work is represented as a governed Work Item; this standard does not prescribe when that representation must occur. If work is classified as a Work Item, the Work Item Taxonomy and Work Item Types remain authoritative.
+
+Preparation MAY produce information used to evaluate readiness, but MUST NOT itself declare work Ready. Definition of Ready remains authoritative for readiness requirements and readiness decisions. Preparation MUST NOT by itself select work, commit work, authorize execution, or declare completion; prepared work may still require other management decisions before execution.
+
+Preparation MAY occur whenever additional understanding is needed. Its depth SHOULD remain proportional to the work's nature, risk, uncertainty, dependencies, and applicable governing requirements. Preparation MAY recur when material information or conditions change.
