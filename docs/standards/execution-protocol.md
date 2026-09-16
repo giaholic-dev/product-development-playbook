@@ -83,3 +83,13 @@ When material, a Handoff MUST preserve sufficient execution context for the rece
 A Handoff MUST NOT silently transfer Accountability, Authority, Role, Assignment, ownership, or Approval authority. Any required reassignment, Delegation, authorization, approval, or accountability change MUST occur under the standards that govern those concepts. A Handoff does not establish acceptance, Approval, Validation, Completion, Re-entry, or a Workflow State change.
 
 A Handoff MAY occur between humans, teams, AI agents, automations, hybrid Actors, or execution contexts when otherwise permitted. This standard does not prescribe a communication channel, document format, provider, queue, event system, or transport mechanism, nor does it require a handoff template or workflow.
+
+## Capability Requirement
+
+Capability Requirement is an attempt-level statement of a capability that must be available for a governed execution attempt to perform an applicable action or produce an applicable result. It identifies what must be possible for the attempt, not how the capability is implemented.
+
+A governed execution attempt MUST identify any Capability Requirement material to its applicable execution action. Capability Requirements SHOULD be expressed at the minimum level of specificity necessary to determine whether execution can proceed. A Capability Requirement MAY be satisfied by a human, team, AI agent, automation, tool, integration, hybrid Actor, or other permitted mechanism.
+
+A Capability Requirement does not establish that the capability is available. Possessing or exposing a capability does not establish Authority to use it; authorization and capability are independent conditions. Identifying a Capability Requirement does not establish readiness, execution success, Validation, Approval, Completion, or release.
+
+This standard does not require a particular provider, API, tool, framework, AI model, integration, or implementation mechanism. Capability availability, discovery, provider availability semantics, integration contracts, adapters, provider authorization mechanisms, and provider mappings remain outside this concept and belong to their applicable standards, including future integration concerns.
