@@ -51,3 +51,7 @@ Accountable Owner is the Role assigned to the single Actor who holds Accountabil
 ### Contributor
 
 Contributor is the Role assigned to an Actor that performs or contributes work within a defined scope without, by that contribution alone, becoming accountable for the material responsibility or gaining Authority over governed decisions. One or more Actors MAY hold a Contributor Assignment within the same applicable scope, and each Contributor Assignment MUST identify that scope. A Contributor MAY separately hold another Role through another identifiable Assignment, including Accountable Owner when independently assigned. Assigning Contributor MUST NOT obscure the Actor who is Accountable Owner when explicit accountability is required. An Actor need not hold a formal Contributor Assignment unless an applicable governing rule requires it to be represented.
+
+### Reviewer
+
+Reviewer is the Role assigned to an Actor responsible for evaluating governed work or evidence against applicable requirements within a defined scope. A Reviewer Assignment MUST identify that review scope. Performing review MUST NOT, by itself, make the Reviewer the Accountable Owner or grant approval Authority. A Reviewer MAY hold another Role through a separately identifiable Assignment when permitted by the applicable governing rules. Where another standard requires reviewer independence or separation of duties, that requirement remains authoritative.
