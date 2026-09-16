@@ -189,3 +189,23 @@ Pull does not necessarily mean that substantive Execution has already occurred. 
 Pull MUST NOT silently create or change Role Assignments. If active progression requires an Actor to perform a Role, applicable Assignment rules remain authoritative under the Roles and Actor Assignment Standard.
 
 Work MAY cease active progression and later be pulled again when applicable conditions permit. This does not define a workflow transition model or re-entry protocol. Pull is not required for all operating models.
+
+## Work-in-Progress (WIP)
+
+Work-in-Progress (WIP) is work that has entered active progression but has not yet ceased to be actively progressed. WIP describes a condition of managed work, not a Work Management Activity, Workflow State, Lifecycle Phase, Work Type, Commitment, or execution-status taxonomy.
+
+Work may be considered WIP when an applicable management decision has caused it to enter active progression and it remains under active progression. WIP MAY include work that is actively being executed, awaiting an active progression step, or temporarily constrained while still actively owned within the progression context. These examples are illustrative and do not create a WIP-state taxonomy.
+
+Pull MAY cause work to enter WIP, but Pull is not identical to WIP: Pull is the activity through which selected work is taken into active progression, while WIP is the condition describing work that remains in active progression. Work may cease to be WIP without implying that its underlying Work Item is permanently complete.
+
+WIP does not necessarily mean that substantive Execution is occurring at every moment. Work may remain in active progression while temporarily awaiting an applicable next action, input, dependency, or other condition. WIP MUST NOT be used to define execution states.
+
+WIP does not automatically imply Commitment. Committed work MAY become WIP, and work MAY become WIP without a formal Commitment where the applicable operating model permits it.
+
+This standard remains neutral regarding WIP limits. An applicable operating model MAY impose a WIP limit or another constraint on concurrent active work. This standard does not require a WIP limit, numerical threshold, capacity formula, specific WIP policy, Kanban model, metric, or queue policy. Where an applicable governing or adopted operating model defines a WIP constraint, that constraint remains authoritative.
+
+WIP MAY be measured or represented for operational purposes. This standard does not prescribe a metric definition, reporting cadence, tool, field, dashboard, or calculation method.
+
+Work ceases to be WIP when it is no longer considered to be in active progression under the applicable management model. This does not define Completion. A work item may cease to be WIP because it reaches a later management condition, is deliberately removed from active progression, is returned for additional management work, or is otherwise no longer actively progressed. These examples are illustrative and do not define Re-entry or workflow transitions.
+
+WIP limits or equivalent constraints are optional and operating-model dependent; WIP is not universally required.
