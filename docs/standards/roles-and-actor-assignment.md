@@ -29,3 +29,5 @@ An Assignment is the explicit relationship through which an Actor fulfills a Rol
 ## Assignment model
 
 An Actor MAY fulfill multiple Roles within Playbook execution. Each Role remains a distinct responsibility; combining Roles in one Actor MUST NOT collapse or redefine them. Each Assignment MUST remain independently identifiable within its applicable scope.
+
+Multiple Actors MAY contribute to the same Role within a defined scope of Playbook work. The Role remains one distinct responsibility, and each Actor's Assignment MUST remain independently identifiable. Multiple contributing Actors MUST NOT make responsibility attribution ambiguous.
