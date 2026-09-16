@@ -265,3 +265,23 @@ Completion MUST NOT define Workflow State. An operating model MAY represent comp
 Completion SHOULD be supported by appropriate evidence when applicable governing requirements require evidence. Evidence format, sufficiency, and retention remain governed by the applicable standards; this standard does not prescribe a universal completion-evidence schema.
 
 Completion does not imply that the underlying product, system, or domain can never require future work. Future defects, changes, feedback, maintenance, or requirements may result in new or additional work. This does not define Re-entry, reopening, Feedback, or Maintenance semantics.
+
+## Feedback
+
+Feedback is information arising from work, its outcomes, its context, or subsequent observations that may provide evidence for reconsidering how work is managed. It is not a Work Management Activity, workflow state, or process stage.
+
+Feedback MAY concern outcomes, user or stakeholder responses, validation findings, operational observations, incidents, defects, risks, changed dependencies, new requirements, lessons, performance or quality observations, or other relevant evidence. These examples are illustrative and do not create a feedback taxonomy.
+
+Feedback MAY inform Preparation, Refinement, Prioritization, Ordering, Readiness, Selection, Validation, Completion, or future Improvement. These are possible uses, not a mandatory sequence; Feedback MUST NOT imply that any particular Activity must occur.
+
+Completion does not terminate the possibility of future Feedback. Feedback MAY arise before Completion, during Validation, after Completion, during operation or maintenance, or from subsequent use or observation. Feedback after Completion MUST NOT automatically reopen completed work; this does not define Re-entry or reopening mechanics.
+
+Feedback MAY result in identification of new potential work. When appropriate, that potential work MAY enter management through Intake. Feedback MUST NOT automatically create a Work Item.
+
+Validation findings MAY constitute Feedback when they provide information relevant to subsequent management. Feedback is not equivalent to Validation: Validation evaluates requirements, while Feedback is information that may influence subsequent management.
+
+Feedback MAY provide evidence for Improvement, but MUST NOT itself constitute Improvement. Improvement is a separate management concern to be defined later.
+
+Material Feedback SHOULD remain traceable when its consequences materially affect management decisions or governed work. This does not impose universal documentation requirements. Representation and retention MAY depend on significance, risk, governance requirements, applicable evidence requirements, or operational context; these considerations are non-exhaustive.
+
+Feedback may indicate satisfactory outcomes, deficiencies, new opportunities, changed conditions, uncertainty, or new information. It is not limited to negative outcomes. Feedback MAY occur repeatedly and whenever relevant information becomes available; this standard does not prescribe a feedback cadence, ceremony, meeting, or review cycle.
