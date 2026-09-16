@@ -303,3 +303,14 @@ Improvement of Work Management remains distinct from Lifecycle Phase. It may con
 Improvement MAY occur whenever relevant evidence, Feedback, observations, or opportunities justify reconsideration. It does not require a fixed cadence, retrospective schedule, review cycle, or improvement meeting.
 
 Material Improvement decisions SHOULD remain traceable when they change governed Work Management practices or materially affect work. This does not impose a universal improvement-record schema. The applicable governance standard remains authoritative for changes to the Playbook itself.
+
+## References
+
+- [Work Item Taxonomy](work-item-taxonomy.md)
+- [Work Item Types](work-item-types.md)
+- [Product Backlog](product-backlog.md)
+- [Definition of Ready](definition-of-ready.md)
+- [Definition of Done](definition-of-done.md)
+- [Roles and Actor Assignment Standard](roles-and-actor-assignment.md)
+- [AI Collaboration Standard](ai-collaboration.md)
+- [Security, Privacy, and Data Governance Standard](security-privacy-data-governance.md)
