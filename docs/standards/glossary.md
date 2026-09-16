@@ -23,6 +23,8 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Definition of Ready | The minimum evidence that permits a responsible start. | [Definition of Ready](definition-of-ready.md) |
 | Delegation | Explicit transfer of work performance within a defined scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Execution | Realization of selected or otherwise authorized work through applicable actions. | [Work Management Standard](work-management.md) |
+| Execution Disposition | Explicit protocol-level determination of how a governed execution attempt is treated when its conditions prevent ordinary progression or its result requires an explicit protocol outcome. | [Execution Protocol Standard](execution-protocol.md) |
+| Execution Protocol | Minimum provider-independent semantic contract for making a governed execution attempt traceable and verifiable without redefining Work Management Execution. | [Execution Protocol Standard](execution-protocol.md) |
 | Feedback | Information that may inform reconsideration of how work is managed. | [Work Management Standard](work-management.md) |
 | Improvement | Deliberate use of relevant information to improve Work Management. | [Work Management Standard](work-management.md) |
 | Intake | Capture of potential work for subsequent management decisions. | [Work Management Standard](work-management.md) |
@@ -30,6 +32,8 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Ordering | Establishment or reconsideration of relative precedence among managed work. | [Work Management Standard](work-management.md) |
 | Preparation | Development of work understanding for a subsequent management decision or action. | [Work Management Standard](work-management.md) |
 | Prioritization | Evaluation or reconsideration of relative importance for management decisions. | [Work Management Standard](work-management.md) |
+| Protocol Result | Observable result produced by a governed execution attempt and identified for traceability and subsequent evaluation; it does not establish success. | [Execution Protocol Standard](execution-protocol.md) |
+| Protocol State | Minimal attempt-level representation of a governed execution attempt's current protocol condition, distinct from Workflow State. | [Execution Protocol Standard](execution-protocol.md) |
 | Pull | Taking selected work into active progression when applicable conditions permit. | [Work Management Standard](work-management.md) |
 | Readiness | Evaluation of work against applicable criteria for a responsible next action. | [Work Management Standard](work-management.md) |
 | Re-entry | Return of previously managed work to renewed management consideration when circumstances justify it; not automatic reopening or a Workflow State. | [Work Management Standard](work-management.md) |
