@@ -121,3 +121,17 @@ Where work is represented in a Product Backlog, Ordering MAY inform its ordering
 Ordering MUST NOT by itself select work, pull work, commit work, authorize execution, or establish that work has started. An item appearing earlier in an ordering MUST NOT automatically mean that it is selected, committed, or executable. Ordering is not an immutable execution sequence; applicable conditions MAY cause work to be selected or executed differently from an existing ordering.
 
 Ordering MAY be reconsidered when relevant priorities, dependencies, constraints, risks, obligations, inputs, or operating conditions change. Reordering MUST NOT require a specific ceremony, cadence, or workflow transition.
+
+## Readiness
+
+Readiness is the Work Management Activity through which the current condition of work is evaluated against the applicable criteria for a responsible next action. It is distinct from Preparation, Refinement, Selection, Commitment, Execution, and Workflow State.
+
+Definition of Ready is the authoritative source for specific readiness criteria. Readiness evaluates whether applicable readiness conditions are satisfied; it does not duplicate or replace those requirements. Work that does not satisfy applicable readiness requirements MUST NOT be treated as Ready merely because it has been prepared or refined.
+
+Readiness MUST be contextual and purpose-specific. Work may be sufficiently ready for one responsible action while not ready for another action requiring additional information, Authority, evidence, or coordination. This standard does not require a universal binary readiness model. Where an applicable governing standard defines a specific readiness requirement, that requirement remains authoritative.
+
+Preparation develops sufficient understanding for a subsequent management decision or action, and Refinement improves that understanding when additional clarification is useful. Readiness evaluates the resulting condition against applicable readiness requirements. Preparation or Refinement MUST NOT, by themselves, establish that work is Ready. A Readiness evaluation MAY reveal that additional Preparation or Refinement is required.
+
+Readiness MUST NOT by itself select work, commit work, authorize execution, start execution, establish Work-in-Progress, or declare completion. Work MAY be Ready without being selected and MUST NOT be treated as selected merely because it is Ready. Readiness is a condition relevant to responsible progression, not a commitment or execution event.
+
+Readiness MAY be reassessed when new information, assumptions, dependencies, risk, scope, required evidence, or governing requirements change. These examples are non-exhaustive. Reassessment MUST NOT require a ceremony, cadence, or workflow transition.
