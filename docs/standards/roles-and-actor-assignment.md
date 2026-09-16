@@ -41,3 +41,9 @@ Authority is the explicitly granted permission or decision right that allows an 
 ## Delegation
 
 Delegation is the explicit transfer of performance of some or all assigned work from one Actor to another Actor within a defined scope. Delegation MUST identify its delegated scope and preserve traceability between the original Assignment, receiving Actor, and delegated scope; it MUST NOT redefine the underlying Role. Delegation MUST NOT silently transfer Accountability or transfer or expand Authority. Any Accountability transfer, where permitted by a governing rule, MUST be explicit. Any Authority granted to the receiving Actor MUST be explicit and scope-bounded. A receiving Actor MAY perform delegated work only within its applicable Assignment and Authority boundaries.
+
+## Role model
+
+### Accountable Owner
+
+Accountable Owner is the Role assigned to the single Actor who holds Accountability for a material responsibility, decision, approval, exception, or completion declaration when a governing Playbook rule requires explicit accountability. In that case, exactly one Actor MUST be identifiable as the Accountable Owner within the applicable scope. Multiple Actors MAY contribute to the same work without becoming Accountable Owner automatically. Assigning Accountable Owner MUST NOT imply unrestricted Authority; the Accountable Owner MUST have only the Authority explicitly granted or required for the applicable responsibility. Delegation of performance, AI assistance, or automation MUST NOT silently transfer, replace, or change the Accountable Owner assignment. The Accountable Owner assignment MUST remain traceable within its applicable scope.
