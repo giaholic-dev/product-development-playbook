@@ -151,3 +151,21 @@ Selection MAY occur for an individual next action, a bounded set of work, a deli
 Selection MUST NOT by itself create a commitment, establish a Sprint, establish a delivery promise, authorize execution, establish Work-in-Progress, assign an Actor, or change Workflow State. A system MAY represent Selection through a tool-specific field or state, but this standard does not require that representation.
 
 Selection MAY be reconsidered when readiness, dependencies, risk, Priority, Ordering, capacity, constraints, or operating conditions change. Re-selection MUST NOT require a ceremony, cadence, or workflow transition.
+
+## Commitment
+
+Commitment is the Work Management Activity through which an Actor, group, or governing mechanism explicitly accepts responsibility for progressing selected work or achieving a defined outcome within a specified scope. It is distinct from Selection, Planning, Execution, Workflow State, Priority, and Ordering.
+
+A Commitment MUST identify, where applicable, the work or outcome being committed, its applicable scope, the Actor or governing mechanism responsible for the commitment, and any material conditions or constraints that define it. This does not create a universal commitment record schema. The amount of Commitment information SHOULD remain proportional to its significance, risk, and governance requirements.
+
+Selection chooses work for progression but MUST NOT automatically create Commitment. Work MAY be selected without a formal Commitment, and a Commitment MAY be created only when an applicable operating model, governance rule, or deliberate management decision requires or establishes one. Commitment is not required for all selected work.
+
+Commitment MUST NOT bypass applicable readiness requirements. Where a governing rule requires work to be Ready before Commitment, that rule remains authoritative. Readiness does not automatically create Commitment. Planning MAY establish conditions under which a Commitment is considered, but Commitment is not equivalent to Planning.
+
+Commitment MUST NOT mean that execution has already started; a committed item MAY be awaiting execution. It MUST NOT itself start execution, establish Workflow State, establish Work-in-Progress, assign an Actor to perform work unless that assignment is independently required, or authorize actions beyond the commitment scope.
+
+Commitment MAY apply to a specific work item, a bounded set of work, an outcome, a delivery objective, or another explicitly defined scope. These are illustrative examples, not a commitment taxonomy.
+
+A Commitment MAY be revised, withdrawn, or superseded when material conditions change. Such changes SHOULD remain traceable when the Commitment is governed or material; this does not define a Commitment lifecycle or transition model.
+
+Commitment MUST NOT automatically create Accountability unless an applicable governing rule establishes that relationship. Where explicit Accountability is required, the Roles and Actor Assignment Standard remains authoritative. An Actor may be accountable without making a formal Commitment, and a Commitment may exist without creating a new Accountable Owner when accountability is governed elsewhere.
