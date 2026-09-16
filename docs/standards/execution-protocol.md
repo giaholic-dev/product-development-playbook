@@ -121,3 +121,13 @@ The permitted generic protocol-level dispositions are:
 - `Exception` — progression or treatment depends on a governed exception.
 
 These dispositions are not Workflow States or Work Management Activities. They do not define internal procedures. An unavailable required capability MUST receive an applicable Execution Disposition rather than be silently ignored; this standard does not define how fallback is selected, blocking is managed, deferment is scheduled, an exception is authorized, or capability discovery operates.
+
+## Exception
+
+Exception is an explicit, governed protocol-level treatment used when an applicable requirement or normal execution condition cannot be satisfied as ordinarily required, but applicable governance permits exceptional treatment. It is an Execution Disposition; it is not a silent bypass, implicit waiver, automatic permission to proceed, generic failure, provider error, or replacement for Authority, Approval, Validation, or Completion criteria.
+
+An Exception MUST be explicit and MUST identify the applicable requirement or condition receiving exceptional treatment when material. It MUST be permitted by applicable governance. Required Authority or Approval for an Exception MUST be established under the standards that govern those concepts. The rationale for a material Exception MUST remain traceable when required by applicable governance, and applicable supporting evidence SHOULD remain linked when required.
+
+An Exception MUST NOT silently transfer Authority, Accountability, Assignment, ownership, or responsibility. It MUST NOT establish Validation, Approval, Completion, release, successful delivery, or a Workflow State, and it MUST NOT be interpreted as permanently changing the underlying governing requirement. The absence of a permitted Exception MUST NOT be treated as permission to ignore an unmet material requirement.
+
+Applicable governance standards retain ownership of the requirements receiving exceptional treatment and of any specific exception authority, criteria, evidence, or approval they require. This standard defines only the generic protocol semantics that make exceptional treatment explicit and traceable.
