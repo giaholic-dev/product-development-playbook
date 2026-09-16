@@ -168,6 +168,14 @@ This non-normative example illustrates one valid blocked-capability path. A gove
 
 The unavailable condition, relevant Protocol Inputs, the Capability Requirement and Availability determination, and applicable supporting evidence remain identifiable. The attempt receives an explicit `Block` Execution Disposition. Any Protocol State recorded for the attempt remains distinct from the Work Item Workflow State. That illustrative disposition does not establish Work Management Blocking, change the Work Item Workflow State, or determine subsequent Work Management treatment. It also does not automatically select Fallback, Exception, Escalation, Re-entry, retry, or termination; the attempt remains available for applicable Work Management treatment.
 
+### Re-entry execution trace
+
+This non-normative example illustrates one valid path in which execution history becomes relevant to a Work Management Re-entry decision. A prior governed execution attempt to update an existing documentation Artifact produced an identifiable Protocol Result and preserved applicable Execution Evidence Linkage. Subsequent Validation, Feedback, or applicable governance identifies a reason for additional work; Work Management independently determines whether Re-entry is appropriate under the Work Management Standard.
+
+When Re-entry is determined, the originating attempt identity and context, applicable Protocol Inputs, Protocol Result, Execution Evidence Linkage, and the applicable Validation, Feedback, or governance context remain traceable when material. Re-entry does not rewrite that historical result or evidence, is not a retry, and does not define a Protocol State or Workflow State transition.
+
+If additional execution occurs, it is a distinct governed execution attempt, not a mutation of the originating attempt. It independently identifies applicable Protocol Preconditions and Inputs, undergoes the applicable Execution Authorization Check, identifies Capability Requirements and Capability Availability, produces its own Protocol Result, and applies applicable Protocol Postconditions and Execution Evidence Linkage.
+
 ## References
 
 - [Work Management Standard](work-management.md)
