@@ -354,3 +354,25 @@ Where an applicable governing rule requires separation of duties, Review MUST re
 Review SHOULD produce or identify appropriate evidence when required by the applicable governing context. Material Review findings SHOULD remain traceable when they materially affect management decisions, governance, Readiness, Validation, Completion, or Accountability. This does not prescribe a universal review record, template, tool, or evidence format.
 
 Review MAY occur repeatedly when work, requirements, or evidence changes, new concerns arise, or additional review is required by applicable governance. This does not define a review cadence, ceremony, meeting, or workflow transition.
+
+## Re-entry
+
+Re-entry is the return of previously managed work to active Work Management consideration when new evidence, Feedback, changed conditions, unresolved needs, or other applicable circumstances justify further management. It is not a Work Management Activity, Workflow State, workflow transition, automatic reopening, Lifecycle Phase, or Work Type. It is distinct from Intake, Feedback, Completion, reopening mechanics, and Execution.
+
+Re-entry MAY apply when new evidence, Feedback, requirements, assumptions, dependencies, risk, defects, incidents, operating conditions, or a previously deferred need requires renewed consideration. These examples are illustrative and non-exhaustive; this standard does not create a Re-entry taxonomy.
+
+Feedback MAY provide information that leads to Re-entry, but MUST NOT automatically cause it. Re-entry requires an applicable management determination that renewed consideration is warranted.
+
+Completed work MAY be reconsidered through Re-entry when circumstances justify further management. Re-entry MUST NOT mean that every completed Work Item is automatically reopened. Completion of the prior scope remains historically valid unless applicable evidence or governance determines otherwise. Further work MAY concern, extend, or correct that scope, or result in new potential work. These possibilities are illustrative and do not define reopening mechanics.
+
+Re-entry and Intake are distinct: Intake captures potential work for management, while Re-entry returns previously managed work to active management consideration. New potential work discovered from Feedback or reconsideration MAY instead enter through Intake when appropriate. This standard does not prescribe a universal rule requiring either Re-entry or Intake for every subsequent need.
+
+Re-entry MUST NOT automatically establish Work-in-Progress or restart Execution. Work returning to management consideration may require Preparation, Refinement, Prioritization, Ordering, Readiness, Selection, or another applicable management decision before active progression occurs. These are illustrative possibilities, not a mandatory sequence. Execution requires applicable authorization, responsibility, constraints, and governing conditions.
+
+Following Re-entry, previously established Preparation, Refinement, Prioritization, Ordering, Readiness, Selection, or Commitment decisions MAY be reconsidered when still relevant. Re-entry MUST NOT automatically invalidate or reset all previous decisions. Existing evidence and decisions SHOULD be reused when they remain valid; this does not create a mandatory reset procedure.
+
+Re-entry MUST NOT define or require a reopened status, Workflow State, workflow transition, state machine, or status-field change. An operating model MAY represent renewed management using its own Workflow State or tool-specific mechanism, but this standard does not prescribe that representation.
+
+Material Re-entry SHOULD remain traceable when renewed management materially affects prior Completion, Commitments, governance, Accountability, or significant management decisions. This does not prescribe a universal Re-entry record, field, label, issue type, or template.
+
+Work MAY re-enter management more than once when applicable conditions justify reconsideration. This does not define a Re-entry lifecycle, cadence, or loop.
