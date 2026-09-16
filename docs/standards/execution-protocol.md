@@ -39,3 +39,11 @@ Protocol Input is information, evidence, constraints, references, or other appli
 A governed execution attempt MUST identify the Protocol Inputs required by applicable governing requirements and its execution context. Protocol Inputs MAY include information, evidence, constraints, references, decisions, or governed Artifacts when applicable. Only applicable inputs are required; this standard does not prescribe a universal input schema or manifest. A Protocol Input SHOULD be sufficiently identifiable to preserve traceability when material to the attempt or its verification.
 
 Protocol Input is an attempt-level protocol relationship, not a repository Artifact category, Work Item type, lifecycle classification, Workflow State, or Work Management Activity. Its presence does not establish readiness, authorization, capability availability, successful execution, validation, approval, or completion. It does not require every transient execution context to become a durable Artifact.
+
+## Protocol Result
+
+Protocol Result is the observable result produced by a governed execution attempt and identified by the Execution Protocol so that the attempt can be traced and subsequently evaluated under applicable governing requirements. It identifies what observably resulted from the attempt; it does not establish that the result was successful.
+
+A governed execution attempt MUST make its material Protocol Result sufficiently identifiable for subsequent traceability and verification. A Protocol Result MAY include created or modified information, Artifacts, observable effects, or a recorded unsuccessful outcome when applicable. An execution attempt that does not achieve its intended outcome may still have a Protocol Result. The result SHOULD preserve enough information to distinguish what occurred from what was intended when material.
+
+Protocol Result is attempt-level and does not change the authoritative type, ownership, lifecycle, or governing requirements of any Artifact or Work Item involved. It does not establish Validation, Approval, Completion, release, or successful delivery, and it does not require every transient effect of execution to become a durable Artifact. Applicable standards determine how a Protocol Result is evaluated.
