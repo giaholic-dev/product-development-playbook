@@ -103,3 +103,21 @@ When a governed execution attempt has a material Capability Requirement, the pro
 Capability Availability does not establish readiness, successful execution, Validation, Approval, Completion, or release. An unavailable required capability MUST NOT be silently treated as available and MUST remain explicit and traceable when material. This concept identifies availability or unavailability only; it does not determine the disposition that follows.
 
 Capability Availability is not capability discovery. This standard does not define capability support classifications, provider capability catalogs, integration contracts, adapters, provider mappings, APIs, or provider-specific availability mechanisms; those remain outside this concept and belong to applicable standards, including future integration concerns. Blocking remains governed by Work Management.
+
+## Execution Disposition
+
+Execution Disposition is the explicit protocol-level determination of how a governed execution attempt is to be treated when its current conditions do not permit ordinary progression or when its result requires an explicit protocol outcome. It makes that treatment explicit without defining a universal workflow, state machine, recovery algorithm, provider behavior, or Work Management decision model.
+
+When a material protocol condition prevents ordinary progression, a governed execution attempt MUST receive an explicit Execution Disposition rather than silently proceeding. When applicable governing requirements require explicit treatment of an execution result or unmet condition, that treatment MUST remain identifiable and traceable. An Execution Disposition records only how the attempt is to be treated at the protocol level; it does not prove that the underlying condition has been resolved.
+
+An Execution Disposition MUST NOT silently change Workflow State, Lifecycle Phase, Work-in-Progress, Blocking, Assignment, Authority, Accountability, Validation, Approval, Completion, or release status. Any resulting Work Management action remains governed by Work Management, and any required authorization or approval remains governed by the standards that own those concepts. The protocol does not prescribe a universal sequence of dispositions.
+
+The permitted generic protocol-level dispositions are:
+
+- `Proceed` — the attempt may continue under the applicable protocol conditions.
+- `Defer` — progression is intentionally postponed pending later treatment.
+- `Fallback` — progression may continue through another permitted execution approach.
+- `Block` — the attempt cannot currently progress under the applicable conditions.
+- `Exception` — progression or treatment depends on a governed exception.
+
+These dispositions are not Workflow States or Work Management Activities. They do not define internal procedures. An unavailable required capability MUST receive an applicable Execution Disposition rather than be silently ignored; this standard does not define how fallback is selected, blocking is managed, deferment is scheduled, an exception is authorized, or capability discovery operates.
