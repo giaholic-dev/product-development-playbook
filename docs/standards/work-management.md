@@ -209,3 +209,21 @@ WIP MAY be measured or represented for operational purposes. This standard does 
 Work ceases to be WIP when it is no longer considered to be in active progression under the applicable management model. This does not define Completion. A work item may cease to be WIP because it reaches a later management condition, is deliberately removed from active progression, is returned for additional management work, or is otherwise no longer actively progressed. These examples are illustrative and do not define Re-entry or workflow transitions.
 
 WIP limits or equivalent constraints are optional and operating-model dependent; WIP is not universally required.
+
+## Execution
+
+Execution is the realization of selected or otherwise authorized work through actions performed within the applicable scope, responsibilities, constraints, and governing requirements. It is not a Work Management Activity and is distinct from Lifecycle Phase, Work Type, Workflow State, Selection, Pull, Work-in-Progress, and Commitment.
+
+Execution concerns the actual performance of work. It MAY involve creating or modifying artifacts, performing technical or operational actions, investigating, implementing, communicating, testing, configuring, documenting, or other actions appropriate to the work. These examples are illustrative and do not create an execution taxonomy.
+
+Execution remains governed by the applicable Roles and Actor Assignment Standard, security, privacy, and data governance requirements, technical or domain-specific standards, review and validation requirements, and release and maintenance requirements. This standard does not duplicate those rules.
+
+Selection determines work chosen for progression, while Execution realizes work; Selection MUST NOT itself constitute Execution. Execution MAY occur after Selection, but Selection is not its only possible precursor: applicable operating models may authorize or initiate work through other governed mechanisms. Pull may take selected work into active progression, and Execution may occur after Pull, but Pull MUST NOT be treated as synonymous with Execution. WIP describes work that remains in active progression; Execution may occur while work is WIP, but WIP MUST NOT mean that substantive Execution is continuously occurring. Commitment may establish responsibility for progressing work or achieving an outcome, but MUST NOT be treated as proof that Execution has started; Execution MUST NOT automatically create Commitment.
+
+Execution MUST NOT define Workflow States. A tool or operating model MAY represent execution progress using Workflow State, but this standard does not prescribe state names, transitions, status fields, state machines, or progress percentages.
+
+Execution MUST occur within applicable Role Assignments, Authority boundaries, and governance requirements. An Actor MUST NOT gain Authority or become an Accountable Owner merely because the Actor performs Execution. Where delegation is used, the Roles and Actor Assignment Standard remains authoritative.
+
+Execution MUST NOT itself mean that work is complete. Completion requires applicable completion requirements and evidence governed by Definition of Done or other authoritative standards. Execution MUST NOT itself constitute review or validation; where either is required, the applicable governing standards remain authoritative.
+
+This standard does not define execution states, activity taxonomies, transitions, handoffs, blocking, escalation, metrics, service levels, tools, provider-specific mechanisms, or a universal execution procedure. The future Execution Protocol Standard remains the owner of execution-protocol concerns where applicable.
