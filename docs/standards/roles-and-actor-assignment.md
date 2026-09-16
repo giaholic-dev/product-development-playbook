@@ -21,3 +21,7 @@ A Role represents a responsibility within Playbook execution. A Role MUST NOT re
 ### Actor
 
 An Actor is an entity that performs or participates in Playbook work. An Actor MAY be an individual human, team, AI agent, automation, or hybrid execution arrangement; these illustrations are not exhaustive. An Actor MUST NOT, by itself, determine which Role it fulfills, its authority, or its accountability.
+
+### Assignment
+
+An Assignment is the explicit relationship through which an Actor fulfills a Role within a defined scope of Playbook work. It connects a responsibility to an execution entity without changing the identity of either concept. An Assignment MUST identify a scope sufficient to determine where the Role is fulfilled.
