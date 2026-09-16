@@ -135,3 +135,19 @@ Preparation develops sufficient understanding for a subsequent management decisi
 Readiness MUST NOT by itself select work, commit work, authorize execution, start execution, establish Work-in-Progress, or declare completion. Work MAY be Ready without being selected and MUST NOT be treated as selected merely because it is Ready. Readiness is a condition relevant to responsible progression, not a commitment or execution event.
 
 Readiness MAY be reassessed when new information, assumptions, dependencies, risk, scope, required evidence, or governing requirements change. These examples are non-exhaustive. Reassessment MUST NOT require a ceremony, cadence, or workflow transition.
+
+## Selection
+
+Selection is the Work Management Activity through which work is chosen from available managed work for progression toward an applicable next action. It is a management decision distinct from Prioritization, Ordering, Readiness, Commitment, and Execution.
+
+Selection MAY consider readiness, relative ordering, Priority, dependencies, capacity, constraints, risk, timing, required capabilities, or current operating conditions. These considerations are non-exhaustive. This standard does not prescribe a universal decision formula. Work being highly prioritized, highly ordered, or Ready MUST NOT by itself mean that it is selected.
+
+Ready work MAY remain unselected, and unselected work MAY remain Ready. Selection MUST consider applicable readiness requirements before choosing work for an action that requires readiness, but Selection MUST NOT itself declare work Ready. Definition of Ready remains authoritative for readiness criteria.
+
+Ordering and Prioritization MAY inform Selection. Selection MUST NOT be reduced to choosing the first item in an ordering or the highest-priority item; applicable constraints or conditions MAY justify another choice.
+
+Selection MAY occur for an individual next action, a bounded set of work, a delivery objective, a planning horizon, or a flow context. These examples are illustrative and do not create a selection-scope taxonomy.
+
+Selection MUST NOT by itself create a commitment, establish a Sprint, establish a delivery promise, authorize execution, establish Work-in-Progress, assign an Actor, or change Workflow State. A system MAY represent Selection through a tool-specific field or state, but this standard does not require that representation.
+
+Selection MAY be reconsidered when readiness, dependencies, risk, Priority, Ordering, capacity, constraints, or operating conditions change. Re-selection MUST NOT require a ceremony, cadence, or workflow transition.
