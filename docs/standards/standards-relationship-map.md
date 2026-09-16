@@ -14,6 +14,7 @@ This map covers principal ownership and dependency relationships among published
 | --- | --- | --- |
 | Repository governance | [Repository Standards](repository-standards.md) | Branch Workflow, Code Review, Definition of Ready, Definition of Done |
 | Roles and actor assignment | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) | Definition of Ready, Definition of Done, AI Collaboration Standard, Security, Privacy, and Data Governance Standard |
+| Work management | [Work Management Standard](work-management.md) | Work Item Taxonomy, Work Item Types, Product Backlog, Definition of Ready, Definition of Done, Roles and Actor Assignment Standard, AI Collaboration Standard, Security, Privacy, and Data Governance Standard |
 | Work classification | [Work Item Taxonomy](work-item-taxonomy.md) | Work Item Types, Project Views, Repository Project Field Standard |
 | Vocabulary and evidence | [Terminology Standard](terminology-standard.md) | Glossary, Artifact Standard, Documentation Style Guide |
 | Documentation navigation | [Documentation Information Architecture](documentation-information-architecture.md) | Documentation Navigation Standard, Standards Index, Artifact Catalog |
