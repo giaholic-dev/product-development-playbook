@@ -332,3 +332,25 @@ A blocking condition MAY be resolved when its underlying cause is removed, chang
 Material blocking conditions SHOULD remain visible or traceable when they materially affect management decisions, Commitments, governance, or work progression. This does not require a universal blocking field, label, status, dashboard, or tool representation.
 
 Blocking MAY arise, change, disappear, or recur as conditions change. This does not define a blocking lifecycle.
+
+## Review
+
+Review is the evaluation of work, evidence, or an outcome by an assigned Reviewer against applicable requirements, expectations, or decision criteria within a defined scope. It is not a Work Management Activity, Workflow State, Lifecycle Phase, Work Type, Validation, or Completion. The Roles and Actor Assignment Standard remains authoritative for Reviewer, Assignment, Accountability, and Authority.
+
+Review MAY examine work products, evidence, decisions, implementation, documentation, outcomes, compliance with applicable expectations, or other material aspects within the review scope. These examples are illustrative and do not create a Review taxonomy. Review MAY identify concerns, deficiencies, risks, questions, required changes, or evidence supporting acceptance or further management decisions. These outcomes are informational unless another governing rule gives them a specific decision effect.
+
+Review and Validation are distinct. Review is evaluation performed by a Reviewer within an assigned responsibility; Validation evaluates work, evidence, or outcomes against applicable requirements to determine requirement satisfaction. A Review MAY provide evidence relevant to Validation, and Validation MAY use evidence produced by a Review. Neither concept automatically implies the other.
+
+Review MAY provide evidence relevant to Completion or Readiness, but MUST NOT itself mean that work is complete or declare work Ready. Completion remains governed by applicable completion requirements, including Definition of Done where applicable, and Definition of Ready remains authoritative for readiness requirements.
+
+Review MUST NOT automatically constitute Approval, and a Reviewer is not automatically an Approver. Where approval is required, the Approver role and applicable Authority remain governed by the Roles and Actor Assignment Standard and other applicable governance.
+
+Review MAY occur during or after Execution, but MUST NOT define execution mechanics. Its findings MAY lead to additional management or execution actions; this does not define rework, handoff, escalation, or a mandatory workflow.
+
+Review requires a Reviewer only when an applicable governing rule requires or establishes Reviewer responsibility. This concept does not make Review mandatory for every work item. The Reviewer may be an individual, team member, team, or another authorized Actor; these illustrations are not a Reviewer taxonomy and remain governed by the Roles and Actor Assignment Standard.
+
+Where an applicable governing rule requires separation of duties, Review MUST respect that requirement. A Reviewer MAY hold another Role only when applicable governance permits it; this does not create a universal separation-of-duties framework.
+
+Review SHOULD produce or identify appropriate evidence when required by the applicable governing context. Material Review findings SHOULD remain traceable when they materially affect management decisions, governance, Readiness, Validation, Completion, or Accountability. This does not prescribe a universal review record, template, tool, or evidence format.
+
+Review MAY occur repeatedly when work, requirements, or evidence changes, new concerns arise, or additional review is required by applicable governance. This does not define a review cadence, ceremony, meeting, or workflow transition.
