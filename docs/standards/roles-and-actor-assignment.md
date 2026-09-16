@@ -64,6 +64,20 @@ Approver is the Role assigned to an Actor responsible for making an approval dec
 
 Accountable Owner, Contributor, Reviewer, and Approver are distinct responsibilities; assigning one MUST NOT automatically assign another. The same Actor MAY fulfill multiple Roles through separately identifiable Assignments when applicable governing rules permit, but combining Roles MUST NOT collapse or redefine their responsibilities. Where required, the Accountable Owner, Reviewer, Approver, and applicable approval Authority MUST remain identifiable; multiple Contributors MAY participate without changing that model. A single Actor MAY fulfill multiple applicable Roles in lightweight or individual execution when governing rules permit, without eliminating required Accountability, Authority, review, approval, or separation of duties. The four Roles need not all be represented unless required by a governing rule or deliberately assigned for the applicable scope. Governing requirements for independence, separation of duties, or incompatible responsibilities take precedence over otherwise permitted Role combination.
 
+## Examples
+
+The following non-normative examples validate the portability of the responsibility model.
+
+### Human-only individual execution
+
+A human Actor holds distinct Accountable Owner and Contributor Assignments for a documentation change. The responsibilities remain distinct even though one Actor fulfills both. The same Actor may also hold Reviewer or Approver only when the applicable governing rules permit; a required separation of duties still takes precedence.
+
+### AI-assisted execution
+
+For the same documentation change, a human Actor retains the Accountable Owner Assignment. An AI Actor has an identifiable Contributor Assignment for drafting support. That participation does not itself grant the AI Actor Accountability or Authority, and it does not replace the Accountable Owner. Review or approval remains separately assigned when required. The AI Actor could hold another Role only through an explicit Assignment when governing rules permit.
+
+Role, Actor, Assignment, Accountability, Authority, and applicable separation-of-duties requirements retain the same semantics regardless of whether execution is human-only or AI-assisted.
+
 ## References
 
 - [Definition of Ready](definition-of-ready.md)
