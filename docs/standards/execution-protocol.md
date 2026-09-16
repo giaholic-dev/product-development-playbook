@@ -31,3 +31,11 @@ Execution Authorization Check is the protocol-level determination that the Actor
 A governed execution attempt requiring Authority MUST verify that Authority within the applicable scope before proceeding. Participation, technical capability, access, Assignment, Delegation, AI involvement, or automation MUST NOT by themselves imply Authority. Missing required Authority MUST NOT be silently ignored, and material authorization evidence or decisions SHOULD remain traceable when required by applicable governance.
 
 A successful Execution Authorization Check means only that the applicable authorization condition has been satisfied for the attempt. It does not establish readiness, Selection, Commitment, capability availability, validation, approval, completion, or permission beyond the applicable scope. The Roles and Actor Assignment Standard remains authoritative for Authority and related responsibility semantics; AI Collaboration Standard and Security, Privacy, and Data Governance Standard remain authoritative for their applicable requirements.
+
+## Protocol Input
+
+Protocol Input is information, evidence, constraints, references, or other applicable material made available to a governed execution attempt for use in performing that attempt. It identifies what applicable material is available to and relevant for that attempt without changing the material's authoritative type, ownership, lifecycle, or governing requirements.
+
+A governed execution attempt MUST identify the Protocol Inputs required by applicable governing requirements and its execution context. Protocol Inputs MAY include information, evidence, constraints, references, decisions, or governed Artifacts when applicable. Only applicable inputs are required; this standard does not prescribe a universal input schema or manifest. A Protocol Input SHOULD be sufficiently identifiable to preserve traceability when material to the attempt or its verification.
+
+Protocol Input is an attempt-level protocol relationship, not a repository Artifact category, Work Item type, lifecycle classification, Workflow State, or Work Management Activity. Its presence does not establish readiness, authorization, capability availability, successful execution, validation, approval, or completion. It does not require every transient execution context to become a durable Artifact.
