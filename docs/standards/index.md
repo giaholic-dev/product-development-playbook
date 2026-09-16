@@ -26,6 +26,7 @@ This index lists maintained standards and the catalogs that help readers locate 
 - [Security, Privacy, and Data Governance Standard](security-privacy-data-governance.md)
 - [Roles and Actor Assignment Standard](roles-and-actor-assignment.md)
 - [Work Management Standard](work-management.md)
+- [Execution Protocol Standard](execution-protocol.md) — Provider-independent semantics for traceable, verifiable governed execution attempts.
 - [Work Item Taxonomy](work-item-taxonomy.md)
 - [Work Item Types](work-item-types.md)
 - [Project Views](project-views.md)
