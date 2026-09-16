@@ -247,3 +247,21 @@ Validation SHOULD rely on appropriate evidence when the applicable requirement r
 Validation MAY determine that applicable requirements are not satisfied. An unmet requirement MUST NOT automatically define a workflow transition. The result may inform additional Execution, Preparation, Refinement, or another applicable management action; this does not define Blocking, Re-entry, or workflow transitions.
 
 Validation MAY be repeated when work, requirements, or evidence change, a previous validation result becomes outdated, or additional work is performed. These examples are non-exhaustive and do not define a validation cadence.
+
+## Completion
+
+Completion is the determination that applicable completion requirements for work have been satisfied and that the work may be considered complete for its applicable scope and purpose. It is not a Work Management Activity and is distinct from Execution, Validation, Review, Readiness, Commitment, and Workflow State.
+
+Definition of Done remains the authoritative source for applicable completion requirements where it governs the work. Completion determines whether those requirements have been satisfied; this standard does not duplicate their criteria. Work MUST NOT be treated as complete merely because Execution or Validation occurred, or because it was selected, committed, or pulled.
+
+Validation MAY provide evidence relevant to Completion, but MUST NOT automatically mean Completion. Completion MAY depend on validation evidence when applicable requirements require it. Review MAY also provide relevant evidence or evaluation, but MUST NOT automatically mean Completion.
+
+Completion MAY apply to a Work Item, defined outcome, bounded piece of work, or another explicitly governed scope. These examples are illustrative and do not create a completion taxonomy. Work remains incomplete when only some applicable requirements have been satisfied.
+
+When work is considered complete under applicable requirements, it MAY cease to be Work-in-Progress. Completion is not merely leaving Work-in-Progress, and work may cease to be Work-in-Progress for other reasons without being complete. Completion MAY satisfy the outcome of a Commitment when the applicable Commitment concerns that outcome, but MUST NOT automatically create or modify Commitment.
+
+Completion MUST NOT define Workflow State. An operating model MAY represent completed work using Workflow State, but this standard does not prescribe state names, status fields, transitions, state machines, or completion statuses.
+
+Completion SHOULD be supported by appropriate evidence when applicable governing requirements require evidence. Evidence format, sufficiency, and retention remain governed by the applicable standards; this standard does not prescribe a universal completion-evidence schema.
+
+Completion does not imply that the underlying product, system, or domain can never require future work. Future defects, changes, feedback, maintenance, or requirements may result in new or additional work. This does not define Re-entry, reopening, Feedback, or Maintenance semantics.
