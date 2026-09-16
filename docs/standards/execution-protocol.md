@@ -63,3 +63,13 @@ Execution Evidence Linkage is the attempt-level relationship that connects a gov
 A governed execution attempt MUST preserve linkage to evidence required by applicable governing standards when that evidence is material to verification. The linkage SHOULD make it possible to relate the execution attempt, applicable Protocol Inputs, Protocol Result, and applicable Protocol Postcondition evaluation when required. It MUST preserve the identity and ownership of referenced evidence rather than redefining it as a protocol Artifact type.
 
 Evidence MAY already exist, be produced during execution, or become available after the execution action when applicable. Not every transient observation or execution detail must become durable evidence. Evidence depth and durability SHOULD remain proportional to applicable risk, governance, verification, and existing requirements. Presence of evidence or an Execution Evidence Linkage does not establish Validation, Approval, Completion, release, or successful delivery. Missing required evidence MUST NOT be silently treated as evidence that exists.
+
+## Protocol State
+
+Protocol State is the minimal attempt-level representation of the current protocol condition of a particular governed execution attempt. It exists only to make that attempt's current protocol condition explicit and traceable when needed for coordination or verification.
+
+Protocol State MAY be recorded when needed for traceability, coordination, or verification. It MUST remain distinguishable from the Workflow State of any associated Work Item. It does not represent Work-in-Progress, Blocking, lifecycle progression, a Work Management Activity, Completion, or a provider's native state.
+
+Protocol State MUST NOT imply that an associated Work Item is Ready, selected, committed, in progress, blocked, under review, validated, approved, complete, released, or re-entered. A change in Protocol State MUST NOT automatically change Workflow State, Lifecycle Phase, Work-in-Progress, Blocking, or Completion; likewise, a change in Work Management does not automatically imply a particular Protocol State.
+
+This standard does not require a universal Protocol State catalog, transition model, or state machine. Any persisted or provider-mapped representation of Protocol State remains outside this concept.
