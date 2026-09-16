@@ -16,23 +16,38 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Assignment | Relationship through which an Actor fulfills a Role within a defined scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Authority | Explicit permission or decision right within a defined scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Blocking | Contextual, evidence-based condition that materially prevents or constrains work progression, rather than an Activity or Workflow State. | [Work Management Standard](work-management.md) |
+| Capability Availability | Attempt-level determination of whether a required capability can be performed in its applicable execution context, independent of Authority. | [Execution Protocol Standard](execution-protocol.md) |
+| Capability Requirement | Attempt-level statement of a capability needed for a governed execution attempt. | [Execution Protocol Standard](execution-protocol.md) |
 | Completion | Determination that work satisfies applicable completion requirements within its scope. | [Work Management Standard](work-management.md) |
 | Commitment | Explicit acceptance of responsibility to progress work or achieve an outcome within scope. | [Work Management Standard](work-management.md) |
 | Contributor | Role for performing or contributing work within an applicable scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Definition of Done | The evidence required to consider a work item or outcome complete. | [Definition of Done](definition-of-done.md) |
 | Definition of Ready | The minimum evidence that permits a responsible start. | [Definition of Ready](definition-of-ready.md) |
 | Delegation | Explicit transfer of work performance within a defined scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
+| Escalation | Explicit raising of an unresolved material execution condition for appropriate governed treatment. | [Execution Protocol Standard](execution-protocol.md) |
+| Exception | Explicit, governance-permitted exceptional treatment of an unmet or nonstandard execution condition. | [Execution Protocol Standard](execution-protocol.md) |
 | Execution | Realization of selected or otherwise authorized work through applicable actions. | [Work Management Standard](work-management.md) |
+| Execution Authorization Check | Protocol-level determination that the intended Actor or execution mechanism has applicable Authority for an attempt. | [Execution Protocol Standard](execution-protocol.md) |
+| Execution Disposition | Explicit protocol-level treatment of an execution attempt's material condition or result; distinct from Protocol State. | [Execution Protocol Standard](execution-protocol.md) |
+| Execution Evidence Linkage | Attempt-level relationship connecting an execution attempt and its Protocol Result to applicable evidence. | [Execution Protocol Standard](execution-protocol.md) |
+| Execution Protocol | Provider-independent semantic contract for making a governed execution attempt traceable and verifiable. | [Execution Protocol Standard](execution-protocol.md) |
 | Feedback | Information that may inform reconsideration of how work is managed. | [Work Management Standard](work-management.md) |
+| Handoff | Traceable transfer of execution context without transferring Assignment, Delegation, Authority, or Accountability. | [Execution Protocol Standard](execution-protocol.md) |
 | Improvement | Deliberate use of relevant information to improve Work Management. | [Work Management Standard](work-management.md) |
 | Intake | Capture of potential work for subsequent management decisions. | [Work Management Standard](work-management.md) |
 | Lifecycle Phase | One ordered part of the Product Development Playbook lifecycle. | [Foundation Phase](../lifecycle/01-foundation.md) |
 | Ordering | Establishment or reconsideration of relative precedence among managed work. | [Work Management Standard](work-management.md) |
 | Preparation | Development of work understanding for a subsequent management decision or action. | [Work Management Standard](work-management.md) |
 | Prioritization | Evaluation or reconsideration of relative importance for management decisions. | [Work Management Standard](work-management.md) |
+| Protocol Input | Attempt-level applicable material made available for use in a governed execution attempt. | [Execution Protocol Standard](execution-protocol.md) |
+| Protocol Postconditions | Applicable conditions evaluated against a Protocol Result and evidence after an attempt. | [Execution Protocol Standard](execution-protocol.md) |
+| Protocol Preconditions | Applicable conditions addressed before a governed execution attempt proceeds. | [Execution Protocol Standard](execution-protocol.md) |
+| Protocol Result | Observable result of a governed execution attempt, identified for traceability and evaluation. | [Execution Protocol Standard](execution-protocol.md) |
+| Protocol State | Current protocol-level condition of a particular execution attempt, distinct from Workflow State. | [Execution Protocol Standard](execution-protocol.md) |
 | Pull | Taking selected work into active progression when applicable conditions permit. | [Work Management Standard](work-management.md) |
 | Readiness | Evaluation of work against applicable criteria for a responsible next action. | [Work Management Standard](work-management.md) |
 | Re-entry | Return of previously managed work to renewed management consideration when circumstances justify it; not automatic reopening or a Workflow State. | [Work Management Standard](work-management.md) |
+| Re-entry Boundary | Execution-traceability boundary around Re-entry, whose management semantics remain owned by Work Management. | [Execution Protocol Standard](execution-protocol.md) |
 | Refinement | Iterative improvement of work understanding when additional clarity is useful. | [Work Management Standard](work-management.md) |
 | Release | The phase that makes an integrated increment available with a release record and recovery path. | [Release Phase](../lifecycle/06-release.md) |
 | Review | Evaluation by an assigned Reviewer against applicable criteria; distinct from Validation and not itself Approval, Readiness, or Completion. | [Work Management Standard](work-management.md) |
