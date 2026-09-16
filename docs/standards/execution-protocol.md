@@ -73,3 +73,13 @@ Protocol State MAY be recorded when needed for traceability, coordination, or ve
 Protocol State MUST NOT imply that an associated Work Item is Ready, selected, committed, in progress, blocked, under review, validated, approved, complete, released, or re-entered. A change in Protocol State MUST NOT automatically change Workflow State, Lifecycle Phase, Work-in-Progress, Blocking, or Completion; likewise, a change in Work Management does not automatically imply a particular Protocol State.
 
 This standard does not require a universal Protocol State catalog, transition model, or state machine. Any persisted or provider-mapped representation of Protocol State remains outside this concept.
+
+## Handoff
+
+Handoff is the traceable transfer of execution context from one Actor, execution mechanism, or governed execution attempt to another participant or subsequent execution context. It preserves the information necessary for continuity and verification without transferring responsibility semantics governed elsewhere.
+
+When material, a Handoff MUST preserve sufficient execution context for the receiving participant or context to understand what is being transferred. Applicable Protocol Inputs, Protocol Result, Protocol State, Execution Evidence Linkage, unresolved conditions, and relevant governing context SHOULD remain identifiable when material to continuity or verification. A Handoff MUST preserve traceability to the originating execution attempt when required by applicable governance.
+
+A Handoff MUST NOT silently transfer Accountability, Authority, Role, Assignment, ownership, or Approval authority. Any required reassignment, Delegation, authorization, approval, or accountability change MUST occur under the standards that govern those concepts. A Handoff does not establish acceptance, Approval, Validation, Completion, Re-entry, or a Workflow State change.
+
+A Handoff MAY occur between humans, teams, AI agents, automations, hybrid Actors, or execution contexts when otherwise permitted. This standard does not prescribe a communication channel, document format, provider, queue, event system, or transport mechanism, nor does it require a handoff template or workflow.
