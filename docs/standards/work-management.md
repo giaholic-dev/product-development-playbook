@@ -65,3 +65,29 @@ Preparation MAY apply before or after potential work is represented as a governe
 Preparation MAY produce information used to evaluate readiness, but MUST NOT itself declare work Ready. Definition of Ready remains authoritative for readiness requirements and readiness decisions. Preparation MUST NOT by itself select work, commit work, authorize execution, or declare completion; prepared work may still require other management decisions before execution.
 
 Preparation MAY occur whenever additional understanding is needed. Its depth SHOULD remain proportional to the work's nature, risk, uncertainty, dependencies, and applicable governing requirements. Preparation MAY recur when material information or conditions change.
+
+## Refinement
+
+Refinement is the Work Management Activity through which understanding of retained potential work or a Work Item is iteratively improved when additional clarity is useful for an applicable management decision or action. Refinement MUST be treated as an activity, not as a mandatory ceremony, meeting, phase, state, gate, or scheduled event.
+
+Preparation develops work to sufficient understanding for an applicable subsequent management decision or action. Refinement is an iterative way of improving that understanding when additional clarification is useful. Refinement MAY occur as part of Preparation or later whenever work requires renewed clarification; not every Preparation activity requires a separately identified Refinement activity.
+
+Refinement MAY clarify or update information such as:
+
+- intended outcome or problem;
+- scope;
+- constraints;
+- dependencies;
+- assumptions;
+- uncertainty;
+- evidence;
+- acceptance evidence;
+- applicable classification;
+- ownership or decision responsibility; or
+- actionable next steps.
+
+This list is illustrative and MUST NOT become a mandatory refinement schema. Refinement MUST preserve unresolved material uncertainty and MUST NOT manufacture certainty merely to satisfy a process expectation.
+
+Refinement MAY occur before readiness evaluation, after new information becomes available, after feedback, after a dependency changes, after risk or uncertainty changes, or after work has begun when renewed clarification is necessary. These examples are non-exhaustive; Refinement is not restricted to a single point in work management.
+
+Refinement MAY produce information useful for readiness evaluation, but MUST NOT itself declare work Ready. Definition of Ready remains authoritative. Refinement MUST NOT by itself prioritize work, select work, commit work, authorize execution, approve an outcome, or declare completion. It improves understanding; other applicable management or governance decisions remain distinct.
