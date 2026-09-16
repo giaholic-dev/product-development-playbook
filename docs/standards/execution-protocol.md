@@ -47,3 +47,11 @@ Protocol Result is the observable result produced by a governed execution attemp
 A governed execution attempt MUST make its material Protocol Result sufficiently identifiable for subsequent traceability and verification. A Protocol Result MAY include created or modified information, Artifacts, observable effects, or a recorded unsuccessful outcome when applicable. An execution attempt that does not achieve its intended outcome may still have a Protocol Result. The result SHOULD preserve enough information to distinguish what occurred from what was intended when material.
 
 Protocol Result is attempt-level and does not change the authoritative type, ownership, lifecycle, or governing requirements of any Artifact or Work Item involved. It does not establish Validation, Approval, Completion, release, or successful delivery, and it does not require every transient effect of execution to become a durable Artifact. Applicable standards determine how a Protocol Result is evaluated.
+
+## Protocol Postconditions
+
+Protocol Postconditions are the applicable conditions evaluated after a governed execution attempt to determine whether its Protocol Result satisfies the conditions required for the attempt's protocol-level outcome to be established. They provide the post-attempt counterpart to Protocol Preconditions.
+
+A governed execution attempt MUST identify applicable Protocol Postconditions when governing requirements or execution context require conditions to be evaluated after the attempt. Applicable Protocol Postconditions derive from governing requirements and execution context; only applicable conditions are required, and this standard does not prescribe a universal postcondition checklist. Protocol Postconditions are evaluated against the Protocol Result and applicable evidence.
+
+An unmet material Protocol Postcondition MUST NOT be silently treated as satisfied and SHOULD remain traceable when required for verification or governance. An unmet Protocol Postcondition does not by itself determine the subsequent Work Management action. Satisfying Protocol Postconditions does not establish Validation, Approval, Completion, release, successful delivery, or a Workflow State. Governing standards retain ownership of the criteria they supply.
