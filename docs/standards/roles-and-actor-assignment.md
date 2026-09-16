@@ -63,3 +63,10 @@ Approver is the Role assigned to an Actor responsible for making an approval dec
 ### Role relationships
 
 Accountable Owner, Contributor, Reviewer, and Approver are distinct responsibilities; assigning one MUST NOT automatically assign another. The same Actor MAY fulfill multiple Roles through separately identifiable Assignments when applicable governing rules permit, but combining Roles MUST NOT collapse or redefine their responsibilities. Where required, the Accountable Owner, Reviewer, Approver, and applicable approval Authority MUST remain identifiable; multiple Contributors MAY participate without changing that model. A single Actor MAY fulfill multiple applicable Roles in lightweight or individual execution when governing rules permit, without eliminating required Accountability, Authority, review, approval, or separation of duties. The four Roles need not all be represented unless required by a governing rule or deliberately assigned for the applicable scope. Governing requirements for independence, separation of duties, or incompatible responsibilities take precedence over otherwise permitted Role combination.
+
+## References
+
+- [Definition of Ready](definition-of-ready.md)
+- [Definition of Done](definition-of-done.md)
+- [AI Collaboration Standard](ai-collaboration.md)
+- [Security, Privacy, and Data Governance Standard](security-privacy-data-governance.md)
