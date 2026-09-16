@@ -91,3 +91,17 @@ This list is illustrative and MUST NOT become a mandatory refinement schema. Ref
 Refinement MAY occur before readiness evaluation, after new information becomes available, after feedback, after a dependency changes, after risk or uncertainty changes, or after work has begun when renewed clarification is necessary. These examples are non-exhaustive; Refinement is not restricted to a single point in work management.
 
 Refinement MAY produce information useful for readiness evaluation, but MUST NOT itself declare work Ready. Definition of Ready remains authoritative. Refinement MUST NOT by itself prioritize work, select work, commit work, authorize execution, approve an outcome, or declare completion. It improves understanding; other applicable management or governance decisions remain distinct.
+
+## Prioritization
+
+Prioritization is the Work Management Activity through which relative importance is evaluated to support management decisions among retained potential work or Work Items. It is distinct from Priority: Priority is a recorded relative planning classification when applicable, while Prioritization is the activity through which relative importance is evaluated or reconsidered.
+
+Prioritization MAY consider intended outcomes, user or stakeholder value, risk, urgency, dependencies, obligations, uncertainty, cost of delay, available evidence, strategic relevance, or operational impact. These considerations are non-exhaustive. It MUST NOT prescribe a scoring model, formula, fixed factor weights, ranking framework, or mandatory prioritization method. Prioritization SHOULD use relevant available evidence and make material decision rationale traceable when durable justification is required; it does not require universal documentation for every decision.
+
+The existing authoritative standards remain responsible for the meaning and representation of Priority. Prioritization MAY establish, change, or retain a Priority, or make a relative management decision without persisting a Priority value. Those outcomes MUST NOT make Priority mandatory where existing standards treat it as optional.
+
+Prioritization is not equivalent to backlog order or execution sequence. Relative importance MAY inform ordering, but Priority and Prioritization do not by themselves determine exact work order.
+
+Prioritization MUST NOT by itself select work for execution, pull work, commit work, or authorize execution. Higher relative importance MUST NOT automatically mean immediate execution; selection, commitment, and execution remain distinct concepts.
+
+Prioritization MAY recur when relevant evidence, risk, urgency, dependencies, obligations, objectives, or operating conditions change. Reconsidering relative importance MUST NOT require a specific ceremony or cadence.
