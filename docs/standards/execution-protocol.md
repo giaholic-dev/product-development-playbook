@@ -151,3 +151,19 @@ A governed execution attempt MUST NOT automatically cause Re-entry solely becaus
 Re-entry MUST NOT erase or replace traceability of the originating execution attempt. A re-entered Work Item or context does not retroactively alter the historical Protocol Result or evidence of that attempt. This standard does not determine where work re-enters, which activity follows, whether a new Work Item is created, or how Workflow State changes.
 
 Re-entry does not authorize another execution attempt. Any subsequent governed execution attempt MUST independently satisfy its applicable protocol requirements.
+
+## References
+
+- [Work Management Standard](work-management.md)
+- [Roles and Actor Assignment Standard](roles-and-actor-assignment.md)
+- [Definition of Ready](definition-of-ready.md)
+- [Definition of Done](definition-of-done.md)
+- [Work Item Taxonomy](work-item-taxonomy.md)
+- [Work Item Types](work-item-types.md)
+- [Artifact Standard](artifact-standard.md)
+- [AI Collaboration Standard](ai-collaboration.md)
+- [Security, Privacy, and Data Governance Standard](security-privacy-data-governance.md)
+- [Code Review Standard](code-review-standard.md)
+- [Testing Strategy](testing-strategy.md)
+- [Release Strategy](release-strategy.md)
+- [Maintenance Phase](../lifecycle/07-maintenance.md)
