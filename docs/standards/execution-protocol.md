@@ -131,3 +131,13 @@ An Exception MUST be explicit and MUST identify the applicable requirement or co
 An Exception MUST NOT silently transfer Authority, Accountability, Assignment, ownership, or responsibility. It MUST NOT establish Validation, Approval, Completion, release, successful delivery, or a Workflow State, and it MUST NOT be interpreted as permanently changing the underlying governing requirement. The absence of a permitted Exception MUST NOT be treated as permission to ignore an unmet material requirement.
 
 Applicable governance standards retain ownership of the requirements receiving exceptional treatment and of any specific exception authority, criteria, evidence, or approval they require. This standard defines only the generic protocol semantics that make exceptional treatment explicit and traceable.
+
+## Escalation
+
+Escalation is the explicit raising of an unresolved material execution condition to an Actor, Role, authority context, or governance mechanism capable of determining its treatment. It makes conditions requiring a decision beyond the current execution context explicit and traceable.
+
+An unresolved material execution condition SHOULD be escalated when its treatment requires Authority, information, judgment, or governance outside the current execution context. An Escalation MUST identify the material condition being raised when required for meaningful treatment, and its target MUST be appropriate to the applicable governing context.
+
+When material, an Escalation SHOULD preserve relevant Protocol Inputs, Protocol Result, Protocol State, Execution Evidence Linkage, prior Execution Disposition, and Exception context. It MUST preserve traceability to the originating governed execution attempt when material. Escalation MUST NOT silently transfer Assignment, Authority, Accountability, ownership, or responsibility.
+
+Escalation does not establish Approval, Exception, Validation, Completion, release, Re-entry, or a Workflow State. The response to an Escalation is governed by the standards and Authority applicable to that response; absence of immediate resolution MUST NOT be treated as successful resolution. This standard defines no escalation hierarchy, level, severity, timeout, SLA, notification mechanism, queue, routing algorithm, or workflow.
