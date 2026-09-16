@@ -55,3 +55,7 @@ Contributor is the Role assigned to an Actor that performs or contributes work w
 ### Reviewer
 
 Reviewer is the Role assigned to an Actor responsible for evaluating governed work or evidence against applicable requirements within a defined scope. A Reviewer Assignment MUST identify that review scope. Performing review MUST NOT, by itself, make the Reviewer the Accountable Owner or grant approval Authority. A Reviewer MAY hold another Role through a separately identifiable Assignment when permitted by the applicable governing rules. Where another standard requires reviewer independence or separation of duties, that requirement remains authoritative.
+
+### Approver
+
+Approver is the Role assigned to an Actor responsible for making an approval decision within a defined scope when a governing Playbook rule requires or explicitly establishes approval. An Approver Assignment MUST identify that approval scope, and the Approver MUST have the Authority required to make that decision. Being assigned as Approver MUST NOT imply Authority beyond the applicable approval scope or make the Approver the Accountable Owner for the broader responsibility or outcome. Review and approval remain distinct responsibilities: performing review MUST NOT automatically make an Actor the Approver. An Actor MAY hold Reviewer and Approver through distinct Assignments when the applicable governing rules permit. Where another standard requires reviewer/approver independence or separation of duties, that requirement remains authoritative.
