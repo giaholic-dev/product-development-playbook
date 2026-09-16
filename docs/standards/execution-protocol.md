@@ -152,6 +152,16 @@ Re-entry MUST NOT erase or replace traceability of the originating execution att
 
 Re-entry does not authorize another execution attempt. Any subsequent governed execution attempt MUST independently satisfy its applicable protocol requirements.
 
+## Non-normative execution traces
+
+The following example illustrates one valid, provider-independent execution path. It does not prescribe a universal sequence, require every illustrated element for every attempt, or establish a workflow.
+
+### Normal execution trace
+
+A governed execution attempt updates an existing documentation Artifact. Applicable Protocol Preconditions are addressed, and an Execution Authorization Check independently verifies the applicable Authority. The attempt identifies its relevant Protocol Inputs and a material Capability Requirement; Capability Availability then determines that the required capability is available in the applicable context.
+
+The attempt performs the governed execution action and identifies the updated Artifact as its observable Protocol Result. Applicable Protocol Postconditions are evaluated against that result, and material Execution Evidence Linkage preserves traceability to the inputs, result, and evaluation. The result and linked evidence remain available for subsequent Work Management Validation or other applicable governance; this trace does not establish Validation, Approval, Completion, release, or Workflow State.
+
 ## References
 
 - [Work Management Standard](work-management.md)
