@@ -25,3 +25,7 @@ An Actor is an entity that performs or participates in Playbook work. An Actor M
 ### Assignment
 
 An Assignment is the explicit relationship through which an Actor fulfills a Role within a defined scope of Playbook work. It connects a responsibility to an execution entity without changing the identity of either concept. An Assignment MUST identify a scope sufficient to determine where the Role is fulfilled.
+
+## Assignment model
+
+An Actor MAY fulfill multiple Roles within Playbook execution. Each Role remains a distinct responsibility; combining Roles in one Actor MUST NOT collapse or redefine them. Each Assignment MUST remain independently identifiable within its applicable scope.
