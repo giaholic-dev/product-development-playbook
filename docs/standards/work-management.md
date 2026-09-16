@@ -169,3 +169,23 @@ Commitment MAY apply to a specific work item, a bounded set of work, an outcome,
 A Commitment MAY be revised, withdrawn, or superseded when material conditions change. Such changes SHOULD remain traceable when the Commitment is governed or material; this does not define a Commitment lifecycle or transition model.
 
 Commitment MUST NOT automatically create Accountability unless an applicable governing rule establishes that relationship. Where explicit Accountability is required, the Roles and Actor Assignment Standard remains authoritative. An Actor may be accountable without making a formal Commitment, and a Commitment may exist without creating a new Accountable Owner when accountability is governed elsewhere.
+
+## Pull
+
+Pull is the Work Management Activity through which an Actor or execution context takes selected work into active progression when applicable capacity, Authority, and other governing conditions permit. It is distinct from Selection, Commitment, Execution, Workflow State, and Work-in-Progress.
+
+Pull represents an explicit progression decision that uses available capacity or execution opportunity to take selected work forward. It MAY be initiated by an individual Actor, a team, an authorized automated mechanism, or another execution context permitted by applicable governance. These examples are non-exhaustive.
+
+Selection determines which work is chosen for progression; Pull determines that selected work is taken into active progression when applicable conditions permit. Selection MUST NOT automatically imply Pull. Pull MUST NOT select arbitrary work outside the applicable selection decision or governing rules.
+
+Pull MUST NOT automatically create Commitment. A work item MAY be pulled without a formal Commitment when the applicable operating model permits, and a committed work item MAY exist before Pull occurs.
+
+Pull MUST respect applicable readiness requirements. Where work must be Ready before active progression, Pull MUST NOT bypass that requirement. Definition of Ready remains authoritative, and Pull MUST NOT itself declare work Ready.
+
+Pull MAY depend on available capacity or applicable Work-in-Progress constraints. This standard does not prescribe a universal capacity model, Work-in-Progress limit, metric, Kanban policy, or numerical threshold. Where another governing or adopted operating model defines such constraints, those constraints remain authoritative.
+
+Pull does not necessarily mean that substantive Execution has already occurred. It indicates that work has been taken into active progression; Execution remains a distinct concern. Pull MUST NOT itself define execution steps, execution states, handoffs, transitions, or completion.
+
+Pull MUST NOT silently create or change Role Assignments. If active progression requires an Actor to perform a Role, applicable Assignment rules remain authoritative under the Roles and Actor Assignment Standard.
+
+Work MAY cease active progression and later be pulled again when applicable conditions permit. This does not define a workflow transition model or re-entry protocol. Pull is not required for all operating models.
