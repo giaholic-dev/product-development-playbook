@@ -285,3 +285,21 @@ Feedback MAY provide evidence for Improvement, but MUST NOT itself constitute Im
 Material Feedback SHOULD remain traceable when its consequences materially affect management decisions or governed work. This does not impose universal documentation requirements. Representation and retention MAY depend on significance, risk, governance requirements, applicable evidence requirements, or operational context; these considerations are non-exhaustive.
 
 Feedback may indicate satisfactory outcomes, deficiencies, new opportunities, changed conditions, uncertainty, or new information. It is not limited to negative outcomes. Feedback MAY occur repeatedly and whenever relevant information becomes available; this standard does not prescribe a feedback cadence, ceremony, meeting, or review cycle.
+
+## Improvement
+
+Improvement is the deliberate consideration and application of relevant evidence, Feedback, observations, or identified opportunities to improve the effectiveness, clarity, reliability, or appropriateness of Work Management. It is not a Work Management Activity.
+
+Improvement MAY concern management practices, decision-making, work representation, Preparation, Refinement, Prioritization, Ordering, Readiness evaluation, Selection, Commitment practices, Execution support, Validation practices, Completion practices, information flow, governance, or traceability. These examples are illustrative and do not create an improvement taxonomy.
+
+Feedback MAY provide evidence for Improvement, but Improvement is not equivalent to Feedback. Feedback is information that may inform management; Improvement is the deliberate consideration or application of that information to improve Work Management.
+
+Improvement MAY result in changes to how Work Management Activities are performed or represented. It MUST NOT imply that every Activity requires improvement or require a specific Activity, ceremony, retrospective, cadence, or process framework. This standard does not create a mandatory improvement cycle.
+
+Improvement MAY identify clarifications to standards, changes to practices or representations, changes to decision criteria, or opportunities to reduce ambiguity, improve traceability, or improve effectiveness. Improvement MUST NOT automatically modify authoritative standards. Changes to authoritative standards remain subject to the applicable governance and documentation process, which this standard does not define.
+
+Improvement of Work Management remains distinct from Lifecycle Phase. It may concern how work is managed across any Lifecycle Phase and does not create a new Lifecycle Phase. This standard defines Improvement only and does not define process-improvement methodology, retrospectives, continuous-improvement frameworks, Kaizen, Lean, organizational transformation, or change-management procedures.
+
+Improvement MAY occur whenever relevant evidence, Feedback, observations, or opportunities justify reconsideration. It does not require a fixed cadence, retrospective schedule, review cycle, or improvement meeting.
+
+Material Improvement decisions SHOULD remain traceable when they change governed Work Management practices or materially affect work. This does not impose a universal improvement-record schema. The applicable governance standard remains authoritative for changes to the Playbook itself.
