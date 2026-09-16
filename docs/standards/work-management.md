@@ -314,3 +314,21 @@ Material Improvement decisions SHOULD remain traceable when they change governed
 - [Roles and Actor Assignment Standard](roles-and-actor-assignment.md)
 - [AI Collaboration Standard](ai-collaboration.md)
 - [Security, Privacy, and Data Governance Standard](security-privacy-data-governance.md)
+
+## Blocking
+
+Blocking is a condition in which a material dependency, constraint, missing input, unresolved decision, unavailable capability, or other applicable factor prevents or materially constrains the progression of work. It is not a Work Management Activity, Workflow State, Lifecycle Phase, Work Type, Work-in-Progress state, or Execution state. Blocking MUST remain contextual and evidence-based.
+
+A work item MAY be considered blocked when a material condition prevents or materially constrains its applicable progression. Examples include an unavailable dependency, missing required input, unresolved decision, unavailable capability, external constraint, required evidence not yet available, or technical or operational constraint. These examples are illustrative and non-exhaustive; this standard does not prescribe a universal list of blocking causes.
+
+Blocked work MAY remain Work-in-Progress when it remains under active progression management. Blocking MUST NOT automatically mean that work ceases to be Work-in-Progress, and work MAY cease to be Work-in-Progress without being blocked.
+
+Blocking MAY prevent or materially constrain Execution, but MUST NOT define an Execution State or prescribe how an Actor resolves the condition. A blocking condition MAY affect whether work can be pulled or remain actively progressed, but MUST NOT create a Pull policy.
+
+A blocking condition MAY inform Selection, Ordering, Prioritization, Preparation, or Refinement. Blocking MUST NOT automatically change any of those decisions or automatically cancel, modify, or transfer a Commitment. It MAY affect the ability to satisfy a Commitment.
+
+A blocking condition MAY be resolved when its underlying cause is removed, changed, accepted, or otherwise governed appropriately. This does not define escalation, handoff, workflow transition, resolution procedure, service level, or blocking-duration policy.
+
+Material blocking conditions SHOULD remain visible or traceable when they materially affect management decisions, Commitments, governance, or work progression. This does not require a universal blocking field, label, status, dashboard, or tool representation.
+
+Blocking MAY arise, change, disappear, or recur as conditions change. This does not define a blocking lifecycle.
