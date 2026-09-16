@@ -162,6 +162,12 @@ A governed execution attempt updates an existing documentation Artifact. Applica
 
 The attempt performs the governed execution action and identifies the updated Artifact as its observable Protocol Result. Applicable Protocol Postconditions are evaluated against that result, and material Execution Evidence Linkage preserves traceability to the inputs, result, and evaluation. The result and linked evidence remain available for subsequent Work Management Validation or other applicable governance; this trace does not establish Validation, Approval, Completion, release, or Workflow State.
 
+### Blocked-capability execution trace
+
+This non-normative example illustrates one valid blocked-capability path. A governed execution attempt to update an existing documentation Artifact identifies a material Capability Requirement and determines through Capability Availability that the required capability is unavailable in the applicable context. The attempt does not treat the capability as available and does not perform the action that depends on it.
+
+The unavailable condition, relevant Protocol Inputs, the Capability Requirement and Availability determination, and applicable supporting evidence remain identifiable. The attempt receives an explicit `Block` Execution Disposition. Any Protocol State recorded for the attempt remains distinct from the Work Item Workflow State. That illustrative disposition does not establish Work Management Blocking, change the Work Item Workflow State, or determine subsequent Work Management treatment. It also does not automatically select Fallback, Exception, Escalation, Re-entry, retry, or termination; the attempt remains available for applicable Work Management treatment.
+
 ## References
 
 - [Work Management Standard](work-management.md)
