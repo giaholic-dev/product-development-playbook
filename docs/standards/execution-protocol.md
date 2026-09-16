@@ -93,3 +93,13 @@ A governed execution attempt MUST identify any Capability Requirement material t
 A Capability Requirement does not establish that the capability is available. Possessing or exposing a capability does not establish Authority to use it; authorization and capability are independent conditions. Identifying a Capability Requirement does not establish readiness, execution success, Validation, Approval, Completion, or release.
 
 This standard does not require a particular provider, API, tool, framework, AI model, integration, or implementation mechanism. Capability availability, discovery, provider availability semantics, integration contracts, adapters, provider authorization mechanisms, and provider mappings remain outside this concept and belong to their applicable standards, including future integration concerns.
+
+## Capability Availability
+
+Capability Availability is the attempt-level determination of whether a required capability can actually be performed in the applicable execution context. It distinguishes a Capability Requirement from whether that requirement can currently be satisfied.
+
+When a governed execution attempt has a material Capability Requirement, the protocol MUST determine whether that capability is available in the applicable execution context before relying on it. Capability Availability MUST be evaluated for the particular attempt and context rather than assumed globally. An available capability does not imply Authority to use it, and applicable Authority does not imply that the required capability is available.
+
+Capability Availability does not establish readiness, successful execution, Validation, Approval, Completion, or release. An unavailable required capability MUST NOT be silently treated as available and MUST remain explicit and traceable when material. This concept identifies availability or unavailability only; it does not determine the disposition that follows.
+
+Capability Availability is not capability discovery. This standard does not define capability support classifications, provider capability catalogs, integration contracts, adapters, provider mappings, APIs, or provider-specific availability mechanisms; those remain outside this concept and belong to applicable standards, including future integration concerns. Blocking remains governed by Work Management.
