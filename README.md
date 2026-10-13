@@ -147,6 +147,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [AI Collaboration Example](examples/ai-collaboration-example.md)
 - [End-to-end Playbook Example](examples/end-to-end-playbook-example.md)
 - [Master Execution Checklist Walkthrough](examples/master-execution-checklist-walkthrough.md)
+- [Executable Protocol Reference Example](examples/executable-protocol-reference-example.md)
 
 ### Standards Index
 
