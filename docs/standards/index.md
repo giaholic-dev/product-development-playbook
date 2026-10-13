@@ -50,6 +50,8 @@ This index lists maintained standards and the catalogs that help readers locate 
 
 ## Product
 
+- [Product Type Model](product-type-model.md)
+
 - [Product Vision](product-vision.md)
 - [Problem Statement](problem-statement.md)
 - [Users](users.md)

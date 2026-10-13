@@ -168,6 +168,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Master Execution Checklist](docs/standards/master-execution-checklist.md)
 - [Provider-independent Integration Standard](docs/standards/integration-standard.md)
 - [Provider Implementation Guide Standard](docs/standards/provider-implementation-guide-standard.md)
+- [Product Type Model](docs/standards/product-type-model.md)
 - [Versioning Standard](docs/standards/versioning-standard.md)
 - [Coding Standards](docs/standards/coding-standards.md)
 - [Testing Strategy](docs/standards/testing-strategy.md)
