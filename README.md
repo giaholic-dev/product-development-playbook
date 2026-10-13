@@ -59,7 +59,7 @@ For a first reading of the Playbook, follow the documents that exist today:
 16. [Product Scope](docs/standards/product-scope.md)
 17. [Product Backlog](docs/standards/product-backlog.md)
 
-The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. The audit exporter is optional technical reading, not a prerequisite.
+The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. For operational navigation, use the [Master Execution Checklist](docs/standards/master-execution-checklist.md), its [reusable record template](templates/master-execution-checklist-record.md), and the [fictional validation walkthrough](examples/master-execution-checklist-walkthrough.md). Checklist coverage does not establish execution or completion of a product. The audit exporter is optional technical reading, not a prerequisite.
 
 ## Lifecycle
 
@@ -129,6 +129,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 - [Conformance Declaration](templates/conformance-declaration.md)
 - [Foundation Adoption Checklist](templates/foundation-adoption-checklist.md)
+- [Master Execution Checklist Record](templates/master-execution-checklist-record.md)
 - [Exception Record](templates/exception-record.md)
 - [Decision Record](templates/decision-record.md)
 - [AI-assisted Work Evidence](templates/ai-assisted-work-evidence.md)
@@ -142,6 +143,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Product Definition Example](examples/product-definition-example.md)
 - [AI Collaboration Example](examples/ai-collaboration-example.md)
 - [End-to-end Playbook Example](examples/end-to-end-playbook-example.md)
+- [Master Execution Checklist Walkthrough](examples/master-execution-checklist-walkthrough.md)
 
 ### Standards Index
 
@@ -157,6 +159,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Issue Template Standard](docs/standards/issue-template-standard.md)
 - [Definition of Ready](docs/standards/definition-of-ready.md)
 - [Definition of Done](docs/standards/definition-of-done.md)
+- [Master Execution Checklist](docs/standards/master-execution-checklist.md)
 - [Versioning Standard](docs/standards/versioning-standard.md)
 - [Coding Standards](docs/standards/coding-standards.md)
 - [Testing Strategy](docs/standards/testing-strategy.md)
