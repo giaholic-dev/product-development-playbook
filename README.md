@@ -141,6 +141,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [GitHub Reference Implementation Guide](docs/practices/github-reference-implementation-guide.md)
 - [Machine-readable Execution Representation Decision](docs/practices/machine-readable-execution-decision.md)
 - [Product-type Architecture Plan](docs/practices/product-type-architecture-plan.md)
+- [Product-type Assumption Inventory](docs/practices/product-type-assumption-inventory.md)
 
 ### Examples
 
