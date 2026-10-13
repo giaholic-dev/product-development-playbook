@@ -139,6 +139,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 - [AI-assisted Execution Practice](docs/practices/ai-assisted-execution.md)
 - [GitHub Reference Implementation Guide](docs/practices/github-reference-implementation-guide.md)
+- [Machine-readable Execution Representation Decision](docs/practices/machine-readable-execution-decision.md)
 
 ### Examples
 
