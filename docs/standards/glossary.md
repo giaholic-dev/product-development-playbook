@@ -44,6 +44,7 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Product Composition | Material constituent offerings or components and their relationships within an assessed product boundary. | [Product Type Model](product-type-model.md) |
 | Product Context | Circumstances relevant to a product decision, distinct from Product Type. | [Product Type Model](product-type-model.md) |
 | Product Type | Nature of the intended product offering in the assessed decision scope, distinct from production technology or evidence medium. | [Product Type Model](product-type-model.md) |
+| Product-type Specialization | Governed boundary for product-type-specific meanings and application, preserving common governance and primary-source ownership. | [Core and Specialization Boundaries](core-and-specialization-boundaries.md) |
 | Protocol Result | Observable result produced by a governed execution attempt and identified for traceability and subsequent evaluation; it does not establish success. | [Execution Protocol Standard](execution-protocol.md) |
 | Protocol State | Minimal attempt-level representation of a governed execution attempt's current protocol condition, distinct from Workflow State. | [Execution Protocol Standard](execution-protocol.md) |
 | Pull | Taking selected work into active progression when applicable conditions permit. | [Work Management Standard](work-management.md) |
@@ -56,6 +57,7 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Role | Responsibility within Playbook execution. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Selection | Choice of managed work for progression toward an applicable next action. | [Work Management Standard](work-management.md) |
 | Validation | Evaluation of work, evidence, or outcomes against applicable requirements. | [Work Management Standard](work-management.md) |
+| Universal Core | Shared conceptual governance boundary whose concerns retain their meaning independently of Product Type; not a universal catalog of current source requirements. | [Core and Specialization Boundaries](core-and-specialization-boundaries.md) |
 | Work-in-Progress (WIP) | Work that remains in active progression. | [Work Management Standard](work-management.md) |
 | Work Item | A traceable unit of work classified with the adopted taxonomy and type model. | [Work Item Taxonomy](work-item-taxonomy.md) |
 | Work Management | Transversal discipline governing how Playbook work is managed. | [Work Management Standard](work-management.md) |
