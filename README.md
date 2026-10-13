@@ -160,6 +160,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Definition of Ready](docs/standards/definition-of-ready.md)
 - [Definition of Done](docs/standards/definition-of-done.md)
 - [Master Execution Checklist](docs/standards/master-execution-checklist.md)
+- [Provider-independent Integration Standard](docs/standards/integration-standard.md)
 - [Versioning Standard](docs/standards/versioning-standard.md)
 - [Coding Standards](docs/standards/coding-standards.md)
 - [Testing Strategy](docs/standards/testing-strategy.md)
