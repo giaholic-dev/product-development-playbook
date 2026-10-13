@@ -21,6 +21,7 @@ This map covers principal ownership and dependency relationships among published
 | Work classification | [Work Item Taxonomy](work-item-taxonomy.md) | Work Item Types, Project Views, Repository Project Field Standard |
 | Vocabulary and evidence | [Terminology Standard](terminology-standard.md) | Glossary, Artifact Standard, Documentation Style Guide |
 | Documentation navigation | [Documentation Information Architecture](documentation-information-architecture.md) | Documentation Navigation Standard, Standards Index, Artifact Catalog |
+| Product-type distinctions | [Product Type Model](product-type-model.md) | Product Scope, Artifact Standard, Roles and Actor Assignment Standard, Work Management Standard, Provider-independent Integration Standard |
 | Product decisions | [Product Vision](product-vision.md) | Problem Statement, Users, Outcomes, Product Scope, Product Backlog |
 | Experience decisions | [UX Vision](ux-vision.md) | User Journey, Personas, User Flows, UX Validation |
 | Architecture decisions | [Architecture Vision](architecture-vision.md) | System Context, Architecture Decision Records, Architecture Artifacts |
