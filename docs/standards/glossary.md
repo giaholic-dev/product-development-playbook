@@ -16,6 +16,9 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Assignment | Relationship through which an Actor fulfills a Role within a defined scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Authority | Explicit permission or decision right within a defined scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Blocking | Contextual, evidence-based condition that materially prevents or constrains work progression, rather than an Activity or Workflow State. | [Work Management Standard](work-management.md) |
+| Capability | Action or result a system or execution arrangement can support within a defined scope. | [Provider-independent Integration Standard](integration-standard.md) |
+| Capability Contract | Provider-independent description of the conditions, expected observable result, and evidence for using and verifying a Capability. | [Provider-independent Integration Standard](integration-standard.md) |
+| Capability Discovery | Evidence-based identification of Capabilities exposed by a particular Integration and their contextual limits. | [Provider-independent Integration Standard](integration-standard.md) |
 | Completion | Determination that work satisfies applicable completion requirements within its scope. | [Work Management Standard](work-management.md) |
 | Commitment | Explicit acceptance of responsibility to progress work or achieve an outcome within scope. | [Work Management Standard](work-management.md) |
 | Contributor | Role for performing or contributing work within an applicable scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
@@ -28,6 +31,11 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Feedback | Information that may inform reconsideration of how work is managed. | [Work Management Standard](work-management.md) |
 | Improvement | Deliberate use of relevant information to improve Work Management. | [Work Management Standard](work-management.md) |
 | Intake | Capture of potential work for subsequent management decisions. | [Work Management Standard](work-management.md) |
+| Integration | Arrangement through which an execution context accesses an external system’s capabilities for governed work. | [Provider-independent Integration Standard](integration-standard.md) |
+| Integration Conformance | Evidence that scoped Integration use satisfies its applicable integration requirements and Capability Contracts. | [Provider-independent Integration Standard](integration-standard.md) |
+| Integration Failure | Observed inability to fulfill an applicable Capability Contract, distinct from an unresolved ambiguous outcome. | [Provider-independent Integration Standard](integration-standard.md) |
+| Integration Fallback | Alternative permitted approach to fulfilling a governed need when the chosen Integration cannot do so. | [Provider-independent Integration Standard](integration-standard.md) |
+| Integration Verification | Examination of an observable external result or state against its applicable Capability Contract; distinct from work Validation. | [Provider-independent Integration Standard](integration-standard.md) |
 | Lifecycle Phase | One ordered part of the Product Development Playbook lifecycle. | [Foundation Phase](../lifecycle/01-foundation.md) |
 | Ordering | Establishment or reconsideration of relative precedence among managed work. | [Work Management Standard](work-management.md) |
 | Preparation | Development of work understanding for a subsequent management decision or action. | [Work Management Standard](work-management.md) |
