@@ -28,6 +28,7 @@ This index lists maintained standards and the catalogs that help readers locate 
 - [Work Management Standard](work-management.md)
 - [Execution Protocol Standard](execution-protocol.md)
 - [Provider-independent Integration Standard](integration-standard.md)
+- [Provider Implementation Guide Standard](provider-implementation-guide-standard.md)
 - [Master Execution Checklist](master-execution-checklist.md)
 - [Work Item Taxonomy](work-item-taxonomy.md)
 - [Work Item Types](work-item-types.md)
