@@ -63,4 +63,4 @@ Keep branches current with their target branch when required to validate or merg
 - [Repository Standards](repository-standards.md)
 - [Work Item Taxonomy](work-item-taxonomy.md)
 
-Code Review Standard, Definition of Ready, and Definition of Done are planned companion standards. Until they are available, a project records equivalent review, readiness, and completion evidence under [Repository Standards](repository-standards.md).
+The [Code Review Standard](code-review-standard.md), [Definition of Ready](definition-of-ready.md), and [Definition of Done](definition-of-done.md) own the review, readiness, and completion evidence used by this workflow.
