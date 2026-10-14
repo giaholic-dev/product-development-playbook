@@ -37,6 +37,10 @@ The Playbook supports manual, AI-assisted, and authorized AI-automated execution
 
 The primary documentation language of this repository is English.
 
+## Repository adoption
+
+The [Repository Conformance Declaration](docs/practices/repository-conformance-declaration.md) records this repository's adopted standards, local mappings, accountable owner, execution practice, validation evidence, and review limits. It is distinct from the reusable conformance template and does not certify execution of an adopting product.
+
 ## Start Here
 
 For a first reading of the Playbook, follow the documents that exist today:
