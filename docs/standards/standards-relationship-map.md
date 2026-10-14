@@ -23,6 +23,7 @@ This map covers principal ownership and dependency relationships among published
 | Documentation navigation | [Documentation Information Architecture](documentation-information-architecture.md) | Documentation Navigation Standard, Standards Index, Artifact Catalog |
 | Product-type distinctions | [Product Type Model](product-type-model.md) | Product Scope, Artifact Standard, Roles and Actor Assignment Standard, Work Management Standard, Provider-independent Integration Standard |
 | Core and specialization ownership | [Core and Specialization Boundaries](core-and-specialization-boundaries.md) | Product Type Model, Roles and Actor Assignment Standard, Work Management Standard, Execution Protocol Standard, Artifact Standard, Repository Standards |
+| Requirement applicability | [Standards Applicability](standards-applicability.md) | Product Type Model, Core and Specialization Boundaries, Repository Standards, Execution Protocol Standard, Roles and Actor Assignment Standard, Definition of Ready, Definition of Done |
 | Product decisions | [Product Vision](product-vision.md) | Problem Statement, Users, Outcomes, Product Scope, Product Backlog |
 | Experience decisions | [UX Vision](ux-vision.md) | User Journey, Personas, User Flows, UX Validation |
 | Architecture decisions | [Architecture Vision](architecture-vision.md) | System Context, Architecture Decision Records, Architecture Artifacts |
