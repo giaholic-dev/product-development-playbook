@@ -3,7 +3,8 @@ set -Eeuo pipefail
 umask 077
 
 EXPORT_SCHEMA_VERSION="1.0.0"
-TOOL_VERSION="1.0.0"
+TOOL_VERSION="1.0.1"
+JQ_LIBRARY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/lib" && pwd)"
 
 print_header() {
   echo "======================================"
@@ -140,23 +141,23 @@ export_repository() {
   [[ -d templates ]] && cp -R templates "$EXPORT_DIR/repository/"
   [[ -d examples ]] && cp -R examples "$EXPORT_DIR/repository/"
   find . -path "./.git" -prune -o -path "./audit" -prune -o -type f -print |
-    sort > "$EXPORT_DIR/repository/repository-tree.txt"
+    sort >"$EXPORT_DIR/repository/repository-tree.txt"
 }
 
 export_branches() {
-  git for-each-ref --sort=refname --format='%(refname:short) %(objectname) %(upstream:short)' refs/heads refs/remotes > "$EXPORT_DIR/git/branches.txt"
+  git for-each-ref --sort=refname --format='%(refname:short) %(objectname) %(upstream:short)' refs/heads refs/remotes >"$EXPORT_DIR/git/branches.txt"
 }
 
 export_tags() {
-  git for-each-ref --sort=refname --format='%(refname:short) %(objectname) %(objecttype)' refs/tags > "$EXPORT_DIR/git/tags.txt"
+  git for-each-ref --sort=refname --format='%(refname:short) %(objectname) %(objecttype)' refs/tags >"$EXPORT_DIR/git/tags.txt"
 }
 
 export_recent_commits() {
-  git log -n 100 --date=iso-strict --format='%H%x09%P%x09%an%x09%ae%x09%ad%x09%s' > "$EXPORT_DIR/git/recent-commits.tsv"
+  git log -n 100 --date=iso-strict --format='%H%x09%P%x09%an%x09%ae%x09%ad%x09%s' >"$EXPORT_DIR/git/recent-commits.tsv"
 }
 
 export_repository_status() {
-  git status --porcelain=v1 --branch > "$EXPORT_DIR/git/status.txt"
+  git status --porcelain=v1 --branch >"$EXPORT_DIR/git/status.txt"
 }
 
 temporary_json() {
@@ -191,7 +192,7 @@ export_issues() {
   temporary="$(temporary_json "$EXPORT_DIR/github/issues.json")"
 
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/issues?state=all&per_page=100" |
-    jq '[.[][] | select(.pull_request | not)] | unique_by(.id) | sort_by(.number)' > "$temporary"
+    jq '[.[][] | select(.pull_request | not)] | unique_by(.id) | sort_by(.number)' >"$temporary"
 
   publish_json "$temporary" "$EXPORT_DIR/github/issues.json" array
 }
@@ -210,7 +211,7 @@ export_issue_comments() {
         ]
       | unique_by(.id)
       | sort_by(.issue_number, .id)
-    ' > "$temporary"
+    ' >"$temporary"
 
   publish_json "$temporary" "$EXPORT_DIR/github/issue-comments.json" array
 }
@@ -220,7 +221,7 @@ export_prs() {
   temporary="$(temporary_json "$EXPORT_DIR/github/pull-requests.json")"
 
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/pulls?state=all&per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.number)' > "$temporary"
+    jq '[.[][]] | unique_by(.id) | sort_by(.number)' >"$temporary"
 
   publish_json "$temporary" "$EXPORT_DIR/github/pull-requests.json" array
 }
@@ -230,7 +231,7 @@ export_labels() {
   temporary="$(temporary_json "$EXPORT_DIR/github/labels.json")"
 
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/labels?per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.name)' > "$temporary"
+    jq '[.[][]] | unique_by(.id) | sort_by(.name)' >"$temporary"
 
   publish_json "$temporary" "$EXPORT_DIR/github/labels.json" array
 }
@@ -240,7 +241,7 @@ export_milestones() {
   temporary="$(temporary_json "$EXPORT_DIR/github/milestones.json")"
 
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/milestones?state=all&per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.number)' > "$temporary"
+    jq '[.[][]] | unique_by(.id) | sort_by(.number)' >"$temporary"
 
   publish_json "$temporary" "$EXPORT_DIR/github/milestones.json" array
 }
@@ -278,7 +279,7 @@ export_project_items() {
       [.[] | .data.organization.projectV2.items.nodes[]]
       | unique_by(.id)
       | sort_by(.id)
-    ' > "$temporary"
+    ' >"$temporary"
 
   publish_json "$temporary" "$EXPORT_DIR/github/project-items.json" array
 }
@@ -314,7 +315,7 @@ export_project_fields() {
       [.[] | .data.organization.projectV2.fields.nodes[]]
       | unique_by(.id)
       | sort_by(.name, .id)
-    ' > "$temporary"
+    ' >"$temporary"
 
   publish_json "$temporary" "$EXPORT_DIR/github/project-fields.json" array
 }
@@ -342,7 +343,7 @@ export_project_views() {
       [.[] | .data.organization.projectV2.views.nodes[]]
       | unique_by(.id)
       | sort_by(.number)
-    ' > "$temporary"
+    ' >"$temporary"
 
   publish_json "$temporary" "$EXPORT_DIR/github/project-views.json" array
 }
@@ -359,21 +360,21 @@ export_issue_timeline() {
     gh api --paginate --slurp \
       -H "Accept: application/vnd.github+json" \
       "repos/$OWNER/$REPOSITORY/issues/$issue_number/timeline?per_page=100" |
-      jq --argjson issue_number "$issue_number" '
+      jq -L "$JQ_LIBRARY_DIR" --argjson issue_number "$issue_number" '
+        include "timeline";
         [.[][] | . + { issue_number: $issue_number }]
-        | unique_by(.id)
-        | sort_by(.created_at, .id)
-      ' > "$timeline_directory/$issue_number.json"
+        | timeline_unique
+      ' >"$timeline_directory/$issue_number.json"
   done < <(jq -r '.[].number' "$EXPORT_DIR/github/issues.json")
 
   if compgen -G "$timeline_directory/*.json" >/dev/null; then
-    jq -s '
+    jq -L "$JQ_LIBRARY_DIR" -s '
+      include "timeline";
       add
-      | unique_by(.issue_number, .id)
-      | sort_by(.issue_number, .created_at, .id)
-    ' "$timeline_directory"/*.json > "$temporary"
+      | timeline_unique
+    ' "$timeline_directory"/*.json >"$temporary"
   else
-    printf '[]\n' > "$temporary"
+    printf '[]\n' >"$temporary"
   fi
 
   rm -rf "$timeline_directory"
@@ -393,7 +394,7 @@ export_review_comments() {
       ]
       | unique_by(.id)
       | sort_by(.pull_request_number, .path, .line, .id)
-    ' > "$temporary"
+    ' >"$temporary"
 
   publish_json "$temporary" "$EXPORT_DIR/github/review-comments.json" array
 }
@@ -431,7 +432,7 @@ export_discussions() {
       [.[] | .data.repository.discussions.nodes[]]
       | unique_by(.id)
       | sort_by(.number)
-    ' > "$temporary"
+    ' >"$temporary"
 
   publish_json "$temporary" "$EXPORT_DIR/github/discussions.json" array
 }
@@ -441,7 +442,7 @@ export_releases() {
   temporary="$(temporary_json "$EXPORT_DIR/github/releases.json")"
 
   gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/releases?per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.id)' > "$temporary"
+    jq '[.[][]] | unique_by(.id) | sort_by(.id)' >"$temporary"
 
   publish_json "$temporary" "$EXPORT_DIR/github/releases.json" array
 }
@@ -524,7 +525,7 @@ create_manifest() {
         issue_timeline: true,
         review_comments: true
       }
-    }' > "$manifest_temporary"
+    }' >"$manifest_temporary"
   publish_json "$manifest_temporary" "$EXPORT_DIR/manifest.json" object
 }
 
@@ -560,7 +561,11 @@ validate_integrity() {
       exit 1
     }
 
-    jq --exit-status 'type == "array" and (map(.id) | length == (unique | length))' "$file" >/dev/null || {
+    local identity_check='type == "array" and (map(.id) | length == (unique | length))'
+    if [[ "$name" == "issue_timeline" ]]; then
+      identity_check='include "timeline"; timeline_valid'
+    fi
+    jq -L "$JQ_LIBRARY_DIR" --exit-status "$identity_check" "$file" >/dev/null || {
       echo "ERROR: Invalid or duplicate records in $file"
       exit 1
     }

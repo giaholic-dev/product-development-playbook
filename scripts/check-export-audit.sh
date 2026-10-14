@@ -27,3 +27,23 @@ jq --slurpfile pull_requests scripts/fixtures/pull-requests.json '
   | sort_by(.issue_number, .id)
   | map(.issue_number) == [1, 3]
 ' scripts/fixtures/paginated-issue-comments.json >/dev/null
+
+# Preserve distinct ID-less events (including equal timestamps), scope IDs to
+# issue/event kind, and collapse only identical observed payloads without IDs.
+jq -L scripts/lib --exit-status '
+  include "timeline";
+  [.[][]] | timeline_unique
+  | length == 8
+    and timeline_valid
+    and ([.[] | select(.event == "cross-referenced") | .source.issue.id] | sort == [100, 100, 200])
+    and ([.[] | select(.event == "referenced") | .commit_id] | sort == ["abc", "def"])
+    and ([.[] | select(.id == 10)] | length == 3)
+' scripts/fixtures/paginated-timeline.json >/dev/null
+
+jq -L scripts/lib --exit-status '
+  include "timeline";
+  [.[][]] | timeline_unique as $events
+  | (($events + [$events[0]]) | timeline_valid | not)
+    and ([{"id": 1}] | timeline_valid | not)
+    and ({} | timeline_valid | not)
+' scripts/fixtures/paginated-timeline.json >/dev/null

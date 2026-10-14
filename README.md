@@ -111,7 +111,7 @@ Requirements: Git, GitHub CLI (`gh`), `jq`, `zip`, and `unzip`. Authenticate wit
 bash scripts/export-audit.sh
 ```
 
-The ZIP contains an `exports/<timestamp>/` root with `repository/`, `git/`, `github/`, and a root `manifest.json`. The manifest records the source commit, selected ref, collection counts, and pagination completion.
+The ZIP contains an `exports/<timestamp>/` root with `repository/`, `git/`, `github/`, and a root `manifest.json`. The manifest records the source commit, selected ref, collection counts, and pagination completion. Timeline deduplication scopes provider IDs by issue and event kind. For events without IDs, it compares the complete observed payload and removes only identical records; that comparison is local to the snapshot, not a durable event identity. Different payloads, including cross-references with equal timestamps, are preserved.
 
 By default, the exporter targets Organization Project #1. Set `GITHUB_PROJECT_NUMBER` to select another project. Set `GITHUB_EXPORT_DISCUSSIONS=true` only for repositories that use GitHub Discussions.
 

@@ -1,0 +1,16 @@
+[
+  [
+    {"issue_number": 1, "id": 10, "event": "closed", "created_at": "2026-01-01T00:00:00Z"},
+    {"issue_number": 1, "event": "cross-referenced", "created_at": "2026-01-01T00:00:00Z", "source": {"issue": {"id": 100}}},
+    {"issue_number": 1, "event": "cross-referenced", "created_at": "2026-01-01T00:00:00Z", "source": {"issue": {"id": 200}}},
+    {"issue_number": 2, "id": 10, "event": "closed", "created_at": "2026-01-01T00:00:00Z"}
+  ],
+  [
+    {"source": {"issue": {"id": 100}}, "created_at": "2026-01-01T00:00:00Z", "event": "cross-referenced", "issue_number": 1},
+    {"issue_number": 1, "id": 10, "event": "closed", "created_at": "2026-01-01T00:00:00Z"},
+    {"issue_number": 2, "event": "cross-referenced", "created_at": "2026-01-01T00:00:00Z", "source": {"issue": {"id": 100}}},
+    {"issue_number": 1, "id": 10, "event": "commented", "created_at": "2026-01-01T00:00:00Z"},
+    {"issue_number": 1, "id": null, "event": "referenced", "created_at": "2026-01-01T00:00:00Z", "commit_id": "abc"},
+    {"issue_number": 1, "event": "referenced", "created_at": "2026-01-01T00:00:00Z", "commit_id": "def"}
+  ]
+]

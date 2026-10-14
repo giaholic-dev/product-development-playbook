@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "**.sh"
+      - "scripts/**/*.jq"
+      - "scripts/fixtures/**"
       - ".shellcheckrc"
       - ".github/workflows/shellcheck.yml"
   push:
@@ -11,6 +13,8 @@ on:
       - main
     paths:
       - "**.sh"
+      - "scripts/**/*.jq"
+      - "scripts/fixtures/**"
       - ".shellcheckrc"
       - ".github/workflows/shellcheck.yml"
 
@@ -22,7 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install ShellCheck
-        run: sudo apt-get update && sudo apt-get install --yes shellcheck
+      - name: Install validation tools
+        run: sudo apt-get update && sudo apt-get install --yes shellcheck shfmt jq
       - name: Lint shell scripts
         run: shellcheck --shell=bash --severity=warning scripts/*.sh
+      - name: Validate exporter and regression fixtures
+        run: bash scripts/check-export-audit.sh
