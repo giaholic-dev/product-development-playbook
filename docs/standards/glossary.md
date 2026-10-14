@@ -11,6 +11,7 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Accountability | Answerability for a material responsibility or decision within a defined scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Accountable Owner | Role holding required accountability within an applicable scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Actor | Entity that performs or participates in Playbook work. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
+| Applicability Assessment | Evidence and decision record establishing which governing requirements apply to a bounded context, including uncertainty and reassessment. | [Standards Applicability](standards-applicability.md) |
 | Approver | Role responsible for a governed approval decision within an applicable scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Artifact | An inspectable record, deliverable, or durable result created, adopted, or materially changed by product work. | [Artifact Standard](artifact-standard.md) |
 | Assignment | Relationship through which an Actor fulfills a Role within a defined scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
