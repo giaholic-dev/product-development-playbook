@@ -60,6 +60,8 @@ Follow [Architecture inventory entries](../docs/standards/master-execution-check
 
 Validation assesses whether these records sufficiently evidence the intended development decision. Remaining uncertainty retains an owner, impact, and reassessment condition. Entry to Development checks the selected work's readiness and Architecture's exit criteria; it does not freeze all future design choices.
 
+The fictional [three-environment preparation record](end-to-end-playbook-example.md#three-environment-preparation-record) applies to this same reservation-status increment: all three contexts exist and their access, data and external-effect isolation is observed before implementation. The Architecture-to-Development handoff links that record; a future provisioning task would not satisfy entry. The [Software Environments Standard](../docs/standards/software-environments.md) remains the owner.
+
 ## Development
 
 Follow [Development inventory entries](../docs/standards/master-execution-checklist.md#development) and the authoritative [Development Phase](../docs/lifecycle/05-development.md).
@@ -70,6 +72,8 @@ Follow [Development inventory entries](../docs/standards/master-execution-checkl
 - D4 Learning and Refinement: a follow-up record preserves findings and any accepted limitation with ownership.
 
 The attempt result is the changed artifact, not a work-completion declaration. Work validation, review, and the [Definition of Done](../docs/standards/definition-of-done.md) are checked separately. The Release entry decision checks integrated scope, required evidence, and the treatment of unresolved risk.
+
+The integrated candidate is immutable artifact `reservation-status-r1`, identified by its recorded digest. Test validates that artifact with isolated resources; its results and material configuration differences enter the Release handoff. The [end-to-end example](end-to-end-playbook-example.md#release) supplies the fictional evidence details.
 
 ## Release
 
@@ -82,6 +86,8 @@ Follow [Release inventory entries](../docs/standards/master-execution-checklist.
 - R5 Recovery: a fictional observation finds that the first publication serves an older status label. A governed recovery record identifies the decision, corrected publication, verified availability, and follow-up. Recovery action does not retroactively make the first attempt successful.
 
 The release-completion decision examines actual availability, release information, evidence, and accountable treatment of remaining risk. The Maintenance entry decision checks operational ownership, feedback intake, and known obligations. No provider or deployment mechanism is made mandatory by the example.
+
+Production promotion uses the same Test-validated digest, separately scoped approval, controlled deployment identity, and observed target/configuration checks described in the [release record](end-to-end-playbook-example.md#release). The older-label observation above is a failed verification or serving drift: it does not prove a conforming promotion. Exposure is held or reduced, the discrepancy is reconciled, and any changed candidate receives affected Test validation and approval before corrected exposure. Recovery preserves both attempts and their actual results.
 
 ## Maintenance
 

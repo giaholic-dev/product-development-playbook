@@ -129,6 +129,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 ### Templates
 
 - [Conformance Declaration](templates/conformance-declaration.md)
+- [Software Environment Record](templates/software-environment-record.md)
 - [Foundation Adoption Checklist](templates/foundation-adoption-checklist.md)
 - [Master Execution Checklist Record](templates/master-execution-checklist-record.md)
 - [Provider Implementation Guide](templates/provider-implementation-guide.md)

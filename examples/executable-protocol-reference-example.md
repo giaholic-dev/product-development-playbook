@@ -66,6 +66,8 @@ Human-only: the same records are prepared without AI or Integration. AI-assisted
 
 The Architecture-to-Development handoff preserves the selected source revisions, decision rationale, risk checks, work scope, and applicable readiness evidence. It does not freeze all future design choices.
 
+The fictional [three-environment preparation record](end-to-end-playbook-example.md#three-environment-preparation-record) applies to this same reservation-status increment: all three contexts exist and their access, data and external-effect isolation is observed before implementation. The Architecture-to-Development handoff links that record; a future provisioning task would not satisfy entry. The [Software Environments Standard](../docs/standards/software-environments.md) remains the owner.
+
 ## Development
 
 Source: [Development activities D1–D4 and gates](../docs/lifecycle/05-development.md), [checklist Development entries](../docs/standards/master-execution-checklist.md#development).
@@ -78,6 +80,8 @@ Partial Integration: an update acknowledgment does not prove that content change
 
 The Development-to-Release handoff links integrated revision, tests, Lin's review, integration decision, accepted risks, and required release evidence. A PR or automation success is evidence only for its examined scope.
 
+The integrated candidate is immutable artifact `reservation-status-r1`, identified by its recorded digest. Test validates that artifact with isolated resources; its results and material configuration differences enter the Release handoff. The [end-to-end example](end-to-end-playbook-example.md#release) supplies the fictional evidence details.
+
 ## Release
 
 Source: [Release activities R1–R5 and gates](../docs/lifecycle/06-release.md), [checklist Release entries](../docs/standards/master-execution-checklist.md#release).
@@ -89,6 +93,8 @@ Human-only: authorized publication and observation are performed manually. AI-as
 In this fictional narrative, initial observation finds an older status label served to users. The recovery attempt has its own inputs, Authority and capability checks, observed correction, postcondition evaluation, and evidence. It does not rewrite the first attempt as successful. Release completion and Maintenance entry are assessed only after availability, information, operational ownership, feedback intake, and remaining obligations are evidenced.
 
 The Release-to-Maintenance handoff preserves publication and recovery observations, release notes, operating responsibility, known risks, and follow-up ownership. No approval right silently transfers with the handoff.
+
+Production promotion uses the same Test-validated digest, separately scoped approval, controlled deployment identity, and observed target/configuration checks described in the [release record](end-to-end-playbook-example.md#release). The older-label observation above is a failed verification or serving drift: it does not prove a conforming promotion. Exposure is held or reduced, the discrepancy is reconciled, and any changed candidate receives affected Test validation and approval before corrected exposure. Recovery preserves both attempts and their actual results.
 
 ## Maintenance
 
