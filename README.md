@@ -63,7 +63,7 @@ For a first reading of the Playbook, follow the documents that exist today:
 16. [Product Scope](docs/standards/product-scope.md)
 17. [Product Backlog](docs/standards/product-backlog.md)
 
-The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. For operational navigation, use the [Master Execution Checklist](docs/standards/master-execution-checklist.md), its [reusable record template](templates/master-execution-checklist-record.md), and the [fictional validation walkthrough](examples/master-execution-checklist-walkthrough.md). Checklist coverage does not establish execution or completion of a product. The audit exporter is optional technical reading, not a prerequisite.
+The [Documentation Navigation Standard](docs/standards/documentation-navigation.md) describes how entry points, related links, and link checks should work. For operational navigation, use the [Master Execution Checklist](docs/standards/master-execution-checklist.md), its [reusable record template](templates/master-execution-checklist-record.md), and the [fictional validation walkthrough](examples/master-execution-checklist-walkthrough.md). Checklist coverage does not establish execution or completion of a product. For practical reading selection, documentation sufficiency, and progression questions, use the optional [Lifecycle Execution Guide](docs/practices/lifecycle-execution-guide.md). The audit exporter is optional technical reading, not a prerequisite.
 
 ## Lifecycle
 
@@ -141,6 +141,9 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 ### Practices
 
+- [Lifecycle Execution Guide](docs/practices/lifecycle-execution-guide.md)
+- [Milestone and Phase Boundary Review](docs/practices/milestone-boundary-review.md)
+- [Scope Evolution and Proportionate Architecture Decisions](docs/practices/scope-and-architecture-decisions.md)
 - [AI-assisted Execution Practice](docs/practices/ai-assisted-execution.md)
 - [GitHub Reference Implementation Guide](docs/practices/github-reference-implementation-guide.md)
 - [Machine-readable Execution Representation Decision](docs/practices/machine-readable-execution-decision.md)
@@ -150,6 +153,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 ### Examples
 
+- [Foundation Completion Example](examples/foundation-completion-example.md)
 - [Product Definition Example](examples/product-definition-example.md)
 - [AI Collaboration Example](examples/ai-collaboration-example.md)
 - [End-to-end Playbook Example](examples/end-to-end-playbook-example.md)
