@@ -100,9 +100,6 @@ Current directories:
 - `.devcontainer/` — Reproducible GitHub Codespaces environment.
 - `scripts/` — Supporting implementation utilities. Run `bash scripts/check-export-audit.sh` in a configured Codespace to check shell syntax, formatting, linting, and regression fixtures.
 
-Planned categories, not present in the current repository:
-
-
 The [Documentation Information Architecture](docs/standards/documentation-information-architecture.md) defines these responsibilities without requiring fixed directory names or placeholder content.
 
 ## Audit exporter
