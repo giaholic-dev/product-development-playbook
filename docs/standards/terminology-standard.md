@@ -25,7 +25,9 @@ The following ownership model applies:
 | View terminology | Project Views |
 | Repository, documentation, and version-control concepts | Repository Standards or the dedicated standard |
 | Product concepts | Their respective Product standards |
-| Cross-cutting approved vocabulary | Glossary |
+| Cross-cutting concepts | The dedicated lifecycle or standard owner, indexed by the Glossary |
+
+The Glossary owns catalog organization and navigational summaries, not the definitions it indexes. Each term's linked primary owner retains authority over its definition; a summary or catalog edit MUST NOT silently change that definition.
 
 A planned standard MAY be named in another document only when it is clearly identified as planned and linked to its tracked issue.
 
