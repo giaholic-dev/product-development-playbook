@@ -112,6 +112,8 @@ Reachability and index coverage remain manual review responsibilities under [Doc
 
 ## Audit exporter
 
+The [Audit Package Coverage and Compatibility Contract](docs/practices/audit-package-contract.md) defines the approved v0.7.0 implementation target. The current exporter remains tool 1.0.1 / manifest 1.0.0 with the limits documented in v0.6.0; contract publication does not implement or certify schema-2 coverage.
+
 [`scripts/export-audit.sh`](scripts/export-audit.sh) creates a timestamped, offline audit package for the current Git repository.
 
 Requirements: Git, GitHub CLI (`gh`), `jq`, `zip`, and `unzip`. Authenticate with `gh auth login` and ensure the account can access the repository, then run:
