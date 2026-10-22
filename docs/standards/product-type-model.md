@@ -8,7 +8,7 @@ Define product-type meanings and relationships needed to assess core and special
 
 This standard owns Product Type, Product Context, and Product Composition as conceptual distinctions. It does not define a universal lifecycle, applicability states, normative specializations, a closed type catalog, implementation architecture, or machine schema. Existing software-product lifecycle and standards retain their governing scope until explicitly revised.
 
-The [assumption inventory](../practices/product-type-assumption-inventory.md) supplies current-state evidence. Core/specialization ownership, requirement applicability, and lifecycle assessment remain separate work under [#302](https://github.com/giaholic-dev/product-development-playbook/issues/302), [#303](https://github.com/giaholic-dev/product-development-playbook/issues/303), and [#304](https://github.com/giaholic-dev/product-development-playbook/issues/304).
+The [assumption inventory](../practices/product-type-assumption-inventory.md) supplies current-state evidence. [Core and Specialization Boundaries](core-and-specialization-boundaries.md), [Standards Applicability](standards-applicability.md), and the [Lifecycle Applicability Assessment](../practices/lifecycle-applicability-assessment.md) separately govern ownership, applicability decisions, and the recorded lifecycle assessment.
 
 ## Definitions
 

@@ -226,7 +226,7 @@ Execution MUST occur within applicable Role Assignments, Authority boundaries, a
 
 Execution MUST NOT itself mean that work is complete. Completion requires applicable completion requirements and evidence governed by Definition of Done or other authoritative standards. Execution MUST NOT itself constitute review or validation; where either is required, the applicable governing standards remain authoritative.
 
-This standard does not define execution states, activity taxonomies, transitions, handoffs, blocking, escalation, metrics, service levels, tools, provider-specific mechanisms, or a universal execution procedure. The future Execution Protocol Standard remains the owner of execution-protocol concerns where applicable.
+This standard does not define execution states, activity taxonomies, transitions, handoffs, blocking, escalation, metrics, service levels, tools, provider-specific mechanisms, or a universal execution procedure. The [Execution Protocol Standard](execution-protocol.md) owns execution-protocol concerns where applicable.
 
 ## Validation
 
@@ -280,7 +280,7 @@ Feedback MAY result in identification of new potential work. When appropriate, t
 
 Validation findings MAY constitute Feedback when they provide information relevant to subsequent management. Feedback is not equivalent to Validation: Validation evaluates requirements, while Feedback is information that may influence subsequent management.
 
-Feedback MAY provide evidence for Improvement, but MUST NOT itself constitute Improvement. Improvement is a separate management concern to be defined later.
+Feedback MAY provide evidence for Improvement, but MUST NOT itself constitute Improvement. [Improvement](#improvement) is a separate Work Management Activity governed below.
 
 Material Feedback SHOULD remain traceable when its consequences materially affect management decisions or governed work. This does not impose universal documentation requirements. Representation and retention MAY depend on significance, risk, governance requirements, applicable evidence requirements, or operational context; these considerations are non-exhaustive.
 

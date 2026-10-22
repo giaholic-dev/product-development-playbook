@@ -29,7 +29,7 @@ Each dimension answers a different question:
 
 Lifecycle Phase and Work Type are independent dimensions: a work type does not imply a lifecycle phase, and a phase does not determine the nature of work. Artifact Type describes an output, not the kind of work or its phase. Priority describes relative planning importance, not workflow progress. Issue Type is an implementation choice rather than a Playbook Work Type; Workflow State records progress rather than classification.
 
-This section defines responsibilities only. Primary-classification exceptions, Artifact Type multiplicity, priority decision criteria, and platform-specific field configuration are addressed in later increments and their dedicated standards.
+This section defines responsibilities only. [Primary classification and exceptions](#primary-classification-and-exceptions), [Artifact Type](#artifact-type), and [Priority](#priority) below define their respective rules. The [Artifact Standard](artifact-standard.md) and [Repository Project Field Standard](repository-project-field-standard.md) own artifact categories and GitHub Project field configuration.
 
 ## Primary Classification and Exceptions
 
