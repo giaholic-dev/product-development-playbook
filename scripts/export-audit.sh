@@ -2,11 +2,12 @@
 set -Eeuo pipefail
 umask 077
 
-EXPORT_SCHEMA_VERSION="1.1.0"
-TOOL_VERSION="1.1.0"
+EXPORT_SCHEMA_VERSION="1.2.0"
+TOOL_VERSION="1.2.0"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JQ_LIBRARY_DIR="$SCRIPT_DIR/lib"
 SOURCE_HELPER="$SCRIPT_DIR/audit-source.py"
+PR_EVIDENCE_HELPER="$SCRIPT_DIR/audit-pr-evidence.py"
 
 print_header() {
   echo "======================================"
@@ -396,21 +397,8 @@ export_issue_timeline() {
 }
 
 export_review_comments() {
-  local temporary
-  temporary="$(temporary_json "$EXPORT_DIR/github/review-comments.json")"
-
-  gh api --paginate --slurp \
-    "repos/$OWNER/$REPOSITORY/pulls/comments?per_page=100" |
-    jq '
-      [.[][]
-        | (.pull_request_url | split("/") | last | tonumber) as $pull_request_number
-        | . + { pull_request_number: $pull_request_number }
-      ]
-      | unique_by(.id)
-      | sort_by(.pull_request_number, .path, .line, .id)
-    ' >"$temporary"
-
-  publish_json "$temporary" "$EXPORT_DIR/github/review-comments.json" array
+  python3 "$PR_EVIDENCE_HELPER" collect --repository "$OWNER/$REPOSITORY" \
+    --prs "$EXPORT_DIR/github/pull-requests.json" --destination "$EXPORT_DIR/github"
 }
 
 export_discussions() {
@@ -498,6 +486,9 @@ create_manifest() {
     --argjson project_views "$(collection_count "$EXPORT_DIR/github/project-views.json")" \
     --argjson issue_timeline "$(collection_count "$EXPORT_DIR/github/issue-timeline.json")" \
     --argjson review_comments "$(collection_count "$EXPORT_DIR/github/review-comments.json")" \
+    --argjson pr_conversations "$(collection_count "$EXPORT_DIR/github/pr-conversations.json")" \
+    --argjson pr_reviews "$(collection_count "$EXPORT_DIR/github/pr-reviews.json")" \
+    --slurpfile pr_evidence "$EXPORT_DIR/github/pr-evidence-coverage.json" \
     --slurpfile source_snapshot "$EXPORT_DIR/repository/source-inventory.json" \
     '{
       schema_version: $schema_version,
@@ -514,8 +505,14 @@ create_manifest() {
         dirty: $dirty
       },
       generated_at: $generated_at,
-      coverage_profile: "legacy-plus-committed-source",
+      coverage_profile: "legacy-plus-source-and-pr-evidence",
       full_profile_complete: false,
+      pr_evidence: {
+        coverage: "github/pr-evidence-coverage.json",
+        evidence_schema_version: $pr_evidence[0].evidence_schema_version,
+        scope: $pr_evidence[0].scope,
+        current_approval_inferred: false
+      },
       source_snapshot: {
         inventory: "repository/source-inventory.json",
         root: "repository/source",
@@ -539,6 +536,8 @@ create_manifest() {
         project_fields: $project_fields,
         project_views: $project_views,
         issue_timeline: $issue_timeline,
+        pr_conversations: $pr_conversations,
+        pr_reviews: $pr_reviews,
         review_comments: $review_comments
       },
       collection_pagination: {
@@ -552,6 +551,8 @@ create_manifest() {
         project_fields: true,
         project_views: true,
         issue_timeline: true,
+        pr_conversations: true,
+        pr_reviews: true,
         review_comments: true
       }
     }' >"$manifest_temporary"
@@ -560,6 +561,8 @@ create_manifest() {
 
 validate_integrity() {
   verify_source_snapshot
+  python3 "$PR_EVIDENCE_HELPER" verify --repository "$OWNER/$REPOSITORY" \
+    --prs "$EXPORT_DIR/github/pull-requests.json" --destination "$EXPORT_DIR/github"
   local collection
   local file
   local declared_count
@@ -575,6 +578,8 @@ validate_integrity() {
     "project_fields:project-fields.json"
     "project_views:project-views.json"
     "issue_timeline:issue-timeline.json"
+    "pr_conversations:pr-conversations.json"
+    "pr_reviews:pr-reviews.json"
     "review_comments:review-comments.json"
   )
 
@@ -667,6 +672,9 @@ compress() {
     "exports/$TIMESTAMP/github/project-fields.json" \
     "exports/$TIMESTAMP/github/project-views.json" \
     "exports/$TIMESTAMP/github/issue-timeline.json" \
+    "exports/$TIMESTAMP/github/pr-conversations.json" \
+    "exports/$TIMESTAMP/github/pr-reviews.json" \
+    "exports/$TIMESTAMP/github/pr-evidence-coverage.json" \
     "exports/$TIMESTAMP/github/review-comments.json"; do
     unzip -Z1 "$ZIP_FILE" | grep -Fx "$archive_entry" >/dev/null || {
       echo "ERROR: Audit package is missing $archive_entry."
