@@ -93,3 +93,13 @@ Reassess before release publication, before relying on unresolved mapping or bra
 - [Foundation](../lifecycle/01-foundation.md)
 - [Decision Record Template](../../templates/decision-record.md)
 - [Exception Record Template](../../templates/exception-record.md)
+
+## Governance reconciliation — 2026-10-22
+
+The maintainer authorized this continuation to reconcile C10 and the v0.6.0 prerequisites. This supplements the earlier assessments; it does not replace their immutable source boundaries or establish release acceptance.
+
+The [remediation plan's reconciled checkpoint](playbook-remediation-plan.md#reconciled-governance-checkpoint--2026-10-22) records the native milestones and all 21 issue associations, the completed branch-retention disposition in [C10 / #324](https://github.com/giaholic-dev/product-development-playbook/issues/324), and native Project #1 verification of Phase and Work Type for all 25 plan issues. The stale Work Type option label was aligned to Operational Maintenance without recreating the option. The previously recorded access failure is historical; required classification is no longer reported as unperformed for this issue set.
+
+The fresh pre-change branch inventory contained main and the documented audit-retention branch only. The 147 original deletions are evidenced by the C10 work record; this continuation did not repeat them or claim that all retained original tips were ancestors. The retained unmerged branch's owner and 2026-11-05 reassessment boundary remain explicit in the plan.
+
+Release-wide review, exact candidate validation, release decision and verified publication remain separate C11 obligations. v0.1.0 remains the latest published release; v0.6.0 remains in development. No exception, independent approval, exhaustive historical certification or completion of later research/implementation is claimed. The accompanying PR retains its reviewed source, validation and integration decision.
