@@ -102,6 +102,14 @@ Current directories:
 
 The [Documentation Information Architecture](docs/standards/documentation-information-architecture.md) defines these responsibilities without requiring fixed directory names or placeholder content.
 
+## Documentation checks
+
+Repository maintainers own the standard-library Python checker and its regression cases. With Python 3.12 or later, run `python3 scripts/check-documentation.py` and `python3 -m unittest discover -s scripts -p test_check_documentation.py`. The Documentation checks workflow runs for Markdown, checker, tests and workflow changes in pull requests and on main; it can also be dispatched manually. Failures report a source location and return a nonzero exit status. Fix the target or heading rather than disabling the check.
+
+The checker validates relative inline/image links and explicit reference links, local target existence, and fragments for ATX Markdown headings, including duplicate headings. It ignores fenced/indented code examples and inline code when scanning links, and does not fetch external URLs. It supports the repository's current Markdown conventions; HTML anchors, Setext headings, shortcut reference links and complex nested/escaped Markdown destinations are outside its parser contract. Changes using those forms require explicit review and checker support before relying on automation. Existing directories may be navigation targets; fragments on non-Markdown targets are not interpreted.
+
+Reachability and index coverage remain manual review responsibilities under [Documentation Navigation](docs/standards/documentation-navigation.md). They were considered separately from local-link integrity: automated enforcement would need an agreed navigation-root/index contract. Passing this check does not validate meaning, conformance, completeness or lifecycle progression.
+
 ## Audit exporter
 
 [`scripts/export-audit.sh`](scripts/export-audit.sh) creates a timestamped, offline audit package for the current Git repository.
