@@ -225,3 +225,7 @@ This is the bounded contract research outcome, effective through its reviewed in
 ## A02 committed-source increment — 2026-10-22
 
 A02 / #327 adds the standard-library source helper and isolated Git fixtures, integrated with the Bash exporter and CI. Tool/manifest 1.1.0 describes this additive source increment and explicitly leaves full-profile completeness false. It is not schema/tool 2, expanded PR/Project collection or M7 acceptance. Source bytes are pinned to the selected commit with tracked inventory, mode/size/hash records, explicit protected/pointer exclusions and final verification; dirty working-tree content is excluded. A03/A04/A05 retain their own scope and gates.
+
+## A03 PR-evidence increment — 2026-10-22
+
+A03 / #328 adds per-PR conversation comments, review submissions and inline comments/replies as distinct retained collections. The read-only REST helper validates selected-repository identity, paginates each PR/collection through validated response headers, records page/count/interval evidence and fails on partial/error/conflicting or unresolvable parent evidence. Synthetic fixtures cover pagination, empty results, review history, replies, failure boundaries and Bash/CLI integration without a live export. Tool/manifest 1.2.0 remains an intermediate profile with `full_profile_complete=false`; actual Project values, aggregate integrity/finalization and authorized live comparison remain A04–A06 obligations. Retained review states do not establish current approval or lifecycle acceptance.

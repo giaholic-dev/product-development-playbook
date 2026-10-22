@@ -67,3 +67,6 @@ jq -L scripts/lib --exit-status '
 
 # Disposable Git repositories exercise committed-source and failure boundaries.
 python3 -m unittest discover -s scripts -p test_audit_source.py
+
+# Synthetic REST responses exercise PR evidence without a live export.
+python3 -m unittest discover -s scripts -p test_audit_pr_evidence.py

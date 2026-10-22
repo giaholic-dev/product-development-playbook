@@ -260,9 +260,10 @@ EXPORT_DIR="$STAGING_DIR"
 ZIP_FILE=audit/fixture.zip
 create_directories
 export_repository
-for collection in issues issue-comments pull-requests labels milestones releases project-items project-fields project-views issue-timeline review-comments; do
+for collection in issues issue-comments pull-requests labels milestones releases project-items project-fields project-views issue-timeline review-comments pr-conversations pr-reviews; do
   echo '[]' >"$EXPORT_DIR/github/$collection.json"
 done
+printf '%s\n' '{"evidence_schema_version":"1.0.0","api_version":"2022-11-28","repository":"fixture/fixture","repository_id":1,"pr_numbers":[],"observations":[],"current_approval_inferred":false,"scope":"authorized-observable-pr-evidence"}' >"$EXPORT_DIR/github/pr-evidence-coverage.json"
 create_manifest
 validate_integrity
 publish_export
@@ -279,7 +280,7 @@ compress
                              b"#!/bin/sh\nexit 0\n")
             self.assertEqual(archive.read(prefix + "repository/docs/guide.md"), b"Committed guide")
             manifest = json.loads(archive.read(prefix + "manifest.json"))
-            self.assertEqual(manifest["schema_version"], "1.1.0")
+            self.assertEqual(manifest["schema_version"], "1.2.0")
             self.assertEqual(manifest["source_snapshot"]["commit"], self.commit_id)
             self.assertFalse(manifest["full_profile_complete"])
             self.assertFalse(manifest["source_snapshot"]["working_tree_bytes_included"])
