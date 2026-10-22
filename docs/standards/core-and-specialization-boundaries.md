@@ -6,7 +6,7 @@ Allocate conceptual ownership between common governance, product-type specializa
 
 ## Scope
 
-This standard owns the architectural boundary between Universal Core, Product-type Specialization, and Repository Governance. It does not move files, redefine source concepts, adopt physical/service/hybrid methods, determine every requirement's applicability, or change the existing seven-phase lifecycle. [Standards applicability work #303](https://github.com/giaholic-dev/product-development-playbook/issues/303) and [lifecycle assessment #304](https://github.com/giaholic-dev/product-development-playbook/issues/304) remain distinct decisions.
+This standard owns the architectural boundary between Universal Core, Product-type Specialization, and Repository Governance. It does not move files, redefine source concepts, adopt physical/service/hybrid methods, determine every requirement's applicability, or change the existing seven-phase lifecycle. [Standards Applicability](standards-applicability.md) and the [Lifecycle Applicability Assessment](../practices/lifecycle-applicability-assessment.md) remain distinct governing sources.
 
 The [Product Type Model](product-type-model.md) owns Product Type, Product Context, and Product Composition. The [assumption inventory](../practices/product-type-assumption-inventory.md) is the baseline evidence for this allocation; its candidate classifications are research evidence, not automatic adoption of whole documents as universal requirements.
 
@@ -48,7 +48,7 @@ The existing [seven lifecycle documents](../lifecycle/01-foundation.md), softwar
 
 Coding/configuration, technical architecture, implementation, deployment/recovery, and software-example details are retained under their current primary sources. A later software-specialization record may make the type-specific boundary explicit only after applicable assessment and reviewed migration evidence. Requirements cannot disappear during that transition.
 
-Product vision, users, outcomes, experience, architecture, validation, security/privacy, accessibility, release, and maintenance contain concerns that may cross types but require contextual application. Treat them under their current scopes until #303 and #304 establish the relevant decisions. Broad technical neutrality is not proof that all source requirements belong in Universal Core.
+Product vision, users, outcomes, experience, architecture, validation, security/privacy, accessibility, release, and maintenance contain concerns that may cross types but require contextual application. Apply [Standards Applicability](standards-applicability.md) and the recorded [Lifecycle Applicability Assessment](../practices/lifecycle-applicability-assessment.md) while preserving each source's governing scope. Broad technical neutrality is not proof that all source requirements belong in Universal Core.
 
 ## Ownership, conflicts, and exceptions
 
@@ -69,7 +69,7 @@ The scenarios validate ownership boundaries conceptually. They do not certify re
 
 ## Integration and follow-up
 
-The boundary sources are discoverable through the index, glossary, relationship map, and README. Directory migration and mass terminology replacement are outside this change. #303 defines applicability semantics using these ownership boundaries; #304 assesses phase/activity applicability and compatibility before any lifecycle revision. The existing [machine-representation deferral](../practices/machine-readable-execution-decision.md) remains unchanged.
+The boundary sources are discoverable through the index, glossary, relationship map, and README. Directory migration and mass terminology replacement are outside this change. [Standards Applicability](standards-applicability.md) defines applicability semantics using these ownership boundaries; the [Lifecycle Applicability Assessment](../practices/lifecycle-applicability-assessment.md) records phase/activity applicability and compatibility constraints on lifecycle revision. The existing [machine-representation deferral](../practices/machine-readable-execution-decision.md) remains unchanged.
 
 ## References
 
