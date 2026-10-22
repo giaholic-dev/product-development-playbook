@@ -147,6 +147,8 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 ### Practices
 
+- [Playbook Upgrade Guide](docs/practices/playbook-upgrade-guide.md)
+
 - [Playbook Remediation Plan](docs/practices/playbook-remediation-plan.md)
 - [Lifecycle Execution Guide](docs/practices/lifecycle-execution-guide.md)
 - [Milestone and Phase Boundary Review](docs/practices/milestone-boundary-review.md)

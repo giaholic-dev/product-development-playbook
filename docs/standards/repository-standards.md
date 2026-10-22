@@ -95,6 +95,7 @@ A repository adopting this standard MUST maintain a lightweight conformance decl
 - repository purpose and applicable content responsibilities;
 - primary documentation language;
 - adopted detailed standards and local mappings;
+- the immutable adopted Playbook baseline and upgrade evidence under the [Versioning Standard](versioning-standard.md#adopted-playbook-baseline);
 - active exceptions and project-specific extensions;
 - validation and review evidence appropriate to the repository; and
 - the accountable owner and next conformance review condition or date.
