@@ -33,6 +33,19 @@ This recipe applies the concept mapping above; it adds no required GitHub Projec
 
 For closure, record acceptance, validation, review, integration, and remaining obligations before updating issue status. Separately use the [milestone and phase boundary review](milestone-boundary-review.md) to assess the combined result. A closed issue or populated Project view does not establish that boundary's completion.
 
+## Classification representation examples
+
+These examples apply the [taxonomy](../standards/work-item-taxonomy.md), [label](../standards/repository-labels.md), and [Project-field](../standards/repository-project-field-standard.md) owners; they do not introduce another mapping requirement.
+
+| Selected context | Primary representation | Validation boundary |
+| --- | --- | --- |
+| Issue-only tracker with documented classification labels | One mapped Phase label and one mapped Work Type label, with permitted values and ownership recorded. | Check that each required dimension has one primary value; labels do not define the dimension. |
+| Structured tracker without GitHub Projects | Fields whose documented meaning preserves the taxonomy. | Check the actual field values, not view grouping or platform Issue Type alone. |
+| Human-maintained work record | Explicit Phase and Work Type entries in the selected primary record. | Check classification and source identity; no provider is required. |
+| GitHub Project tracking Playbook work | The required Phase and Work Type single-select fields. | Verify the actual Project item values. An issue-body edit or label does not satisfy a missing field update. |
+
+If the same classification is displayed in more than one place, identify the primary record and the synchronization responsibility. A provider or access limitation remains explicit rather than silently changing the adopted mapping.
+
 ## Capability matrix
 
 The support descriptions use the Integration Standard's meanings. Supported denotes exposed scope, not a blanket runtime guarantee. This table is a dated snapshot; recheck the inventory and context before relying on it.

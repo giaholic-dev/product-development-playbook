@@ -10,7 +10,7 @@ The taxonomy provides a consistent vocabulary for planning, tracking, prioritizi
 
 This document defines the classification dimensions used to describe work items throughout the product development lifecycle.
 
-The taxonomy is independent of any specific project management platform and may be implemented using labels, custom fields, issue types, or equivalent mechanisms.
+The taxonomy is independent of any specific project management platform. Its dimensions MAY be represented through documented classification labels, structured fields, manual records, or equivalent mechanisms that preserve their distinct meanings and one primary value where required. A platform Issue Type alone does not establish the Playbook Work Type. An adopted provider mapping may require a particular representation within that mapping's scope.
 
 ## Work Item Model
 

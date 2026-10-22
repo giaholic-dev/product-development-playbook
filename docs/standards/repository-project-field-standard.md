@@ -10,6 +10,8 @@ This standard is an implementation mapping. The [Work Item Taxonomy](work-item-t
 
 This standard covers a GitHub Projects mapping of the Playbook work-item model. It does not make GitHub configuration a requirement for adopting the conceptual taxonomy.
 
+Repositories that do not adopt GitHub Projects MAY retain classification in documented labels, issue-body text, or another equivalent record under [Work Item Taxonomy](work-item-taxonomy.md). This is an alternative representation context, not an exception to an already adopted Project-field requirement. Within a Project that tracks Playbook work, the required fields below remain binding; unavailable field mutation is an unmet obligation, not evidence that a body edit updated the Project.
+
 ## Configuration Principles
 
 - A GitHub Project does not automatically contain every field named by this Playbook.
