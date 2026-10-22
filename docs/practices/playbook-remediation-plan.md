@@ -10,9 +10,9 @@ The review findings R01–R12 and the four follow-up research scopes are preserv
 
 ## Release boundaries
 
-The last confirmed published release is v0.1.0 (2026-09-12). The closed v0.2.0–v0.5.0 milestones represent accepted delivery boundaries, not proof that those versions were published. Do not reopen them or publish historical versions merely to fill a numbering sequence.
+The latest verified published release is [v0.6.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.6.0) (2026-10-22), from immutable commit `c7c0bc67b53433e4a549d807bb04f37c4c9f0002`. The historical v0.1.0 release remains published (2026-09-12). The closed v0.2.0–v0.5.0 milestones represent accepted delivery boundaries, not proof that those versions were published. Do not reopen them or publish historical versions merely to fill a numbering sequence.
 
-The current development target is **v0.6.0 — Consistency, Environments and Adoption**. v0.7.0 and v0.8.0 are subsequent planned delivery boundaries, not published releases or date commitments. The selected 0.x versions identify reviewed adoption baselines; they do not establish a full external Semantic Versioning compatibility promise. [C09 / #323](https://github.com/giaholic-dev/product-development-playbook/issues/323) documents the detailed adoption/upgrade policy before publication.
+The current development target is **v0.7.0 — Audit Evidence Coverage**. v0.7.0 and v0.8.0 remain planned delivery boundaries, not published releases or date commitments. The selected 0.x versions identify reviewed adoption baselines; they do not establish a full external Semantic Versioning compatibility promise. [C09 / #323](https://github.com/giaholic-dev/product-development-playbook/issues/323) documents the detailed adoption/upgrade policy before publication.
 
 | Local boundary | Intended version and outcome | Included records |
 | --- | --- | --- |
@@ -207,3 +207,11 @@ This checkpoint supersedes the earlier pending-capability observations for the o
 - Authenticated native access to Organization Project #1 now works. Phase and Work Type were populated and read back for all 25 plan issues (#315–#339) against the identity/classification table above. The existing Work Type option `Maintenance` was renamed `Operational Maintenance` to match the governing standard, preserving the option identity and existing assignments. No workflow commitment, optional artifact classification or research acceptance is inferred from these updates.
 - C01–C09 retain their integrated evidence. C10 completion follows integration of this reconciled record. C11 / [#325](https://github.com/giaholic-dev/product-development-playbook/issues/325) remains the release work item: aggregate boundary review, exact candidate/check verification, substantive notes covering material changes since v0.1.0, release decision and verified tag/publication remain required. Resolving the mapping does not publish v0.6.0.
 - A01–A06, O01–O04 and F01–F04 remain pending under their recorded dependencies. This checkpoint neither expands exporter coverage nor approves stateful recovery requirements.
+
+## v0.6.0 publication verified — 2026-10-22
+
+[PR #352](https://github.com/giaholic-dev/product-development-playbook/pull/352) integrated the [release notes and M6 aggregate review](../releases/v0.6.0.md). The reviewed head passed Documentation checks; its merge candidate `c7c0bc67b53433e4a549d807bb04f37c4c9f0002` had no file differences from that head. C11 records the scoped release decision, validation and known limits.
+
+The native GitHub Release is published, labeled Latest and linked to the approved exact commit. Tag comparison against that commit is identical; the release-note bytes fetched through v0.6.0 match the reviewed source. The release page exposes the notes, adopter actions, known exporter omissions and content-recovery guidance. No earlier release/tag was rewritten. This checkpoint resolves the earlier pending-publication and capability observations for M6; it does not claim publication of v0.7.0 or v0.8.0.
+
+C01–C10 are complete. C11 closure and native M6 closure follow verification of this post-publication README/evidence update. The next selected development boundary is M7; start with A01 / #326 to approve audit coverage before A02–A05 implementation. O01 and unversioned research retain their own readiness/decision conditions. Audit-retention reassessment before reuse or by 2026-11-05 remains a non-blocking operational obligation owned by @giaholic.
