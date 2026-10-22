@@ -28,7 +28,7 @@ The three environments MUST be distinct. They MAY share physical infrastructure 
 
 A project MUST:
 
-- Separate environment configuration and secret scopes. Non-production execution MUST NOT use production credentials or identities that grant production access.
+- Separate environment configuration and secret scopes. Development and Test application runtimes MUST NOT use production credentials or identities that grant production access. Authorized deployment-task identities are governed separately below.
 - Isolate mutable application data and state. Development and Test MUST NOT write to production databases, storage, queues, or equivalent resources. Stateless products MUST record which data-isolation concerns do not apply.
 - Route non-production integrations to isolated test resources, sandboxes, or controlled substitutes. Test messages, payments, notifications, and jobs MUST NOT cause real production effects.
 - Apply environment-specific access permissions and control production changes through authorized deployment paths.
@@ -36,6 +36,14 @@ A project MUST:
 - Govern any production-derived test data under [Security, Privacy, and Data Governance](security-privacy-data-governance.md), with authorization, minimization or sanitization, access, and retention controls.
 
 Shared infrastructure MUST preserve these boundaries during normal operation and representative failure or misconfiguration checks. Public or immutable assets MAY be shared when the project records why this cannot expose protected data or permit cross-environment mutation.
+
+## Application and deployment identities
+
+An application identity is used by the running or served product and its jobs. A deployment-task identity performs an authorized provisioning, deployment, verification, or recovery operation. The distinction depends on the operation and effective access, not the machine or environment name where a task runs.
+
+A deployment task MAY use scoped production access from a controlled automation or operator execution context when that access is required for an authorized production operation. The project MUST record the task's purpose, target, accountable owner, authorization, permission scope, credential reference, and duration or expiry policy. Permissions MUST be limited to the authorized operation, with the actual operation and result retained as evidence. Deployment authority does not itself supply production-promotion approval.
+
+Production deployment credentials MUST NOT be exposed to Development or Test application runtimes, untrusted code or pull-request execution, test data, logs, or artifacts. A shared runner or host MUST enforce the same separation and restrict when the deployment identity can be obtained and used. Performing ordinary development or testing with a production-capable identity is not a deployment-task exception. Secret handling remains governed by [Security, Privacy, and Data Governance](security-privacy-data-governance.md).
 
 ## Configuration and test fidelity
 
