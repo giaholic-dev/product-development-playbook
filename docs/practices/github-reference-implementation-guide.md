@@ -20,6 +20,19 @@ Provider support is evidenced by the official sources linked below. Connector ex
 - A release record and source tag represent publication evidence. A merged PR or closed milestone does not publish a release.
 - A workflow run is automation evidence for its actual checked scope; success does not certify unexecuted checks or all work Completion.
 
+## Optional small-repository setup recipe
+
+This recipe applies the concept mapping above; it adds no required GitHub Project, field, status name, or automation.
+
+1. Read the adopted taxonomy, work-item types, field, view, and milestone standards. Identify the dimensions needed for the product before configuring GitHub.
+2. Inspect the actual repository, Project (if selected), existing fields/options, issues, and milestones. Reuse suitable configuration; record any mapping gap rather than inventing identifiers.
+3. Prepare a mapping from each selected governed dimension to its issue metadata, Project field, or documented body record. Preserve Lifecycle Phase, Work Type, and workflow status as distinct dimensions. An issue update does not update a custom Project field.
+4. Configure the selected fields and views through an authorized supported channel. If milestones are used, record their outcome, scope, owner, included-work rule, and criteria. Use the capability matrix below to distinguish provider support from this connector's exposure.
+5. Try a representative work record and verify its issue metadata, Project values, planning view, and milestone membership where applicable. Record actual observed values and any collection or access limits.
+6. Link the maintained mapping from the repository's governance or conformance record. Check that the first Product item can be represented without requiring capabilities the project has not established.
+
+For closure, record acceptance, validation, review, integration, and remaining obligations before updating issue status. Separately use the [milestone and phase boundary review](milestone-boundary-review.md) to assess the combined result. A closed issue or populated Project view does not establish that boundary's completion.
+
 ## Capability matrix
 
 The support descriptions use the Integration Standard's meanings. Supported denotes exposed scope, not a blanket runtime guarantee. This table is a dated snapshot; recheck the inventory and context before relying on it.
