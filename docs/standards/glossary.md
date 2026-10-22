@@ -6,7 +6,7 @@ Provide a discoverable catalog of approved cross-cutting terms used by the Produ
 
 The primary owner of each term remains the linked lifecycle document or standard. This catalog aids navigation and does not redefine those concepts.
 
-| Term | Definition | Primary owner |
+| Term | Navigation summary | Primary definition owner |
 | --- | --- | --- |
 | Accountability | Answerability for a material responsibility or decision within a defined scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Accountable Owner | Role holding required accountability within an applicable scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
