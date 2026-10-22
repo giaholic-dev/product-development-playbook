@@ -138,6 +138,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 ### Practices
 
+- [Playbook Remediation Plan](docs/practices/playbook-remediation-plan.md)
 - [Lifecycle Execution Guide](docs/practices/lifecycle-execution-guide.md)
 - [Milestone and Phase Boundary Review](docs/practices/milestone-boundary-review.md)
 - [Scope Evolution and Proportionate Architecture Decisions](docs/practices/scope-and-architecture-decisions.md)
@@ -255,7 +256,9 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 Latest published release: **[v0.1.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.1.0)**
 
-Development target: **Not established**
+Development target: **v0.6.0 — Consistency, Environments and Adoption (in development)**
+
+Scope and work records: [Playbook Remediation Plan](docs/practices/playbook-remediation-plan.md).
 
 The lifecycle status below measures this repository's documentation coverage, not execution status for an external product:
 
