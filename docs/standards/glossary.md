@@ -26,6 +26,7 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Definition of Done | The evidence required to consider a work item or outcome complete. | [Definition of Done](definition-of-done.md) |
 | Definition of Ready | The minimum evidence that permits a responsible start. | [Definition of Ready](definition-of-ready.md) |
 | Delegation | Explicit transfer of work performance within a defined scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
+| Development Environment | Isolated context for implementing and experimenting with software changes. | [Software Environments Standard](software-environments.md) |
 | Execution | Realization of selected or otherwise authorized work through applicable actions. | [Work Management Standard](work-management.md) |
 | Execution Disposition | Explicit protocol-level determination of how a governed execution attempt is treated when its conditions prevent ordinary progression or its result requires an explicit protocol outcome. | [Execution Protocol Standard](execution-protocol.md) |
 | Execution Protocol | Minimum provider-independent semantic contract for making a governed execution attempt traceable and verifiable without redefining Work Management Execution. | [Execution Protocol Standard](execution-protocol.md) |
@@ -39,6 +40,7 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Integration Verification | Examination of an observable external result or state against its applicable Capability Contract; distinct from work Validation. | [Provider-independent Integration Standard](integration-standard.md) |
 | Lifecycle Phase | One ordered part of the Product Development Playbook lifecycle. | [Foundation Phase](../lifecycle/01-foundation.md) |
 | Ordering | Establishment or reconsideration of relative precedence among managed work. | [Work Management Standard](work-management.md) |
+| Production Environment | Context for operating the approved software release for real users or consumers. | [Software Environments Standard](software-environments.md) |
 | Preparation | Development of work understanding for a subsequent management decision or action. | [Work Management Standard](work-management.md) |
 | Prioritization | Evaluation or reconsideration of relative importance for management decisions. | [Work Management Standard](work-management.md) |
 | Provider Implementation Guide | Non-normative implementation guidance mapping a named provider and defined execution context to governed integration needs and Capability Contracts. | [Provider Implementation Guide Standard](provider-implementation-guide-standard.md) |
@@ -57,6 +59,7 @@ The primary owner of each term remains the linked lifecycle document or standard
 | Reviewer | Role responsible for evaluating governed work or evidence within an applicable scope. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Role | Responsibility within Playbook execution. | [Roles and Actor Assignment Standard](roles-and-actor-assignment.md) |
 | Selection | Choice of managed work for progression toward an applicable next action. | [Work Management Standard](work-management.md) |
+| Test Environment | Isolated context for validating an identified software release candidate before production promotion. | [Software Environments Standard](software-environments.md) |
 | Validation | Evaluation of work, evidence, or outcomes against applicable requirements. | [Work Management Standard](work-management.md) |
 | Universal Core | Shared conceptual governance boundary whose concerns retain their meaning independently of Product Type; not a universal catalog of current source requirements. | [Core and Specialization Boundaries](core-and-specialization-boundaries.md) |
 | Work-in-Progress (WIP) | Work that remains in active progression. | [Work Management Standard](work-management.md) |

@@ -27,6 +27,7 @@ This map covers principal ownership and dependency relationships among published
 | Product decisions | [Product Vision](product-vision.md) | Problem Statement, Users, Outcomes, Product Scope, Product Backlog |
 | Experience decisions | [UX Vision](ux-vision.md) | User Journey, Personas, User Flows, UX Validation |
 | Architecture decisions | [Architecture Vision](architecture-vision.md) | System Context, Architecture Decision Records, Architecture Artifacts |
+| Software environment separation and promotion | [Software Environments Standard](software-environments.md) | Architecture Phase, Development Phase, Testing Strategy, Deployment Strategy, Rollback Strategy, Roles and Actor Assignment Standard, Security, Privacy, and Data Governance Standard |
 | Delivery and release | [Release Strategy](release-strategy.md) | Versioning, Release Notes, Deployment Strategy, Rollback Strategy |
 | Sustained operation | [Maintenance Phase](../lifecycle/07-maintenance.md) | Incident Management, Bug Management, Technical Debt Management, Product Monitoring |
 

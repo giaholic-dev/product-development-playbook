@@ -10,6 +10,7 @@ Make an integrated product increment available to its intended users with a clea
 - Required validation, review, and operational evidence.
 - Identified release scope, risks, and affected users or operators.
 - The adopted versioning, deployment, and recovery decisions.
+- For executable software products, the candidate, environment, and promotion evidence governed by the [Software Environments Standard](../standards/software-environments.md); its approval is required before production promotion.
 
 ## Activities
 
@@ -35,6 +36,8 @@ Release work is complete when the intended increment is available to its target 
 Maintenance work may begin when the released increment has an identified operational owner, a means to receive and assess feedback or incidents, and traceable follow-up work for known obligations.
 
 ## References
+
+- [Software Environments Standard](../standards/software-environments.md)
 
 - [Development Phase](05-development.md)
 - [Definition of Done](../standards/definition-of-done.md)

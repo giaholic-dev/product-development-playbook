@@ -6,7 +6,7 @@ Define how a release is moved into an intended operating environment with contro
 
 ## Scope
 
-This standard governs deployment decisions and evidence. It does not prescribe infrastructure, environments, automation tooling, or a single delivery method.
+This standard governs deployment decisions and evidence. The [Software Environments Standard](software-environments.md) owns the required Development, Test, and Production environments, their isolation, candidate promotion, and production approval. This standard does not prescribe infrastructure, automation tooling, or a single delivery method.
 
 ## Deployment Plan
 
@@ -34,6 +34,8 @@ Record the deployment result, relevant timestamps, the deployed release identifi
 An emergency deployment MAY abbreviate the normal sequence only when the reason, decision-maker, risks, and required follow-up review are recorded.
 
 ## References
+
+- [Software Environments Standard](software-environments.md)
 
 - [Release Phase](../lifecycle/06-release.md)
 - [Release Strategy](release-strategy.md)

@@ -180,6 +180,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Versioning Standard](docs/standards/versioning-standard.md)
 - [Coding Standards](docs/standards/coding-standards.md)
 - [Testing Strategy](docs/standards/testing-strategy.md)
+- [Software Environments Standard](docs/standards/software-environments.md)
 - [Continuous Integration](docs/standards/continuous-integration.md)
 - [Repository Automation Standard](docs/standards/repository-automation.md)
 - [AI Collaboration Standard](docs/standards/ai-collaboration.md)
