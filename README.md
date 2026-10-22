@@ -145,6 +145,10 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Decision Record](templates/decision-record.md)
 - [AI-assisted Work Evidence](templates/ai-assisted-work-evidence.md)
 
+### Releases
+
+- [v0.6.0 release notes and M6 review](docs/releases/v0.6.0.md) — prepared candidate; publication is verified separately.
+
 ### Practices
 
 - [Playbook Upgrade Guide](docs/practices/playbook-upgrade-guide.md)
