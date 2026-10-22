@@ -26,6 +26,12 @@ A repository MAY establish a development target separately from the latest publi
 
 If no development target is explicitly established, the README MUST say so or omit it.
 
+## Adopted Playbook baseline
+
+An adopting repository MUST identify the Playbook source repository and an immutable adopted revision in its conformance declaration, with the release version/tag when one exists. A branch name or retrieval date alone is insufficient. If adopting an unreleased revision, the record MUST label it as unreleased rather than implying publication. The declaration MUST identify assessment date, accountable owner, applicable standards/local mappings, unresolved gaps, exceptions and the next review condition.
+
+An upgrade MUST compare the previous and proposed immutable baselines, identify changed applicable obligations and affected evidence, and record the adoption decision and required remediation or governed exceptions. Merely pulling source changes or changing a version label does not establish conformance. Preserve historical baseline and migration evidence. Detailed working steps are illustrated by the optional [Playbook Upgrade Guide](../practices/playbook-upgrade-guide.md).
+
 ## Update Rules
 
 Update version information when:

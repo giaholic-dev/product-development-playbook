@@ -10,6 +10,10 @@ Use this template to record adoption of [Repository Standards](../docs/standards
 
 ## Adopted baseline
 
+- Playbook source repository and immutable adopted commit:
+- Release version/tag, or explicit unreleased-revision label:
+- Assessment date, previous baseline and migration decision/evidence:
+- Changed applicable obligations, remediation owners and remaining gaps:
 - Primary documentation language:
 - Applicable lifecycle phases:
 - Adopted standards and local mappings:
