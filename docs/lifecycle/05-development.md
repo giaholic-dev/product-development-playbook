@@ -7,6 +7,7 @@ Implement, integrate, and validate product work in small, traceable increments c
 ## Inputs
 
 - Ready work items from the Product Backlog.
+- For executable software products, provisioned and verified environments under the [Software Environments Standard](../standards/software-environments.md).
 - Applicable Product, UX, Architecture, and operational constraints.
 - Adopted repository workflow, review, completion, coding, testing, and integration standards.
 
@@ -33,6 +34,8 @@ Development work is complete when its stated outcome and acceptance evidence mee
 Release work may begin when the selected increment is integrated, has the required release evidence, and any unresolved risk is explicitly accepted or represented by linked follow-up work.
 
 ## References
+
+- [Software Environments Standard](../standards/software-environments.md)
 
 - [Architecture Phase](04-architecture.md)
 - [Product Backlog](../standards/product-backlog.md)

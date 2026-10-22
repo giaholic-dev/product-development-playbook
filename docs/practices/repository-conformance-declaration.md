@@ -30,6 +30,10 @@ For changes to this repository, the adopted governance is:
 
 Other source requirements are assessed when their scope or conditions govern the selected work. This declaration neither adopts every artifact as mandatory nor marks whole lifecycle phases or standards inapplicable by label. The [lifecycle applicability assessment](lifecycle-applicability-assessment.md) preserves the seven phases and the boundary for future migration.
 
+## Software environment applicability update — 2026-10-22
+
+The [Software Environments Standard](../standards/software-environments.md) was assessed for this methodology repository at baseline `0d21cecc5ade1b2e5d62f58fb624b914e5f6e2e0` and the accompanying proposed documentation change. The repository delivers maintained methodology documents and supporting development/audit utilities, not a served or executable product runtime. Its scripts and CI alone therefore do not trigger three product environments. This is a scoped applicability determination, not an exception or a claim that existing adopting software products are conformant. Existing script validation and automation obligations remain applicable. The accountable maintainer owns reassessment if a runtime product or served documentation product is introduced. This update takes effect with integration of the accompanying standard.
+
 ## Local mappings and execution practice
 
 Git is the deliberate repository baseline. GitHub repository issues/PRs and Organization Project #1 are local work/review/planning mappings. [Repository Project Field Standard](../standards/repository-project-field-standard.md) and the optional [GitHub reference guide](github-reference-implementation-guide.md) own their mapping concerns. The guide's dated connector observations are not refreshed or generalized by this declaration; reliance on an operation requires current scoped discovery and verification.

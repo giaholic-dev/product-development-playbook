@@ -20,6 +20,7 @@ This index lists maintained standards and the catalogs that help readers locate 
 - [Versioning Standard](versioning-standard.md)
 - [Coding Standards](coding-standards.md)
 - [Testing Strategy](testing-strategy.md)
+- [Software Environments Standard](software-environments.md)
 - [Continuous Integration](continuous-integration.md)
 - [Repository Automation Standard](repository-automation.md)
 - [AI Collaboration Standard](ai-collaboration.md)

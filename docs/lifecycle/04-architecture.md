@@ -23,6 +23,8 @@ Transform validated product and experience decisions into an intentional technic
 - Traceable technical risks, assumptions, and validation evidence.
 - Architecture-enabling work linked to the Product Backlog.
 
+For executable software products, architecture-enabling work MUST establish and verify the environments required by the [Software Environments Standard](../standards/software-environments.md) before entry to Development. The environment record and isolation evidence form part of the applicable architecture evidence.
+
 ## Definition of Done
 
 Architecture is complete when the material technical decisions, constraints, and risks are sufficiently evidenced for the intended development decision. Unresolved uncertainty MAY remain only with a recorded owner, impact, and reassessment condition.
@@ -32,6 +34,8 @@ Architecture is complete when the material technical decisions, constraints, and
 Development may begin when the selected architecture provides enough direction to implement and validate the next planned work without treating all future design decisions as fixed.
 
 ## References
+
+- [Software Environments Standard](../standards/software-environments.md)
 
 - [UX Phase](03-ux.md)
 - [Product Backlog](../standards/product-backlog.md)
