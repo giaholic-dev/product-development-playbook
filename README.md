@@ -112,15 +112,19 @@ Reachability and index coverage remain manual review responsibilities under [Doc
 
 ## Audit exporter
 
-The [Audit Package Coverage and Compatibility Contract](docs/practices/audit-package-contract.md) defines the approved v0.7.0 implementation target. The current exporter remains tool 1.0.1 / manifest 1.0.0 with the limits documented in v0.6.0; contract publication does not implement or certify schema-2 coverage.
+The [Audit Package Coverage and Compatibility Contract](docs/practices/audit-package-contract.md) defines the approved v0.7.0 implementation target. The current exporter is tool 1.1.0 / manifest 1.1.0: A02 adds committed-source bytes and inventory. PR conversation/review and Project-value coverage are still pending; it does not implement or certify the complete schema-2 contract.
 
 [`scripts/export-audit.sh`](scripts/export-audit.sh) creates a timestamped, offline audit package for the current Git repository.
 
-Requirements: Git, GitHub CLI (`gh`), `jq`, `zip`, and `unzip`. Authenticate with `gh auth login` and ensure the account can access the repository, then run:
+Requirements: Git, GitHub CLI (`gh`), `jq`, `zip`, `unzip`, and Python 3.12 or later (standard library only). Review the selected repository/Project data, committed-source sensitivity, output destination and retention before exporting. The bounded credential/path checks do not guarantee secret-free content. Authenticate with `gh auth login`, ensure the account has authorized read access, then explicitly confirm the source-scope review:
 
 ```bash
-bash scripts/export-audit.sh
+GITHUB_AUDIT_SOURCE_REVIEWED=true bash scripts/export-audit.sh
 ```
+
+The committed-source snapshot is retained at `repository/source/`, with every tracked path's disposition, object/mode, retained-byte SHA-256/size and observation interval in `repository/source-inventory.json`. Bytes come from the once-resolved HEAD object tree; staged, unstaged, ignored and untracked working files are excluded even when the working tree is dirty. Protected/output paths are inventoried without contents. Required-source exclusions or missing required Git LFS/submodule content fail; other pointers/gitlinks remain explicitly incomplete constituent evidence. Symlinks are inert regular files containing only their target bytes. Legacy selected-document copies use these committed bytes, and the convenience tree lists JSON-escaped paths. No external source is fetched. Final source verification rejects changed HEAD, missing/tampered files or inventory.
+
+The helper uses four-space Python style, snake_case names, standard-library dependencies and sanitized exceptions. Run `python3 -m unittest discover -s scripts -p test_audit_source.py` for synthetic isolated Git-repository tests. The exporter checker/CI includes these tests; it does not contact GitHub. Schema 1.1 adds source metadata but keeps `full_profile_complete=false`; schema/tool 2 is reserved for A05's complete coverage integration. Preserve earlier packages unchanged.
 
 The ZIP contains an `exports/<timestamp>/` root with `repository/`, `git/`, `github/`, and a root `manifest.json`. The manifest records the source commit, selected ref, collection counts, and pagination completion. Timeline deduplication scopes provider IDs by issue and event kind. For events without IDs, it compares the complete observed payload and removes only identical records; that comparison is local to the snapshot, not a durable event identity. Different payloads, including cross-references with equal timestamps, are preserved.
 
