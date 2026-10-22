@@ -147,7 +147,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 ### Releases
 
-- [v0.6.0 release notes and M6 review](docs/releases/v0.6.0.md) — prepared candidate; publication is verified separately.
+- [v0.6.0 release notes and M6 review](docs/releases/v0.6.0.md) — published baseline and release evidence.
 
 ### Practices
 
@@ -269,9 +269,9 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 ## Current Status
 
-Latest published release: **[v0.1.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.1.0)**
+Latest published release: **[v0.6.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.6.0)**
 
-Development target: **v0.6.0 — Consistency, Environments and Adoption (in development)**
+Development target: **v0.7.0 — Audit Evidence Coverage (in development)**
 
 Scope and work records: [Playbook Remediation Plan](docs/practices/playbook-remediation-plan.md).
 
