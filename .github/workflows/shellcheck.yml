@@ -5,6 +5,8 @@ on:
     paths:
       - "**.sh"
       - "scripts/**/*.jq"
+      - "scripts/audit-source.py"
+      - "scripts/test_audit_source.py"
       - "scripts/fixtures/**"
       - ".shellcheckrc"
       - ".github/workflows/shellcheck.yml"
@@ -14,6 +16,8 @@ on:
     paths:
       - "**.sh"
       - "scripts/**/*.jq"
+      - "scripts/audit-source.py"
+      - "scripts/test_audit_source.py"
       - "scripts/fixtures/**"
       - ".shellcheckrc"
       - ".github/workflows/shellcheck.yml"
@@ -26,8 +30,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - name: Install validation tools
-        run: sudo apt-get update && sudo apt-get install --yes shellcheck shfmt jq
+        run: sudo apt-get update && sudo apt-get install --yes shellcheck shfmt jq zip unzip
       - name: Lint shell scripts
         run: shellcheck --shell=bash --severity=warning scripts/*.sh
       - name: Validate exporter and regression fixtures

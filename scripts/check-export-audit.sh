@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-for command in bash shfmt shellcheck; do
+for command in bash shfmt shellcheck python3; do
   command -v "$command" >/dev/null 2>&1 || {
     echo "Missing command: $command"
     exit 1
@@ -64,3 +64,6 @@ jq -L scripts/lib --exit-status '
     and ([{"id": 1}] | timeline_valid | not)
     and ({} | timeline_valid | not)
 ' scripts/fixtures/paginated-timeline.json >/dev/null
+
+# Disposable Git repositories exercise committed-source and failure boundaries.
+python3 -m unittest discover -s scripts -p test_audit_source.py

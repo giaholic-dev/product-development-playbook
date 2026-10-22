@@ -2,9 +2,11 @@
 set -Eeuo pipefail
 umask 077
 
-EXPORT_SCHEMA_VERSION="1.0.0"
-TOOL_VERSION="1.0.1"
-JQ_LIBRARY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/lib" && pwd)"
+EXPORT_SCHEMA_VERSION="1.1.0"
+TOOL_VERSION="1.1.0"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+JQ_LIBRARY_DIR="$SCRIPT_DIR/lib"
+SOURCE_HELPER="$SCRIPT_DIR/audit-source.py"
 
 print_header() {
   echo "======================================"
@@ -26,6 +28,15 @@ check_requirements() {
   require jq
   require zip
   require unzip
+  require python3
+  python3 -c 'import sys; sys.exit(sys.version_info < (3, 12))' || {
+    echo "Python 3.12 or later is required."
+    exit 1
+  }
+  [[ "${GITHUB_AUDIT_SOURCE_REVIEWED:-false}" == "true" ]] || {
+    echo "Review the source/data scope first, then set GITHUB_AUDIT_SOURCE_REVIEWED=true."
+    exit 1
+  }
 }
 
 check_repository() {
@@ -123,25 +134,28 @@ publish_export() {
 }
 
 create_directories() {
-  mkdir -p "$EXPORT_DIR/repository" "$EXPORT_DIR/github" "$EXPORT_DIR/git"
+  mkdir -p "$EXPORT_DIR/github" "$EXPORT_DIR/git"
 }
 
 export_repository() {
-  [[ -f README.md ]] || {
-    echo "README.md is required for an audit export."
-    exit 1
-  }
-  cp README.md "$EXPORT_DIR/repository/"
-
+  python3 "$SOURCE_HELPER" export --root "$ROOT" --commit "$COMMIT" \
+    --destination "$EXPORT_DIR/repository" --output-relative "$EXPORT_ROOT" --reviewed-source
+  local source="$EXPORT_DIR/repository/source"
+  cp "$source/README.md" "$EXPORT_DIR/repository/"
   mkdir -p "$EXPORT_DIR/repository/config"
   for path in .editorconfig .gitignore .shellcheckrc .gitattributes CODEOWNERS Makefile; do
-    [[ -f "$path" ]] && cp "$path" "$EXPORT_DIR/repository/config/"
+    [[ -f "$source/$path" ]] && cp "$source/$path" "$EXPORT_DIR/repository/config/"
   done
-  [[ -d docs ]] && cp -R docs "$EXPORT_DIR/repository/"
-  [[ -d templates ]] && cp -R templates "$EXPORT_DIR/repository/"
-  [[ -d examples ]] && cp -R examples "$EXPORT_DIR/repository/"
-  find . -path "./.git" -prune -o -path "./audit" -prune -o -type f -print |
-    sort >"$EXPORT_DIR/repository/repository-tree.txt"
+  [[ ! -d "$source/docs" ]] || cp -R "$source/docs" "$EXPORT_DIR/repository/"
+  [[ ! -d "$source/templates" ]] || cp -R "$source/templates" "$EXPORT_DIR/repository/"
+  [[ ! -d "$source/examples" ]] || cp -R "$source/examples" "$EXPORT_DIR/repository/"
+  # JSON-escaped path per line avoids ambiguity for tracked newlines.
+  jq -r '.entries[].path | tojson' "$EXPORT_DIR/repository/source-inventory.json" \
+    >"$EXPORT_DIR/repository/repository-tree.txt"
+}
+
+verify_source_snapshot() {
+  python3 "$SOURCE_HELPER" verify --root "$ROOT" --destination "$EXPORT_DIR/repository"
 }
 
 export_branches() {
@@ -484,6 +498,7 @@ create_manifest() {
     --argjson project_views "$(collection_count "$EXPORT_DIR/github/project-views.json")" \
     --argjson issue_timeline "$(collection_count "$EXPORT_DIR/github/issue-timeline.json")" \
     --argjson review_comments "$(collection_count "$EXPORT_DIR/github/review-comments.json")" \
+    --slurpfile source_snapshot "$EXPORT_DIR/repository/source-inventory.json" \
     '{
       schema_version: $schema_version,
       tool_version: $tool_version,
@@ -499,6 +514,20 @@ create_manifest() {
         dirty: $dirty
       },
       generated_at: $generated_at,
+      coverage_profile: "legacy-plus-committed-source",
+      full_profile_complete: false,
+      source_snapshot: {
+        inventory: "repository/source-inventory.json",
+        root: "repository/source",
+        commit: $source_snapshot[0].commit,
+        tree: $source_snapshot[0].tree,
+        source_kind: $source_snapshot[0].source_kind,
+        working_tree_bytes_included: false,
+        all_tracked_blobs_retained: $source_snapshot[0].all_tracked_blobs_retained,
+        policy_version: $source_snapshot[0].policy_version,
+        dirty_initial: $source_snapshot[0].dirty_initial,
+        dirty_final: $source_snapshot[0].dirty_final
+      },
       collection_counts: {
         issues: $issues,
         issue_comments: $issue_comments,
@@ -530,6 +559,7 @@ create_manifest() {
 }
 
 validate_integrity() {
+  verify_source_snapshot
   local collection
   local file
   local declared_count
@@ -687,4 +717,6 @@ main() {
   summary
 }
 
-main
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main
+fi
