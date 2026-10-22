@@ -16,7 +16,8 @@ jq --exit-status '
   [.[][]] | unique_by(.id) | sort_by(.number) | map(.number) == [1, 2, 3]
 ' scripts/fixtures/paginated-issues.json >/dev/null
 
-jq --slurpfile pull_requests scripts/fixtures/pull-requests.json '
+check_issue_comment_fixture() {
+  jq --exit-status --slurpfile pull_requests scripts/fixtures/pull-requests.json '
   ($pull_requests[0] | map(.number) | unique) as $pull_request_numbers
   | [.[][]
       | (.issue_url | split("/") | last | tonumber) as $issue_number
@@ -26,7 +27,23 @@ jq --slurpfile pull_requests scripts/fixtures/pull-requests.json '
   | unique_by(.id)
   | sort_by(.issue_number, .id)
   | map(.issue_number) == [1, 3]
-' scripts/fixtures/paginated-issue-comments.json >/dev/null
+' "$1" >/dev/null
+}
+
+check_issue_comment_fixture scripts/fixtures/paginated-issue-comments.json
+
+# The fixture contract expects issues 1 and 3, so empty input must fail with
+# jq's false-result status rather than silently pass or fail from a parse error.
+if check_issue_comment_fixture scripts/fixtures/empty-issue-comments.json; then
+  echo "ERROR: Empty issue-comment fixture unexpectedly passed."
+  exit 1
+else
+  assertion_status=$?
+  if [[ "$assertion_status" -ne 1 ]]; then
+    echo "ERROR: Expected jq false-result status 1, got $assertion_status."
+    exit 1
+  fi
+fi
 
 # Preserve distinct ID-less events (including equal timestamps), scope IDs to
 # issue/event kind, and collapse only identical observed payloads without IDs.
