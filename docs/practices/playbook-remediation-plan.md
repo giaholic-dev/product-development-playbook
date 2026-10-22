@@ -146,8 +146,8 @@ Keep one primary source per rule. Existing standards own classification, artifac
 - C02–C05 reconcile the existing taxonomy, labels, artifact catalog, terminology and obsolete governing references. Preserve historical assessment baselines.
 - C06 clarifies application versus deployment identities in Software Environments and its related owners. It must preserve isolation and scoped production approval.
 - C07 updates the three existing full-lifecycle examples, relevant Master Execution Checklist references, and an optional `templates/software-environment-record.md`.
-- C08 selects a repository-toolchain implementation for documentation checks; `scripts/check-documentation.*` and `.github/workflows/documentation-checks.yml` are proposed targets, not files claimed to exist.
-- C09 maintains the Versioning Standard and conformance template and adds the proposed `docs/practices/playbook-upgrade-guide.md`.
+- C08 implements Python-standard-library documentation checks in `scripts/check-documentation.py`, behavioral cases in `scripts/test_check_documentation.py`, and the read-only `.github/workflows/documentation-checks.yml`. README records the parser contract and manual reachability/index boundary.
+- C09 maintains the Versioning Standard and conformance template and adds `docs/practices/playbook-upgrade-guide.md`, with immutable-baseline and migration evidence requirements.
 - A01 defines the proposed `docs/practices/audit-package-contract.md`; A02–A05 update the exporter, fixtures and manifest according to that contract. Exporter JSON is not a Playbook machine-execution schema.
 - O01 chooses primary ownership for stateful recovery/migration rules before O02 edits governing sources. O03 adds the proposed `docs/practices/data-recovery-and-migrations.md` and proportionate examples/optional records.
 - C11, A06 and O04 prepare release notes at proposed `docs/releases/v0.6.0.md`, `v0.7.0.md` and `v0.8.0.md`, linked to actual releases only when published.
@@ -167,3 +167,32 @@ Release publication is not exposed by the current connector. Until an authorized
 ## Maintenance and status ownership
 
 Issue and milestone records own their current operational status; this document owns the selected planning boundaries and identity map. Reassess it when accepted scope, dependencies, applicable rules, capability access or release decisions materially change. Retain prior reasons and source revisions. Do not mark future research implemented because an issue was created or a study completed.
+
+
+## Execution checkpoint — 2026-10-22
+
+This is a dated evidence checkpoint after integrated revision `621529b83ffcbdbb8286fad0ee16971e51213638`, not a replacement for live issue status. The original Portuguese implementation plan is preserved; the selected release boundaries and dependencies above remain unchanged.
+
+| Work | Integrated evidence | Outcome at this checkpoint |
+| --- | --- | --- |
+| C01 / [#315](https://github.com/giaholic-dev/product-development-playbook/issues/315) | [PR #341](https://github.com/giaholic-dev/product-development-playbook/pull/341) | Closed: jq exit-status regression and negative fixture verified. |
+| C02 / [#316](https://github.com/giaholic-dev/product-development-playbook/issues/316) | [PR #342](https://github.com/giaholic-dev/product-development-playbook/pull/342) | Closed: portable classification and adopted Project requirements reconciled. |
+| C03 / [#317](https://github.com/giaholic-dev/product-development-playbook/issues/317) | [PR #343](https://github.com/giaholic-dev/product-development-playbook/pull/343) | Closed: catalog categories aligned with Artifact Standard. |
+| C04 / [#318](https://github.com/giaholic-dev/product-development-playbook/issues/318) | [PR #344](https://github.com/giaholic-dev/product-development-playbook/pull/344) | Closed: glossary navigation distinguished from definition ownership. |
+| C05 / [#319](https://github.com/giaholic-dev/product-development-playbook/issues/319) | [PR #345](https://github.com/giaholic-dev/product-development-playbook/pull/345) | Closed: obsolete future references replaced with current owners. |
+| C06 / [#320](https://github.com/giaholic-dev/product-development-playbook/issues/320) | [PR #346](https://github.com/giaholic-dev/product-development-playbook/pull/346) | Closed: application/deployment identity boundaries clarified. |
+| C07 / [#321](https://github.com/giaholic-dev/product-development-playbook/issues/321) | [PR #347](https://github.com/giaholic-dev/product-development-playbook/pull/347) | Closed: three lifecycle examples, six checklist entries and optional environment record updated. |
+| C08 / [#322](https://github.com/giaholic-dev/product-development-playbook/issues/322) | [PR #348](https://github.com/giaholic-dev/product-development-playbook/pull/348) | Closed: documentation checker, seven behavioral tests and GitHub Actions validation passed. |
+| C09 / [#323](https://github.com/giaholic-dev/product-development-playbook/issues/323) | [PR #349](https://github.com/giaholic-dev/product-development-playbook/pull/349) | Closed: immutable adoption baseline, upgrade procedure and scoped conformance update integrated; Documentation checks passed. |
+
+PRs retain exact reviewed heads, changed-file readback, scoped validation and recorded AI-assisted self-review. No independent approval is inferred. The maintainer authorized continuation of these bounded changes in the work session. The examples are explicitly fictional and do not provision an adopter's environments.
+
+### Remaining release and capability obligations
+
+- C10 [#324](https://github.com/giaholic-dev/product-development-playbook/issues/324) remains open: reviewed obsolete branch deletion/retention must be executed and verified without touching active work. Integrated PRs alone are not deletion evidence. No branch deletion is claimed by this checkpoint.
+- C11 [#325](https://github.com/giaholic-dev/product-development-playbook/issues/325) remains open and depends on C10 plus aggregate readiness and verified publication. No v0.6.0 tag or release has been published by this work.
+- The three native milestones and issue associations remain unperformed. The connected interface exposes no milestone-creation operation; the available native browser is signed out. A milestone title in this plan or an issue body is not a native milestone.
+- Required Phase/Work Type field updates for the adopted GitHub Project mapping remain unverified/unperformed through the current connection. Body classifications preserve intended values only; they do not satisfy that mapping's mutation/evidence requirement.
+- Release publication and branch-ref deletion are not exposed by the current connector. Native fallback requires an authenticated, authorized session and post-action verification. Missing capability is an open obligation, not an exception or successful result.
+
+M7, M8 and the four unversioned research issues retain their original boundaries. A01 may proceed after C01 under its recorded dependency, but exporter expansion requires its coverage decision; stateful rules require O01. This checkpoint does not report any of them implemented or approve their research conclusions in advance.
