@@ -163,6 +163,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Provider Implementation Guide](templates/provider-implementation-guide.md)
 - [Exception Record](templates/exception-record.md)
 - [Decision Record](templates/decision-record.md)
+- [Stateful Recovery and Migration Record (optional)](templates/stateful-recovery-record.md)
 - [AI-assisted Work Evidence](templates/ai-assisted-work-evidence.md)
 
 ### Releases
@@ -172,6 +173,8 @@ The Playbook defines reusable standards that can be adopted across software prod
 ### Practices
 
 - [Playbook Upgrade Guide](docs/practices/playbook-upgrade-guide.md)
+- [Data Recovery and Migrations](docs/practices/data-recovery-and-migrations.md)
+- [Stateful Recovery and Migration Decision](docs/practices/stateful-recovery-decision.md)
 
 - [Playbook Remediation Plan](docs/practices/playbook-remediation-plan.md)
 - [Lifecycle Execution Guide](docs/practices/lifecycle-execution-guide.md)
@@ -190,6 +193,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 - [Product Definition Example](examples/product-definition-example.md)
 - [AI Collaboration Example](examples/ai-collaboration-example.md)
 - [End-to-end Playbook Example](examples/end-to-end-playbook-example.md)
+- [Stateful Recovery and Migration Example](examples/stateful-recovery-and-migration-example.md)
 - [Master Execution Checklist Walkthrough](examples/master-execution-checklist-walkthrough.md)
 - [Executable Protocol Reference Example](examples/executable-protocol-reference-example.md)
 
