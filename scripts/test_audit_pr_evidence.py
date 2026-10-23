@@ -47,7 +47,8 @@ def record(number, identity, kind, **extra):
 
 class Fixture:
     def __init__(self, numbers=(1,)):
-        self.routes = {"repos/" + REPO: response({"id": 10, "full_name": REPO})}
+        self.routes = {"repos/" + REPO: response({"id": 10, "full_name": REPO}),
+                       "user": response({"id": 2, "login": "reader"})}
         self.requests = []
         for number in numbers:
             for prefix, end in (("issues", "comments"), ("pulls", "reviews"), ("pulls", "comments")):

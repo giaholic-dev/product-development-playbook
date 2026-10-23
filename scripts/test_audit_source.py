@@ -231,8 +231,8 @@ class SourceSnapshotTests(unittest.TestCase):
         self.assertFalse(self.output.exists())
 
 
-    @unittest.skipUnless(all(shutil.which(c) for c in ("jq", "zip", "unzip")),
-                         "Synthetic packaging needs jq, zip and unzip")
+    @unittest.skipUnless(all(shutil.which(c) for c in ("jq",)),
+                         "Synthetic packaging needs jq")
     def test_bash_integration_packages_committed_bytes_and_source_manifest(self):
         self.write("docs/guide.md", b"Committed guide")
         self.write(".github/workflows/fixture.yml", b"name: fixture")
@@ -240,9 +240,9 @@ class SourceSnapshotTests(unittest.TestCase):
         self.commit()
         self.write("README.md", b"Local edit excluded")
         exporter = Path(__file__).with_name("export-audit.sh").resolve()
-        from test_audit_project import P, Fixture
+        from test_audit_package import write_provider_fixtures
         project_fixture = self.root / "project-fixture"
-        P.publish(P.collect("organization", "fixture", 1, "fixture/fixture", Fixture()), project_fixture)
+        write_provider_fixtures(project_fixture, "fixture/fixture", populated=False)
         command = r'''
 source "$1"
 ROOT="$2"
@@ -266,14 +266,14 @@ EXPORT_DIR="$STAGING_DIR"
 ZIP_FILE=audit/fixture.zip
 create_directories
 export_repository
-for collection in issues issue-comments pull-requests labels milestones releases issue-timeline review-comments pr-conversations pr-reviews; do
-  echo '[]' >"$EXPORT_DIR/github/$collection.json"
-done
+export_branches
+export_tags
+export_recent_commits
+export_repository_status
 cp "$ROOT"/project-fixture/*.json "$EXPORT_DIR/github/"
-printf '%s\n' '{"evidence_schema_version":"1.0.0","api_version":"2022-11-28","repository":"fixture/fixture","repository_id":1,"pr_numbers":[],"observations":[],"current_approval_inferred":false,"scope":"authorized-observable-pr-evidence"}' >"$EXPORT_DIR/github/pr-evidence-coverage.json"
 create_manifest
+seal_manifest
 validate_integrity
-publish_export
 compress
 '''
         subprocess.run(["bash", "-euo", "pipefail", "-c", command, "fixture",
@@ -287,9 +287,9 @@ compress
                              b"#!/bin/sh\nexit 0\n")
             self.assertEqual(archive.read(prefix + "repository/docs/guide.md"), b"Committed guide")
             manifest = json.loads(archive.read(prefix + "manifest.json"))
-            self.assertEqual(manifest["schema_version"], "1.3.0")
+            self.assertEqual(manifest["schema_version"], "2.0.0")
             self.assertEqual(manifest["source_snapshot"]["commit"], self.commit_id)
-            self.assertFalse(manifest["full_profile_complete"])
+            self.assertTrue(manifest["full_profile_complete"])
             self.assertFalse(manifest["source_snapshot"]["working_tree_bytes_included"])
 
 

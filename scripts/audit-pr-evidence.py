@@ -91,6 +91,11 @@ class Client:
         if str(repo.get("full_name", "")).casefold() != repository.casefold():
             raise EvidenceError("Repository response identity differs from selected target.")
         self.repository_id = repo["id"]
+        _, principal = parse_response(transport("user"))
+        if (not isinstance(principal, dict) or not positive_id(principal.get("id"))
+                or not isinstance(principal.get("login"), str) or not principal["login"]):
+            raise EvidenceError("Missing observed PR principal identity.")
+        self.principal = {k: principal[k] for k in ("id", "login")}
         self.identity_observed_at = now()
 
     def target(self, url, suffix):
@@ -244,9 +249,10 @@ def collect_evidence(repository, prs, destination, transport=gh_get):
             raise EvidenceError("Provider identity reused across distinct PR parents.")
     validate_relations(outputs)
     coverage = {
-        "evidence_schema_version": "1.0.0", "api_version": API_VERSION,
+        "evidence_schema_version": "1.1.0", "api_version": API_VERSION,
         "repository": repository, "repository_id": client.repository_id,
         "identity_observed_at": client.identity_observed_at,
+        "principal": client.principal,
         "pr_numbers": numbers, "observations": observations,
         "scope": "authorized-observable-pr-evidence",
         "current_approval_inferred": False,
@@ -277,12 +283,17 @@ def verify_evidence(repository, prs, destination):
     coverage = json_load((destination / "pr-evidence-coverage.json").read_bytes())
     numbers = pr_numbers(prs)
     if (not isinstance(coverage, dict)
-            or coverage.get("evidence_schema_version") != "1.0.0"
+            or coverage.get("evidence_schema_version") != "1.1.0"
             or coverage.get("api_version") != API_VERSION
             or coverage.get("repository") != repository
             or coverage.get("pr_numbers") != numbers
             or coverage.get("current_approval_inferred") is not False):
         raise EvidenceError("PR coverage identity/version/approval claim mismatch.")
+    principal = coverage.get("principal")
+    if (not isinstance(principal, dict) or set(principal) != {"id", "login"}
+            or not positive_id(principal.get("id")) or not isinstance(principal.get("login"), str)
+            or not principal["login"]):
+        raise EvidenceError("Invalid retained PR principal identity.")
     # Offline identity and target checking must perform no provider request.
     client = object.__new__(Client)
     client.repository = repository
