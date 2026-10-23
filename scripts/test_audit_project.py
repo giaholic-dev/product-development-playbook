@@ -4,6 +4,7 @@ import copy
 import importlib.util
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -353,9 +354,40 @@ verify_project_evidence
             self.collect()
 
     def test_legacy_project_transcript_remains_verifiable(self):
-        old = P.collect("organization", "fixture", 1, REPO, self.fixture, evidence_version="1.0.0")
-        P.verify(old, "organization", "fixture", 1, REPO)
-        self.assertEqual(old["project-coverage.json"]["evidence_schema_version"], "1.0.0")
+        for version in ("1.0.0", "1.1.0"):
+            with self.subTest(version=version):
+                old = P.collect("organization", "fixture", 1, REPO, self.fixture, evidence_version=version)
+                before = copy.deepcopy(old)
+                P.verify(old, "organization", "fixture", 1, REPO)
+                self.assertEqual(old, before)
+                self.assertEqual(old["project-coverage.json"]["evidence_schema_version"], version)
+                observations = old["project-coverage.json"]["observations"]
+                self.assertEqual(next(o for o in observations if o['target'][0] == 'fields')['query_sha256'],
+                                 'e10c99fa4b76b9426e299d56a816763dfa080de867e82061efb15bdacab1a126')
+                self.assertEqual(next(o for o in observations if o['target'][0] == 'values')['query_sha256'],
+                                 'b3dae93bff5788283d10e5f3b94af3d25462d1a9a13deb1f17fe6dc21fc534f4')
+
+    def test_issue_field_identity_uses_node_in_definition_and_value_queries(self):
+        # Model the provider's interface rejection, including value-parent reads.
+        def schema_guard(query, variables, response):
+            if re.search(r'\.\.\. on IssueFieldCommon\s*\{[^{}]*\bid\b', query):
+                return {'errors': [{'message': "Field 'id' doesn't exist on type 'IssueFieldCommon'"}]}
+            return response
+        self.fixture.hook = schema_guard
+        out = self.collect()
+        P.verify(out, "organization", "fixture", 1, REPO)
+        self.assertEqual(out['project-coverage.json']['evidence_schema_version'], '1.2.0')
+        for kind in ('Text', 'Number', 'Date', 'SingleSelect', 'MultiSelect'):
+            value = next(v for v in out['project-values.json']
+                         if v['item_id'] == 'I1' and v['field_id'] == 'F' + kind + 'Org')
+            self.assertEqual(value['disposition'], 'present')
+        for version in ('1.0.0', '1.1.0'):
+            with self.subTest(version=version), self.assertRaises(P.ProjectError):
+                P.collect('organization', 'fixture', 1, REPO, self.fixture, evidence_version=version)
+        # An invalid nested value query must fail independently of definitions.
+        with patch.dict(P.VALUE_SELECTIONS, {'1.2.0': P.VALUE_SELECTIONS['1.1.0']}):
+            with self.assertRaises(P.ProjectError):
+                self.collect()
 
 
 if __name__ == "__main__":

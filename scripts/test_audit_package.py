@@ -215,16 +215,19 @@ create_manifest
             'LABELS', 'ASSIGNEES', 'LINKED_PULL_REQUESTS', 'REVIEWERS', 'REPOSITORY', 'MILESTONE'}]
         selected = {f['id'] for f in project_fixture.fields}
         project_fixture.values['I1'] = [v for v in project_fixture.values['I1'] if v['field']['id'] in selected]
-        old_project = K.P.collect('organization', 'fixture', 1, REPO, project_fixture, evidence_version='1.0.0')
-        for name, value in old_project.items():
-            (self.package / 'github' / name).write_text(json.dumps(value))
-        self.mutate('manifest.json', lambda m: (m.update(tool_version='2.0.0'),
-                    m['project_evidence'].update(evidence_schema_version='1.0.0')))
-        K.seal(self.package)
-        before = (self.package / 'github/project-requests.json').read_bytes()
-        verified = K.verify(self.package)
-        self.assertEqual(verified['tool_version'], '2.0.0')
-        self.assertEqual((self.package / 'github/project-requests.json').read_bytes(), before)
+        for tool_version, evidence_version in (('2.0.0', '1.0.0'), ('2.0.1', '1.1.0'), ('2.0.2', '1.1.0')):
+            with self.subTest(tool=tool_version, project=evidence_version):
+                old_project = K.P.collect('organization', 'fixture', 1, REPO, project_fixture,
+                                          evidence_version=evidence_version)
+                for name, value in old_project.items():
+                    (self.package / 'github' / name).write_text(json.dumps(value))
+                self.mutate('manifest.json', lambda m: (m.update(tool_version=tool_version),
+                            m['project_evidence'].update(evidence_schema_version=evidence_version)))
+                K.seal(self.package)
+                before = (self.package / 'github/project-requests.json').read_bytes()
+                verified = K.verify(self.package)
+                self.assertEqual(verified['tool_version'], tool_version)
+                self.assertEqual((self.package / 'github/project-requests.json').read_bytes(), before)
 
 
 if __name__ == '__main__':
