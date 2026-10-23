@@ -140,6 +140,8 @@ create_manifest
         for mutation in (lambda m: m.update(schema_version='1.3.0'),
                          lambda m: m.update(schema_version='999.0.0'),
                          lambda m: m.update(full_profile_complete=False),
+                         lambda m: m['repository'].update(dirty='false'),
+                         lambda m: m['collection_pagination'].update(issues=1),
                          lambda m: m['collection_counts'].update(issues=999),
                          lambda m: m['payload_inventory'][0].update(sha256='0' * 64)):
             with self.subTest(mutation=mutation):

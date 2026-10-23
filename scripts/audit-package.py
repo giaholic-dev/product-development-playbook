@@ -60,6 +60,8 @@ def check_source(root):
     P.require(source.get('snapshot_schema_version') == '1.0.0' and source.get('policy_version') == S.POLICY_VERSION
               and source.get('policy') == S.source_policy() and source.get('source_kind') == 'committed-git-tree'
               and source.get('working_tree_bytes_included') is False, 'Unsupported source policy/byte claim.')
+    P.require(all(isinstance(source.get(k), bool) for k in ('dirty_initial', 'dirty_final', 'all_tracked_blobs_retained')),
+              'Invalid source state types.')
     commit, tree = source.get('commit'), source.get('tree')
     P.require(isinstance(commit, str) and len(commit) in (40, 64) and isinstance(tree, str)
               and len(tree) == len(commit) and all(c in '0123456789abcdef' for c in commit + tree),
@@ -156,6 +158,18 @@ def derive(root, base):
     P.require(base.get('schema_version') == VERSION and base.get('tool_version') == VERSION,
               'Full validation requires schema/tool 2.0.0; legacy packages require a new authorized export.')
     repository = base['repository']['owner'] + '/' + base['repository']['name']
+    P.require(R.re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repository), 'Invalid manifest repository name.')
+    repo_meta = base['repository']
+    P.require(isinstance(repo_meta.get('dirty'), bool) and isinstance(repo_meta.get('detached_head'), bool)
+              and isinstance(repo_meta.get('selected_ref'), str) and repo_meta['selected_ref']
+              and all(repo_meta.get(k) is None or isinstance(repo_meta.get(k), str) for k in ('branch', 'default_branch')),
+              'Invalid manifest repository metadata types.')
+    P.require(not repo_meta['detached_head'] or (repo_meta.get('branch') is None
+              and repo_meta['selected_ref'] == repo_meta['commit']), 'Detached source ref mismatch.')
+    generated = datetime.fromisoformat(base['generated_at'])
+    P.require(generated.tzinfo is not None, 'Manifest generation time lacks timezone.')
+    P.require(all(isinstance(v, int) and not isinstance(v, bool) and v >= 0 for v in base['collection_counts'].values())
+              and all(v is True for v in base['collection_pagination'].values()), 'Invalid compatibility count/pagination types.')
     P.require(base['repository']['remote_identity'] == 'github.com/' + repository, 'Repository identity mismatch.')
     payloads = inventory(root)  # Reject unsafe filesystem entries before any JSON/payload reads.
     source = check_source(root)
@@ -314,7 +328,8 @@ def verify(root):
     root = Path(root)
     actual = read(root, 'manifest.json')
     expected = derive(root, actual)
-    P.require(actual == expected, 'Manifest coverage/hash/relationship claims differ from verified payloads.')
+    P.require(json.dumps(actual, sort_keys=True, allow_nan=False) == json.dumps(expected, sort_keys=True, allow_nan=False),
+              'Manifest coverage/hash/relationship claims differ from verified payloads.')
     return actual
 
 
