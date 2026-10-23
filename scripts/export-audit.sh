@@ -5,7 +5,6 @@ umask 077
 EXPORT_SCHEMA_VERSION="2.0.0"
 TOOL_VERSION="2.0.0"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-JQ_LIBRARY_DIR="$SCRIPT_DIR/lib"
 SOURCE_HELPER="$SCRIPT_DIR/audit-source.py"
 PR_EVIDENCE_HELPER="$SCRIPT_DIR/audit-pr-evidence.py"
 PROJECT_HELPER="$SCRIPT_DIR/audit-project.py"
