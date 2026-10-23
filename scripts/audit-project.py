@@ -66,6 +66,8 @@ REVIEWER_TYPES = {
     "1.0.0": {"User", "Team", "Mannequin"},
     "1.1.0": {"User", "Bot", "Team", "Mannequin", "EnterpriseTeam"},
 }
+REVIEWER_SELECTIONS["1.2.0"] = REVIEWER_SELECTIONS["1.1.0"]
+REVIEWER_TYPES["1.2.0"] = REVIEWER_TYPES["1.1.0"]
 SUPPORTED = {"TEXT", "TITLE", "NUMBER", "DATE", "SINGLE_SELECT", "MULTI_SELECT", "ITERATION",
              "LABELS", "ASSIGNEES", "LINKED_PULL_REQUESTS", "REVIEWERS", "REPOSITORY", "MILESTONE"}
 VALUES = "__typename\n"
@@ -82,6 +84,15 @@ VALUES += "... on ProjectV2ItemIssueFieldValue { " + FIELD_REF + """ issueFieldV
  ... on IssueFieldSingleSelectValue { id optionId name }
  ... on IssueFieldMultiSelectValue { id options { id name } }
 } }"""
+# IssueFieldCommon exposes metadata, not Node.id. Keep historical query bytes
+# for transcript replay; new reads select identity through the Node interface.
+FIELD_SELECTIONS = {version: FIELDS for version in ("1.0.0", "1.1.0")}
+FIELD_SELECTIONS["1.2.0"] = FIELDS.replace(
+    "... on IssueFieldCommon { id name dataType }",
+    "... on Node { id } ... on IssueFieldCommon { name dataType }")
+VALUE_SELECTIONS = {version: VALUES for version in ("1.0.0", "1.1.0")}
+VALUE_SELECTIONS["1.2.0"] = VALUES.replace(
+    "... on IssueFieldCommon { id }", "... on Node { id }")
 OUTPUTS = ("project-items.json", "project-fields.json", "project-values.json", "project-coverage.json",
            "project-requests.json", "project-views.json")
 
@@ -385,7 +396,7 @@ def normalize_item(raw, project_id, repository):
     return result
 
 
-def collect(owner_kind, owner, number, repository, transport=gh_query, evidence_version="1.1.0"):
+def collect(owner_kind, owner, number, repository, transport=gh_query, evidence_version="1.2.0"):
     require(evidence_version in REVIEWER_SELECTIONS, "Unsupported Project evidence version.")
     require(owner_kind in {"organization", "user"} and re.fullmatch(r"[A-Za-z0-9-]+", owner),
             "Invalid selected Project owner.")
@@ -410,7 +421,7 @@ def collect(owner_kind, owner, number, repository, transport=gh_query, evidence_
     identity(principal.get("login"))
     require(isinstance(project.get("url"), str), "Missing Project URL.")
     project = dict(project, owner_kind=owner_kind, owner_login=actor["login"], owner_id=actor["id"])
-    fields = client.traverse(project_query("fields", FIELDS), {"id": project_id},
+    fields = client.traverse(project_query("fields", FIELD_SELECTIONS[evidence_version]), {"id": project_id},
                              lambda d: node_connection(d, project_id, "ProjectV2", "fields"),
                              lambda f: f.get("id"), ["fields", project_id])
     validate_fields(fields)
@@ -423,7 +434,7 @@ def collect(owner_kind, owner, number, repository, transport=gh_query, evidence_
                             lambda v: v.get("id"), ["views", project_id])
     values = []
     value_query = ("query($id:ID!,$cursor:String){ node(id:$id){ __typename id ... on ProjectV2Item { "
-                   "fieldValues(first:100,after:$cursor){ nodes { " + VALUES + " } " + PAGE + " } } } }")
+                   "fieldValues(first:100,after:$cursor){ nodes { " + VALUE_SELECTIONS[evidence_version] + " } " + PAGE + " } } } }")
     field_map = {f["id"]: f for f in fields}
     for item in items:
         raw_values = client.traverse(value_query, {"id": item["id"]},
@@ -459,7 +470,7 @@ def collect(owner_kind, owner, number, repository, transport=gh_query, evidence_
     require(len(set(value_ids)) == len(value_ids), "Scalar identity reused across distinct item/field pairs.")
     final_data = client.read(query, {"login": owner, "number": number})
     require(final_data == data, "Project identity/revision or principal changed during collection.")
-    final_fields = client.traverse(project_query("fields", FIELDS), {"id": project_id},
+    final_fields = client.traverse(project_query("fields", FIELD_SELECTIONS[evidence_version]), {"id": project_id},
                                    lambda d: node_connection(d, project_id, "ProjectV2", "fields"),
                                    lambda f: f.get("id"), ["fields-final", project_id])
     final_items = client.traverse(project_query("items", ITEMS), {"id": project_id},
