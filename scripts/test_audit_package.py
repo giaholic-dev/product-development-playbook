@@ -14,7 +14,7 @@ import zipfile
 from pathlib import Path
 from unittest.mock import patch
 
-from test_audit_project import Fixture as ProjectFixture
+from test_audit_project import Fixture as ProjectFixture, builtin_fixture
 from test_audit_records import Fixture as RecordsFixture
 from test_audit_pr_evidence import Fixture as PRFixture, response
 
@@ -215,7 +215,8 @@ create_manifest
             'LABELS', 'ASSIGNEES', 'LINKED_PULL_REQUESTS', 'REVIEWERS', 'REPOSITORY', 'MILESTONE'}]
         selected = {f['id'] for f in project_fixture.fields}
         project_fixture.values['I1'] = [v for v in project_fixture.values['I1'] if v['field']['id'] in selected]
-        for tool_version, evidence_version in (('2.0.0', '1.0.0'), ('2.0.1', '1.1.0'), ('2.0.2', '1.1.0')):
+        for tool_version, evidence_version in (('2.0.0', '1.0.0'), ('2.0.1', '1.1.0'),
+                                                ('2.0.2', '1.1.0'), ('2.0.3', '1.2.0')):
             with self.subTest(tool=tool_version, project=evidence_version):
                 old_project = K.P.collect('organization', 'fixture', 1, REPO, project_fixture,
                                           evidence_version=evidence_version)
@@ -228,6 +229,32 @@ create_manifest
                 verified = K.verify(self.package)
                 self.assertEqual(verified['tool_version'], tool_version)
                 self.assertEqual((self.package / 'github/project-requests.json').read_bytes(), before)
+
+    def test_computed_metadata_policy_is_visible_and_verified_in_full_package(self):
+        fixture = builtin_fixture()
+        fixture.items = fixture.items[:1]
+        fixture.fields = [f for f in fixture.fields if f['dataType'] in K.P.BUILTINS]
+        fixture.values['I1'] = []
+        output = K.P.collect('organization', 'fixture', 1, REPO, fixture)
+        for name, value in output.items():
+            (self.package / 'github' / name).write_text(json.dumps(value))
+        self.mutate('manifest.json', lambda m: m['collection_counts'].update(
+            project_fields=5, project_items=1, project_values=5, project_views=1))
+        manifest = K.seal(self.package)
+        self.assertTrue(manifest['full_profile_complete'])
+        self.assertEqual(manifest['project_computed_metadata']['configured_types'], sorted(K.P.BUILTINS))
+        self.assertFalse(manifest['project_computed_metadata']['display_values_reconstructed'])
+        self.assertFalse(manifest['project_computed_metadata']['sub_issue_descendants_collected'])
+        self.mutate('manifest.json', lambda m: m['project_computed_metadata'].update(display_values_reconstructed=True))
+        self.assert_invalid()
+        fixture.items[0]['content']['parent'] = {
+            'id': 'UNKNOWN', 'number': 999, 'url': 'https://github.com/fixture/repo/issues/999',
+            'repository': {'id': 'R', 'nameWithOwner': REPO, 'url': 'https://github.com/fixture/repo'}}
+        output = K.P.collect('organization', 'fixture', 1, REPO, fixture)
+        for name, value in output.items():
+            (self.package / 'github' / name).write_text(json.dumps(value))
+        with self.assertRaisesRegex(K.P.ProjectError, 'Local parent issue'):
+            K.seal(self.package)
 
 
 if __name__ == '__main__':
