@@ -240,6 +240,9 @@ class SourceSnapshotTests(unittest.TestCase):
         self.commit()
         self.write("README.md", b"Local edit excluded")
         exporter = Path(__file__).with_name("export-audit.sh").resolve()
+        from test_audit_project import P, Fixture
+        project_fixture = self.root / "project-fixture"
+        P.publish(P.collect("organization", "fixture", 1, "fixture/fixture", Fixture()), project_fixture)
         command = r'''
 source "$1"
 ROOT="$2"
@@ -251,6 +254,9 @@ DETACHED_HEAD=false
 DIRTY=true
 OWNER=fixture
 REPOSITORY=fixture
+PROJECT_OWNER=fixture
+PROJECT_OWNER_KIND=organization
+PROJECT_NUMBER=1
 REMOTE_IDENTITY=github.com/fixture/fixture
 TIMESTAMP=fixture
 EXPORT_ROOT=audit
@@ -260,9 +266,10 @@ EXPORT_DIR="$STAGING_DIR"
 ZIP_FILE=audit/fixture.zip
 create_directories
 export_repository
-for collection in issues issue-comments pull-requests labels milestones releases project-items project-fields project-views issue-timeline review-comments pr-conversations pr-reviews; do
+for collection in issues issue-comments pull-requests labels milestones releases issue-timeline review-comments pr-conversations pr-reviews; do
   echo '[]' >"$EXPORT_DIR/github/$collection.json"
 done
+cp "$ROOT"/project-fixture/*.json "$EXPORT_DIR/github/"
 printf '%s\n' '{"evidence_schema_version":"1.0.0","api_version":"2022-11-28","repository":"fixture/fixture","repository_id":1,"pr_numbers":[],"observations":[],"current_approval_inferred":false,"scope":"authorized-observable-pr-evidence"}' >"$EXPORT_DIR/github/pr-evidence-coverage.json"
 create_manifest
 validate_integrity
@@ -280,7 +287,7 @@ compress
                              b"#!/bin/sh\nexit 0\n")
             self.assertEqual(archive.read(prefix + "repository/docs/guide.md"), b"Committed guide")
             manifest = json.loads(archive.read(prefix + "manifest.json"))
-            self.assertEqual(manifest["schema_version"], "1.2.0")
+            self.assertEqual(manifest["schema_version"], "1.3.0")
             self.assertEqual(manifest["source_snapshot"]["commit"], self.commit_id)
             self.assertFalse(manifest["full_profile_complete"])
             self.assertFalse(manifest["source_snapshot"]["working_tree_bytes_included"])

@@ -2,12 +2,13 @@
 set -Eeuo pipefail
 umask 077
 
-EXPORT_SCHEMA_VERSION="1.2.0"
-TOOL_VERSION="1.2.0"
+EXPORT_SCHEMA_VERSION="1.3.0"
+TOOL_VERSION="1.3.0"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JQ_LIBRARY_DIR="$SCRIPT_DIR/lib"
 SOURCE_HELPER="$SCRIPT_DIR/audit-source.py"
 PR_EVIDENCE_HELPER="$SCRIPT_DIR/audit-pr-evidence.py"
+PROJECT_HELPER="$SCRIPT_DIR/audit-project.py"
 
 print_header() {
   echo "======================================"
@@ -101,6 +102,8 @@ load_repository() {
   EXPORT_DIR="$STAGING_DIR"
   ZIP_FILE="$EXPORT_ROOT/${REPOSITORY}-audit-$TIMESTAMP.zip"
   PROJECT_NUMBER="${GITHUB_PROJECT_NUMBER:-1}"
+  PROJECT_OWNER="${GITHUB_PROJECT_OWNER:-$OWNER}"
+  PROJECT_OWNER_KIND="${GITHUB_PROJECT_OWNER_KIND:-organization}"
   EXPORT_DISCUSSIONS="${GITHUB_EXPORT_DISCUSSIONS:-false}"
 
   [[ ! -e "$FINAL_EXPORT_DIR" && ! -e "$ZIP_FILE" && ! -e "$STAGING_DIR" ]] || {
@@ -261,106 +264,14 @@ export_milestones() {
   publish_json "$temporary" "$EXPORT_DIR/github/milestones.json" array
 }
 
-export_project_items() {
-  local temporary
-  temporary="$(temporary_json "$EXPORT_DIR/github/project-items.json")"
-
-  gh api graphql --paginate --slurp \
-    -f query='
-      query($login: String!, $number: Int!, $endCursor: String) {
-        organization(login: $login) {
-          projectV2(number: $number) {
-            items(first: 100, after: $endCursor) {
-              nodes {
-                id
-                type
-                createdAt
-                updatedAt
-                content {
-                  ... on Issue { id number title url }
-                  ... on PullRequest { id number title url }
-                  ... on DraftIssue { id title }
-                }
-              }
-              pageInfo { hasNextPage endCursor }
-            }
-          }
-        }
-      }
-    ' \
-    -f login="$OWNER" \
-    -F number="$PROJECT_NUMBER" |
-    jq '
-      [.[] | .data.organization.projectV2.items.nodes[]]
-      | unique_by(.id)
-      | sort_by(.id)
-    ' >"$temporary"
-
-  publish_json "$temporary" "$EXPORT_DIR/github/project-items.json" array
+export_project_evidence() {
+  python3 "$PROJECT_HELPER" collect --owner-kind "$PROJECT_OWNER_KIND" --owner "$PROJECT_OWNER" \
+    --number "$PROJECT_NUMBER" --repository "$OWNER/$REPOSITORY" --destination "$EXPORT_DIR/github"
 }
 
-export_project_fields() {
-  local temporary
-  temporary="$(temporary_json "$EXPORT_DIR/github/project-fields.json")"
-
-  gh api graphql --paginate --slurp \
-    -f query='
-      query($login: String!, $number: Int!, $endCursor: String) {
-        organization(login: $login) {
-          projectV2(number: $number) {
-            fields(first: 100, after: $endCursor) {
-              nodes {
-                ... on ProjectV2FieldCommon { id name dataType }
-                ... on ProjectV2SingleSelectField {
-                  options { id name color description }
-                }
-                ... on ProjectV2IterationField {
-                  configuration { duration startDay iterations { id title startDate } }
-                }
-              }
-              pageInfo { hasNextPage endCursor }
-            }
-          }
-        }
-      }
-    ' \
-    -f login="$OWNER" \
-    -F number="$PROJECT_NUMBER" |
-    jq '
-      [.[] | .data.organization.projectV2.fields.nodes[]]
-      | unique_by(.id)
-      | sort_by(.name, .id)
-    ' >"$temporary"
-
-  publish_json "$temporary" "$EXPORT_DIR/github/project-fields.json" array
-}
-
-export_project_views() {
-  local temporary
-  temporary="$(temporary_json "$EXPORT_DIR/github/project-views.json")"
-
-  gh api graphql --paginate --slurp \
-    -f query='
-      query($login: String!, $number: Int!, $endCursor: String) {
-        organization(login: $login) {
-          projectV2(number: $number) {
-            views(first: 100, after: $endCursor) {
-              nodes { id number name layout }
-              pageInfo { hasNextPage endCursor }
-            }
-          }
-        }
-      }
-    ' \
-    -f login="$OWNER" \
-    -F number="$PROJECT_NUMBER" |
-    jq '
-      [.[] | .data.organization.projectV2.views.nodes[]]
-      | unique_by(.id)
-      | sort_by(.number)
-    ' >"$temporary"
-
-  publish_json "$temporary" "$EXPORT_DIR/github/project-views.json" array
+verify_project_evidence() {
+  python3 "$PROJECT_HELPER" verify --owner-kind "$PROJECT_OWNER_KIND" --owner "$PROJECT_OWNER" \
+    --number "$PROJECT_NUMBER" --repository "$OWNER/$REPOSITORY" --destination "$EXPORT_DIR/github"
 }
 
 export_issue_timeline() {
@@ -488,6 +399,8 @@ create_manifest() {
     --argjson review_comments "$(collection_count "$EXPORT_DIR/github/review-comments.json")" \
     --argjson pr_conversations "$(collection_count "$EXPORT_DIR/github/pr-conversations.json")" \
     --argjson pr_reviews "$(collection_count "$EXPORT_DIR/github/pr-reviews.json")" \
+    --argjson project_values "$(collection_count "$EXPORT_DIR/github/project-values.json")" \
+    --slurpfile project_evidence "$EXPORT_DIR/github/project-coverage.json" \
     --slurpfile pr_evidence "$EXPORT_DIR/github/pr-evidence-coverage.json" \
     --slurpfile source_snapshot "$EXPORT_DIR/repository/source-inventory.json" \
     '{
@@ -505,8 +418,16 @@ create_manifest() {
         dirty: $dirty
       },
       generated_at: $generated_at,
-      coverage_profile: "legacy-plus-source-and-pr-evidence",
+      coverage_profile: "legacy-plus-source-pr-and-project-evidence",
       full_profile_complete: false,
+      project_evidence: {
+        coverage: "github/project-coverage.json",
+        transcript: "github/project-requests.json",
+        values: "github/project-values.json",
+        evidence_schema_version: $project_evidence[0].evidence_schema_version,
+        project: $project_evidence[0].project,
+        scope: $project_evidence[0].scope
+      },
       pr_evidence: {
         coverage: "github/pr-evidence-coverage.json",
         evidence_schema_version: $pr_evidence[0].evidence_schema_version,
@@ -532,6 +453,7 @@ create_manifest() {
         labels: $labels,
         milestones: $milestones,
         releases: $releases,
+        project_values: $project_values,
         project_items: $project_items,
         project_fields: $project_fields,
         project_views: $project_views,
@@ -547,6 +469,7 @@ create_manifest() {
         labels: true,
         milestones: true,
         releases: true,
+        project_values: true,
         project_items: true,
         project_fields: true,
         project_views: true,
@@ -561,6 +484,7 @@ create_manifest() {
 
 validate_integrity() {
   verify_source_snapshot
+  verify_project_evidence
   python3 "$PR_EVIDENCE_HELPER" verify --repository "$OWNER/$REPOSITORY" \
     --prs "$EXPORT_DIR/github/pull-requests.json" --destination "$EXPORT_DIR/github"
   local collection
@@ -574,6 +498,7 @@ validate_integrity() {
     "labels:labels.json"
     "milestones:milestones.json"
     "releases:releases.json"
+    "project_values:project-values.json"
     "project_items:project-items.json"
     "project_fields:project-fields.json"
     "project_views:project-views.json"
@@ -597,7 +522,9 @@ validate_integrity() {
     }
 
     local identity_check='type == "array" and (map(.id) | length == (unique | length))'
-    if [[ "$name" == "issue_timeline" ]]; then
+    if [[ "$name" == "project_values" ]]; then
+      identity_check='type == "array" and (map([.project_id,.item_id,.field_id]) | length == (unique | length))'
+    elif [[ "$name" == "issue_timeline" ]]; then
       identity_check='include "timeline"; timeline_valid'
     fi
     jq -L "$JQ_LIBRARY_DIR" --exit-status "$identity_check" "$file" >/dev/null || {
@@ -668,6 +595,9 @@ compress() {
     "exports/$TIMESTAMP/github/labels.json" \
     "exports/$TIMESTAMP/github/milestones.json" \
     "exports/$TIMESTAMP/github/releases.json" \
+    "exports/$TIMESTAMP/github/project-values.json" \
+    "exports/$TIMESTAMP/github/project-coverage.json" \
+    "exports/$TIMESTAMP/github/project-requests.json" \
     "exports/$TIMESTAMP/github/project-items.json" \
     "exports/$TIMESTAMP/github/project-fields.json" \
     "exports/$TIMESTAMP/github/project-views.json" \
@@ -712,9 +642,7 @@ main() {
   export_labels
   export_milestones
   export_releases
-  export_project_items
-  export_project_fields
-  export_project_views
+  export_project_evidence
   export_issue_timeline
   export_review_comments
   export_discussions

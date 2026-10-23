@@ -70,3 +70,6 @@ python3 -m unittest discover -s scripts -p test_audit_source.py
 
 # Synthetic REST responses exercise PR evidence without a live export.
 python3 -m unittest discover -s scripts -p test_audit_pr_evidence.py
+
+# Synthetic typed Project and nested GraphQL pagination fixtures.
+python3 -m unittest discover -s scripts -p test_audit_project.py
