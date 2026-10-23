@@ -82,6 +82,9 @@ class Fixture:
             self.values["I1"].append({"__typename": "ProjectV2ItemField" + kind + "Value", "field": {"id": f["id"]}})
             self.relationships[f["name"]] = [{"id": kind + "1", "url": "https://github.com/fixture"},
                                               {"id": kind + "2", "url": "https://github.com/fixture2"}]
+            if kind == "Reviewer":
+                for actor in self.relationships[f["name"]]:
+                    actor["__typename"] = "User"
         self.requests = []
         self.hook = lambda query, variables, data: data
 
@@ -335,6 +338,24 @@ verify_project_evidence
                 self.fixture.hook = hook
                 with self.assertRaises(P.ProjectError):
                     self.collect()
+
+    def test_all_known_reviewer_actor_kinds_and_unknown_failure(self):
+        self.fixture.relationships["Reviewer"] = [
+            {"__typename": typ, "id": "A" + typ, "login": typ.lower()} for typ in
+            ("User", "Bot", "Team", "Mannequin", "EnterpriseTeam")]
+        out = self.collect()
+        P.verify(out, "organization", "fixture", 1, REPO)
+        record = next(v for v in out["project-values.json"] if v["item_id"] == "I1" and v["field_id"] == "FReviewer")
+        self.assertEqual({v["__typename"] for v in record["value"]},
+                         {"User", "Bot", "Team", "Mannequin", "EnterpriseTeam"})
+        self.fixture.relationships["Reviewer"].append({"__typename": "NewActor", "id": "unknown"})
+        with self.assertRaisesRegex(P.ProjectError, "reviewer actor"):
+            self.collect()
+
+    def test_legacy_project_transcript_remains_verifiable(self):
+        old = P.collect("organization", "fixture", 1, REPO, self.fixture, evidence_version="1.0.0")
+        P.verify(old, "organization", "fixture", 1, REPO)
+        self.assertEqual(old["project-coverage.json"]["evidence_schema_version"], "1.0.0")
 
 
 if __name__ == "__main__":

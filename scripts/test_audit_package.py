@@ -208,6 +208,24 @@ create_manifest
         self.assertEqual(archive.read_bytes(), b'previous')
         self.assertTrue(self.package.exists())
 
+    def test_prior_tool_and_project_evidence_versions_remain_readable(self):
+        project_fixture = ProjectFixture()
+        project_fixture.items = project_fixture.items[:1]
+        project_fixture.fields = [f for f in project_fixture.fields if f['dataType'] in K.P.SUPPORTED - {
+            'LABELS', 'ASSIGNEES', 'LINKED_PULL_REQUESTS', 'REVIEWERS', 'REPOSITORY', 'MILESTONE'}]
+        selected = {f['id'] for f in project_fixture.fields}
+        project_fixture.values['I1'] = [v for v in project_fixture.values['I1'] if v['field']['id'] in selected]
+        old_project = K.P.collect('organization', 'fixture', 1, REPO, project_fixture, evidence_version='1.0.0')
+        for name, value in old_project.items():
+            (self.package / 'github' / name).write_text(json.dumps(value))
+        self.mutate('manifest.json', lambda m: (m.update(tool_version='2.0.0'),
+                    m['project_evidence'].update(evidence_schema_version='1.0.0')))
+        K.seal(self.package)
+        before = (self.package / 'github/project-requests.json').read_bytes()
+        verified = K.verify(self.package)
+        self.assertEqual(verified['tool_version'], '2.0.0')
+        self.assertEqual((self.package / 'github/project-requests.json').read_bytes(), before)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -29,6 +29,7 @@ PR = helper('audit-pr-evidence')
 S = helper('audit-source')
 VERSION = '2.0.0'
 CONTRACT = 'audit-package-coverage/2.0.0'
+SUPPORTED_TOOLS = {'2.0.0', '2.0.1'}
 
 
 def read(root, name):
@@ -155,8 +156,8 @@ def validate_interval(coverage):
 def derive(root, base):
     root = Path(root)
     # Reject unknown/legacy versions rather than validating them as full coverage.
-    P.require(base.get('schema_version') == VERSION and base.get('tool_version') == VERSION,
-              'Full validation requires schema/tool 2.0.0; legacy packages require a new authorized export.')
+    P.require(base.get('schema_version') == VERSION and base.get('tool_version') in SUPPORTED_TOOLS,
+              'Full validation requires schema 2.0.0 and a supported tool 2.0.x; legacy packages need a new authorized export.')
     repository = base['repository']['owner'] + '/' + base['repository']['name']
     P.require(R.re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repository), 'Invalid manifest repository name.')
     repo_meta = base['repository']

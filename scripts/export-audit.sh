@@ -3,7 +3,7 @@ set -Eeuo pipefail
 umask 077
 
 EXPORT_SCHEMA_VERSION="2.0.0"
-TOOL_VERSION="2.0.0"
+TOOL_VERSION="2.0.1"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_HELPER="$SCRIPT_DIR/audit-source.py"
 PR_EVIDENCE_HELPER="$SCRIPT_DIR/audit-pr-evidence.py"
