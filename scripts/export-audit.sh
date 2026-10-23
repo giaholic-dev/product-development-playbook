@@ -2,13 +2,15 @@
 set -Eeuo pipefail
 umask 077
 
-EXPORT_SCHEMA_VERSION="1.3.0"
-TOOL_VERSION="1.3.0"
+EXPORT_SCHEMA_VERSION="2.0.0"
+TOOL_VERSION="2.0.0"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JQ_LIBRARY_DIR="$SCRIPT_DIR/lib"
 SOURCE_HELPER="$SCRIPT_DIR/audit-source.py"
 PR_EVIDENCE_HELPER="$SCRIPT_DIR/audit-pr-evidence.py"
 PROJECT_HELPER="$SCRIPT_DIR/audit-project.py"
+RECORDS_HELPER="$SCRIPT_DIR/audit-records.py"
+PACKAGE_HELPER="$SCRIPT_DIR/audit-package.py"
 
 print_header() {
   echo "======================================"
@@ -28,8 +30,6 @@ check_requirements() {
   require git
   require gh
   require jq
-  require zip
-  require unzip
   require python3
   python3 -c 'import sys; sys.exit(sys.version_info < (3, 12))' || {
     echo "Python 3.12 or later is required."
@@ -98,7 +98,7 @@ load_repository() {
   TIMESTAMP="$(date -u +"%Y-%m-%dT%H-%M-%SZ")"
   EXPORT_ROOT="audit"
   FINAL_EXPORT_DIR="$EXPORT_ROOT/exports/$TIMESTAMP"
-  STAGING_DIR="$EXPORT_ROOT/.staging/$TIMESTAMP-$"
+  STAGING_DIR="$EXPORT_ROOT/.staging/$TIMESTAMP-$$"
   EXPORT_DIR="$STAGING_DIR"
   ZIP_FILE="$EXPORT_ROOT/${REPOSITORY}-audit-$TIMESTAMP.zip"
   PROJECT_NUMBER="${GITHUB_PROJECT_NUMBER:-1}"
@@ -128,13 +128,6 @@ cleanup_staging() {
   if [[ -n "${STAGING_DIR:-}" && -d "$STAGING_DIR" && "$STAGING_DIR" == "$EXPORT_ROOT/.staging/"* ]]; then
     rm -rf "$STAGING_DIR"
   fi
-}
-
-publish_export() {
-  mkdir -p "$(dirname "$FINAL_EXPORT_DIR")"
-  mv "$STAGING_DIR" "$FINAL_EXPORT_DIR"
-  EXPORT_DIR="$FINAL_EXPORT_DIR"
-  STAGING_DIR=""
 }
 
 create_directories() {
@@ -205,63 +198,9 @@ publish_json() {
   mv "$temporary" "$target"
 }
 
-export_issues() {
-  local temporary
-  temporary="$(temporary_json "$EXPORT_DIR/github/issues.json")"
-
-  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/issues?state=all&per_page=100" |
-    jq '[.[][] | select(.pull_request | not)] | unique_by(.id) | sort_by(.number)' >"$temporary"
-
-  publish_json "$temporary" "$EXPORT_DIR/github/issues.json" array
-}
-
-export_issue_comments() {
-  local temporary
-  temporary="$(temporary_json "$EXPORT_DIR/github/issue-comments.json")"
-
-  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/issues/comments?per_page=100" |
-    jq --slurpfile pull_requests "$EXPORT_DIR/github/pull-requests.json" '
-      ($pull_requests[0] | map(.number) | unique) as $pull_request_numbers
-      | [.[][]
-          | (.issue_url | split("/") | last | tonumber) as $issue_number
-          | select($pull_request_numbers | index($issue_number) | not)
-          | . + { issue_number: $issue_number }
-        ]
-      | unique_by(.id)
-      | sort_by(.issue_number, .id)
-    ' >"$temporary"
-
-  publish_json "$temporary" "$EXPORT_DIR/github/issue-comments.json" array
-}
-
-export_prs() {
-  local temporary
-  temporary="$(temporary_json "$EXPORT_DIR/github/pull-requests.json")"
-
-  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/pulls?state=all&per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.number)' >"$temporary"
-
-  publish_json "$temporary" "$EXPORT_DIR/github/pull-requests.json" array
-}
-
-export_labels() {
-  local temporary
-  temporary="$(temporary_json "$EXPORT_DIR/github/labels.json")"
-
-  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/labels?per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.name)' >"$temporary"
-
-  publish_json "$temporary" "$EXPORT_DIR/github/labels.json" array
-}
-
-export_milestones() {
-  local temporary
-  temporary="$(temporary_json "$EXPORT_DIR/github/milestones.json")"
-
-  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/milestones?state=all&per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.number)' >"$temporary"
-
-  publish_json "$temporary" "$EXPORT_DIR/github/milestones.json" array
+export_record_evidence() {
+  python3 "$RECORDS_HELPER" collect --repository "$OWNER/$REPOSITORY" \
+    --discussions "$EXPORT_DISCUSSIONS" --destination "$EXPORT_DIR/github"
 }
 
 export_project_evidence() {
@@ -274,90 +213,9 @@ verify_project_evidence() {
     --number "$PROJECT_NUMBER" --repository "$OWNER/$REPOSITORY" --destination "$EXPORT_DIR/github"
 }
 
-export_issue_timeline() {
-  local temporary
-  local timeline_directory
-  local issue_number
-
-  temporary="$(temporary_json "$EXPORT_DIR/github/issue-timeline.json")"
-  timeline_directory="$(mktemp -d "$EXPORT_DIR/github/timeline.XXXXXX")"
-
-  while IFS= read -r issue_number; do
-    gh api --paginate --slurp \
-      -H "Accept: application/vnd.github+json" \
-      "repos/$OWNER/$REPOSITORY/issues/$issue_number/timeline?per_page=100" |
-      jq -L "$JQ_LIBRARY_DIR" --argjson issue_number "$issue_number" '
-        include "timeline";
-        [.[][] | . + { issue_number: $issue_number }]
-        | timeline_unique
-      ' >"$timeline_directory/$issue_number.json"
-  done < <(jq -r '.[].number' "$EXPORT_DIR/github/issues.json")
-
-  if compgen -G "$timeline_directory/*.json" >/dev/null; then
-    jq -L "$JQ_LIBRARY_DIR" -s '
-      include "timeline";
-      add
-      | timeline_unique
-    ' "$timeline_directory"/*.json >"$temporary"
-  else
-    printf '[]\n' >"$temporary"
-  fi
-
-  rm -rf "$timeline_directory"
-  publish_json "$temporary" "$EXPORT_DIR/github/issue-timeline.json" array
-}
-
 export_review_comments() {
   python3 "$PR_EVIDENCE_HELPER" collect --repository "$OWNER/$REPOSITORY" \
     --prs "$EXPORT_DIR/github/pull-requests.json" --destination "$EXPORT_DIR/github"
-}
-
-export_discussions() {
-  [[ "$EXPORT_DISCUSSIONS" == "true" ]] || return 0
-
-  local temporary
-  temporary="$(temporary_json "$EXPORT_DIR/github/discussions.json")"
-
-  gh api graphql --paginate --slurp \
-    -f query='
-      query($owner: String!, $repository: String!, $endCursor: String) {
-        repository(owner: $owner, name: $repository) {
-          discussions(first: 100, after: $endCursor) {
-            nodes {
-              id
-              number
-              title
-              body
-              createdAt
-              updatedAt
-              url
-              category { id name }
-              author { login }
-            }
-            pageInfo { hasNextPage endCursor }
-          }
-        }
-      }
-    ' \
-    -f owner="$OWNER" \
-    -f repository="$REPOSITORY" |
-    jq '
-      [.[] | .data.repository.discussions.nodes[]]
-      | unique_by(.id)
-      | sort_by(.number)
-    ' >"$temporary"
-
-  publish_json "$temporary" "$EXPORT_DIR/github/discussions.json" array
-}
-
-export_releases() {
-  local temporary
-  temporary="$(temporary_json "$EXPORT_DIR/github/releases.json")"
-
-  gh api --paginate --slurp "repos/$OWNER/$REPOSITORY/releases?per_page=100" |
-    jq '[.[][]] | unique_by(.id) | sort_by(.id)' >"$temporary"
-
-  publish_json "$temporary" "$EXPORT_DIR/github/releases.json" array
 }
 
 collection_count() {
@@ -482,135 +340,21 @@ create_manifest() {
   publish_json "$manifest_temporary" "$EXPORT_DIR/manifest.json" object
 }
 
+seal_manifest() {
+  python3 "$PACKAGE_HELPER" seal --package "$EXPORT_DIR"
+}
+
 validate_integrity() {
   verify_source_snapshot
-  verify_project_evidence
-  python3 "$PR_EVIDENCE_HELPER" verify --repository "$OWNER/$REPOSITORY" \
-    --prs "$EXPORT_DIR/github/pull-requests.json" --destination "$EXPORT_DIR/github"
-  local collection
-  local file
-  local declared_count
-  local actual_count
-  local collections=(
-    "issues:issues.json"
-    "issue_comments:issue-comments.json"
-    "pull_requests:pull-requests.json"
-    "labels:labels.json"
-    "milestones:milestones.json"
-    "releases:releases.json"
-    "project_values:project-values.json"
-    "project_items:project-items.json"
-    "project_fields:project-fields.json"
-    "project_views:project-views.json"
-    "issue_timeline:issue-timeline.json"
-    "pr_conversations:pr-conversations.json"
-    "pr_reviews:pr-reviews.json"
-    "review_comments:review-comments.json"
-  )
-
-  [[ -f "$EXPORT_DIR/manifest.json" ]] || {
-    echo "ERROR: Missing audit manifest."
-    exit 1
-  }
-
-  for collection in "${collections[@]}"; do
-    local name="${collection%%:*}"
-    file="$EXPORT_DIR/github/${collection#*:}"
-    [[ -f "$file" ]] || {
-      echo "ERROR: Missing required collection: $file"
-      exit 1
-    }
-
-    local identity_check='type == "array" and (map(.id) | length == (unique | length))'
-    if [[ "$name" == "project_values" ]]; then
-      identity_check='type == "array" and (map([.project_id,.item_id,.field_id]) | length == (unique | length))'
-    elif [[ "$name" == "issue_timeline" ]]; then
-      identity_check='include "timeline"; timeline_valid'
-    fi
-    jq -L "$JQ_LIBRARY_DIR" --exit-status "$identity_check" "$file" >/dev/null || {
-      echo "ERROR: Invalid or duplicate records in $file"
-      exit 1
-    }
-
-    actual_count="$(jq length "$file")"
-    declared_count="$(jq --raw-output --arg name "$name" '.collection_counts[$name]' "$EXPORT_DIR/manifest.json")"
-    [[ "$actual_count" == "$declared_count" ]] || {
-      echo "ERROR: Manifest count mismatch for $name."
-      exit 1
-    }
-  done
-
-  jq --exit-status '.collection_pagination | all(.[]; . == true)' "$EXPORT_DIR/manifest.json" >/dev/null || {
-    echo "ERROR: Manifest does not confirm pagination completion."
-    exit 1
-  }
-
-  jq --exit-status --slurpfile issues "$EXPORT_DIR/github/issues.json" '
-    all(.[]; .issue_number as $number | $issues[0] | any(.[]; .number == $number))
-  ' "$EXPORT_DIR/github/issue-comments.json" >/dev/null || {
-    echo "ERROR: Issue comments reference missing issues."
-    exit 1
-  }
-
-  jq --exit-status --slurpfile issues "$EXPORT_DIR/github/issues.json" '
-    all(.[]; .issue_number as $number | $issues[0] | any(.[]; .number == $number))
-  ' "$EXPORT_DIR/github/issue-timeline.json" >/dev/null || {
-    echo "ERROR: Timeline events reference missing issues."
-    exit 1
-  }
-
-  jq --exit-status --slurpfile pull_requests "$EXPORT_DIR/github/pull-requests.json" '
-    all(.[]; .pull_request_number as $number | $pull_requests[0] | any(.[]; .number == $number))
-  ' "$EXPORT_DIR/github/review-comments.json" >/dev/null || {
-    echo "ERROR: Review comments reference missing pull requests."
-    exit 1
-  }
-
+  python3 "$PACKAGE_HELPER" verify --package "$EXPORT_DIR"
   echo "Integrity checks passed."
 }
 
 compress() {
-  (
-    cd "$EXPORT_ROOT"
-    zip -qr "$(basename "$ZIP_FILE")" "exports/$TIMESTAMP"
-  )
-
-  [[ -s "$ZIP_FILE" ]] || {
-    echo
-    echo "ERROR: Failed to create a non-empty zip archive."
-    exit 1
-  }
-
-  unzip -tq "$ZIP_FILE" >/dev/null || {
-    echo "ERROR: Audit package integrity check failed."
-    exit 1
-  }
-
-  local archive_entry
-  for archive_entry in \
-    "exports/$TIMESTAMP/manifest.json" \
-    "exports/$TIMESTAMP/github/issues.json" \
-    "exports/$TIMESTAMP/github/issue-comments.json" \
-    "exports/$TIMESTAMP/github/pull-requests.json" \
-    "exports/$TIMESTAMP/github/labels.json" \
-    "exports/$TIMESTAMP/github/milestones.json" \
-    "exports/$TIMESTAMP/github/releases.json" \
-    "exports/$TIMESTAMP/github/project-values.json" \
-    "exports/$TIMESTAMP/github/project-coverage.json" \
-    "exports/$TIMESTAMP/github/project-requests.json" \
-    "exports/$TIMESTAMP/github/project-items.json" \
-    "exports/$TIMESTAMP/github/project-fields.json" \
-    "exports/$TIMESTAMP/github/project-views.json" \
-    "exports/$TIMESTAMP/github/issue-timeline.json" \
-    "exports/$TIMESTAMP/github/pr-conversations.json" \
-    "exports/$TIMESTAMP/github/pr-reviews.json" \
-    "exports/$TIMESTAMP/github/pr-evidence-coverage.json" \
-    "exports/$TIMESTAMP/github/review-comments.json"; do
-    unzip -Z1 "$ZIP_FILE" | grep -Fx "$archive_entry" >/dev/null || {
-      echo "ERROR: Audit package is missing $archive_entry."
-      exit 1
-    }
-  done
+  python3 "$PACKAGE_HELPER" finalize --package "$EXPORT_DIR" \
+    --final-directory "$FINAL_EXPORT_DIR" --archive "$ZIP_FILE" --source-root "$ROOT"
+  EXPORT_DIR="$FINAL_EXPORT_DIR"
+  STAGING_DIR=""
 }
 
 summary() {
@@ -636,19 +380,12 @@ main() {
   export_tags
   export_recent_commits
   export_repository_status
-  export_issues
-  export_prs
-  export_issue_comments
-  export_labels
-  export_milestones
-  export_releases
+  export_record_evidence
   export_project_evidence
-  export_issue_timeline
   export_review_comments
-  export_discussions
   create_manifest
+  seal_manifest
   validate_integrity
-  publish_export
   compress
   summary
 }

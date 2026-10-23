@@ -121,3 +121,7 @@ This is source-based design/research and recorded AI-assisted self-review, not a
 Existing implementation assessed at the pinned source: [exporter](../../scripts/export-audit.sh), [checks](../../scripts/check-export-audit.sh), [v0.6.0 limits](../releases/v0.6.0.md), [remediation plan](playbook-remediation-plan.md).
 
 Official provider references checked on 2026-10-22: [issue/PR conversations](https://docs.github.com/en/rest/issues/comments), [review submissions](https://docs.github.com/en/rest/pulls/reviews), [Project object/value reference](https://docs.github.com/en/graphql/reference/projects), [GraphQL pagination](https://docs.github.com/en/graphql/guides/using-pagination-in-the-graphql-api). These describe provider capabilities; the selected implementation and authorized connection still need scoped verification.
+
+## Schema-2 implementation entry points
+
+A05 / #330 implements this existing contract through the [Bash exporter](../../scripts/export-audit.sh), [repository page collector/replay](../../scripts/audit-records.py), [PR collector/verifier](../../scripts/audit-pr-evidence.py), [Project collector/replay](../../scripts/audit-project.py), [source snapshot helper](../../scripts/audit-source.py), and [aggregate offline verifier/finalizer](../../scripts/audit-package.py). The [README](../../README.md#audit-exporter) documents payload paths, version migration limits, command usage and failure behavior. These implementation entry points do not replace this contract or the independent A06 live/release acceptance obligation.

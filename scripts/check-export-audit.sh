@@ -73,3 +73,7 @@ python3 -m unittest discover -s scripts -p test_audit_pr_evidence.py
 
 # Synthetic typed Project and nested GraphQL pagination fixtures.
 python3 -m unittest discover -s scripts -p test_audit_project.py
+
+# Aggregate coverage, hashes, compatibility and failure-safe finalization.
+python3 -m unittest discover -s scripts -p test_audit_records.py
+python3 -m unittest discover -s scripts -p test_audit_package.py
