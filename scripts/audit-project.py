@@ -56,6 +56,16 @@ SINGULAR = {
     "Repository": ("REPOSITORY", "repository", "id nameWithOwner url"),
     "Milestone": ("MILESTONE", "milestone", "id number title url"),
 }
+REVIEWER_SELECTIONS = {
+    "1.0.0": RELATIONS["Reviewer"][2],
+    "1.1.0": ("__typename ... on User { id login url } ... on Bot { id login url } "
+              "... on Team { id name url } ... on Mannequin { id login url } "
+              "... on EnterpriseTeam { id name slug }"),
+}
+REVIEWER_TYPES = {
+    "1.0.0": {"User", "Team", "Mannequin"},
+    "1.1.0": {"User", "Bot", "Team", "Mannequin", "EnterpriseTeam"},
+}
 SUPPORTED = {"TEXT", "TITLE", "NUMBER", "DATE", "SINGLE_SELECT", "MULTI_SELECT", "ITERATION",
              "LABELS", "ASSIGNEES", "LINKED_PULL_REQUESTS", "REVIEWERS", "REPOSITORY", "MILESTONE"}
 VALUES = "__typename\n"
@@ -307,9 +317,11 @@ def scalar_payload(raw, field, item_id):
             "created_at": value.get("createdAt"), "updated_at": value.get("updatedAt")}
 
 
-def relationship(client, item, field, kind):
+def relationship(client, item, field, kind, evidence_version):
     config = RELATIONS.get(kind, SINGULAR.get(kind))
     _, name, selection = config
+    if kind == "Reviewer":
+        selection = REVIEWER_SELECTIONS[evidence_version]
     value_type = "ProjectV2ItemField" + kind + "Value"
     if kind in RELATIONS:
         query = ("query($id:ID!,$name:String!,$cursor:String){ node(id:$id){ __typename id "
@@ -331,6 +343,9 @@ def relationship(client, item, field, kind):
     if kind in RELATIONS:
         payload = client.traverse(query, variables, resolve, lambda v: v.get("id"),
                                   ["relationship", item["id"], field["id"]])
+        if kind == "Reviewer":
+            require(all(v.get("__typename") in REVIEWER_TYPES[evidence_version] for v in payload),
+                    "Unsupported required reviewer actor type.")
     else:
         payload = resolve(client.read(query, variables))
         require(payload is not None, "Required relationship inaccessible.")
@@ -370,7 +385,8 @@ def normalize_item(raw, project_id, repository):
     return result
 
 
-def collect(owner_kind, owner, number, repository, transport=gh_query):
+def collect(owner_kind, owner, number, repository, transport=gh_query, evidence_version="1.1.0"):
+    require(evidence_version in REVIEWER_SELECTIONS, "Unsupported Project evidence version.")
     require(owner_kind in {"organization", "user"} and re.fullmatch(r"[A-Za-z0-9-]+", owner),
             "Invalid selected Project owner.")
     require(isinstance(number, int) and number > 0 and re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository),
@@ -435,7 +451,7 @@ def collect(owner_kind, owner, number, repository, transport=gh_query):
             if kind:
                 require(field["dataType"] == (RELATIONS.get(kind) or SINGULAR[kind])[0],
                         "Relationship type differs from field definition.")
-                payload = relationship(client, item, field, kind)
+                payload = relationship(client, item, field, kind, evidence_version)
             else:
                 payload = scalar_payload(raw, field, item["id"])
             values.append(dict(base, disposition="present", **payload))
@@ -452,7 +468,7 @@ def collect(owner_kind, owner, number, repository, transport=gh_query):
     require({f["id"]: f for f in fields} == {f["id"]: f for f in final_fields}
             and {i["id"]: i for i in raw_items} == {i["id"]: i for i in final_items},
             "Project fields/items changed during observation; retry as a new run.")
-    coverage = {"evidence_schema_version": "1.0.0", "endpoint": "https://api.github.com/graphql",
+    coverage = {"evidence_schema_version": evidence_version, "endpoint": "https://api.github.com/graphql",
                 "scope": "authorized-observable-project-values", "repository": repository,
                 "project": project, "started_at": started, "ended_at": now(),
                 "identity_query_sha256": fingerprint(query), "observations": client.observations,
@@ -485,7 +501,9 @@ def verify(outputs, owner_kind, owner, number, repository):
                 and record.get("variables") == variables, "Retained query target/cursor mismatch.")
         return record.get("response")
 
-    expected = collect(owner_kind, owner, number, repository, replay)
+    evidence_version = outputs["project-coverage.json"].get("evidence_schema_version")
+    require(evidence_version in REVIEWER_SELECTIONS, "Unsupported Project evidence version.")
+    expected = collect(owner_kind, owner, number, repository, replay, evidence_version=evidence_version)
     require(offset == len(requests), "Unexpected extra retained Project response.")
     for name in OUTPUTS:
         if name != "project-coverage.json":
