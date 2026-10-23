@@ -29,7 +29,7 @@ PR = helper('audit-pr-evidence')
 S = helper('audit-source')
 VERSION = '2.0.0'
 CONTRACT = 'audit-package-coverage/2.0.0'
-SUPPORTED_TOOLS = {'2.0.0', '2.0.1'}
+SUPPORTED_TOOLS = {'2.0.0', '2.0.1', '2.0.2'}
 
 
 def read(root, name):
