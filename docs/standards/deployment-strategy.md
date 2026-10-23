@@ -21,6 +21,8 @@ A deployment plan MUST identify:
 
 The plan MUST be proportionate to the release risk. Routine automated deployments MAY use a reusable plan when its assumptions remain valid.
 
+For a candidate materially affecting persistent state, the plan MUST identify the relevant application/state versions, migration/state/configuration sequence, verification and stop/recovery points, and evidence or governed exception required by [Data Model](data-model.md) and [Rollback Strategy](rollback-strategy.md). Confirm applicable state recovery prerequisites before exposure; possession of an old executable alone does not demonstrate state recovery. Recovery-copy access and retention follow [Security, Privacy, and Data Governance](security-privacy-data-governance.md), and promotion Authority remains with Software Environments and Roles and Actor Assignment.
+
 ## Execution and Verification
 
 Deployment MUST use an authorized, traceable source increment. Before making the release available, the responsible party MUST verify the relevant prerequisites and recovery readiness.
@@ -43,3 +45,5 @@ An emergency deployment MAY abbreviate the normal sequence only when the reason,
 - [Rollback Strategy](rollback-strategy.md)
 - [Definition of Done](definition-of-done.md)
 - [Artifact Standard](artifact-standard.md)
+- [Data Model](data-model.md)
+- [Security, Privacy, and Data Governance Standard](security-privacy-data-governance.md)

@@ -51,6 +51,8 @@ The maintained environment record MUST identify each environment's location or a
 
 Test MUST reproduce the production behavior and configuration relevant to the release's material risks. Differences in scale, providers, integrations, build configuration, or data MUST be recorded with their impact and validation treatment. A simulated integration does not prove that an untested production integration works.
 
+When a candidate materially changes persistent state, Test validation MUST cover the affected migration compatibility and recovery assumptions under [Data Model](data-model.md) and [Rollback Strategy](rollback-strategy.md), using representative isolated resources and recording differences and limits. Restore/migration verification MUST preserve the application/deployment identity distinction and production-data controls above; it does not authorize non-production runtimes to access or mutate production. An evidenced stateless determination removes only the inapplicable state-specific concern, not this standard's three-environment, isolation or promotion obligations.
+
 ## Promotion and production approval
 
 Changes MUST progress through Development and Test validation before Production exposure. Production MUST receive the same identified release candidate validated in Test. Where build artifacts exist, promote the same immutable artifact; environment-specific configuration MAY differ through the recorded configuration mechanism. Where no build is needed, preserve the exact validated source revision.

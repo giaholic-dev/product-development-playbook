@@ -18,6 +18,12 @@ The depth of assessment MUST be proportionate to impact, exposure, reversibility
 
 Material controls, accepted risks, and exceptions MUST record the decision, owner, rationale, evidence, impact, and reassessment condition. A project MAY determine that a concern is inapplicable when it records the rationale.
 
+## Recovery Copies and Restore Data
+
+When backup, recovery, replay, export or migration copies contain governed information, the assessment MUST include their scope, sensitivity, accountable owner, authorized access, protection, retention/deletion treatment and relevant provider or key-access dependencies. Recovery copies are data assets, not an automatic exemption from the original data-handling obligations. Record conflicts or limits between recovery retention and deletion needs with their applicable authority and reassessment; do not silently claim that every historical copy was erased.
+
+Restore/migration verification using production-derived data MUST have authorized, minimized or sanitized handling, isolation and disposal consistent with the affected risk and [Software Environments](software-environments.md). Records MUST reference credentials and recovery-key access without embedding secret values. A backup or restore mechanism does not itself grant broader access, authorize disclosure or prove a completed restoration. [Rollback Strategy](rollback-strategy.md) owns recovery verification; [Data Model](data-model.md) owns migration compatibility.
+
 ## Integration
 
 Architecture owns technical structure; Release owns release readiness; Maintenance owns operational response; Repository Automation and AI Collaboration own automated authority. This standard defines the cross-cutting risk and data-governance considerations they apply.
@@ -31,3 +37,6 @@ Architecture owns technical structure; Release owns release readiness; Maintenan
 - [AI Collaboration Standard](ai-collaboration.md)
 - [Repository Standards](repository-standards.md)
 - [Artifact Standard](artifact-standard.md)
+- [Rollback Strategy](rollback-strategy.md)
+- [Data Model](data-model.md)
+- [Software Environments Standard](software-environments.md)
