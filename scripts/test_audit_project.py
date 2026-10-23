@@ -2,6 +2,7 @@
 
 import copy
 import importlib.util
+import io
 import json
 import os
 import re
@@ -105,7 +106,7 @@ class Fixture:
                            "projectV2": {"id": "P", "number": 1, "url": "https://github.com/orgs/fixture/projects/1",
                                          "title": "Fixture", "updatedAt": TIME}},
                     "viewer": {"id": "VIEWER", "login": "reader"}}
-        elif "fieldValueByName" in query:
+        elif "fieldValueByName" in query and "name" in variables:
             f = next(f for f in self.fields if f["name"] == variables["name"])
             kind = next(k for k in list(P.RELATIONS) + list(P.SINGULAR) if f["id"] == "F" + k)
             value = {"__typename": "ProjectV2ItemField" + kind + "Value", "field": {"id": f["id"]}}
@@ -127,6 +128,22 @@ class Fixture:
                 raise AssertionError("Unexpected query")
             data = {"node": {"__typename": typ, "id": variables["id"], name: self.connection(records, cursor)}}
         return self.hook(query, variables, {"data": data})
+
+
+def builtin_fixture():
+    fixture = Fixture()
+    for kind in sorted(P.BUILTINS):
+        fixture.fields.append(field(kind))
+    for record in fixture.items:
+        record.update({"builtin_" + kind: None for kind in P.BUILTINS})
+        content = record["content"]
+        if content is not None:
+            content.update(createdAt="2026-09-01T09:00:00Z", updatedAt="2026-10-23T11:59:00Z")
+            if record["type"] != "DRAFT_ISSUE":
+                content['closedAt'] = None
+            if record["type"] == "ISSUE":
+                content.update(parent=None, subIssuesSummary={'total': 0, 'completed': 0, 'percentCompleted': 0})
+    return fixture
 
 
 class ProjectTests(unittest.TestCase):
@@ -273,6 +290,18 @@ class ProjectTests(unittest.TestCase):
                 P.gh_query("query($id:ID!){node(id:$id){id}}", {"id": "P"})
             self.assertNotIn("secret", str(caught.exception))
 
+    def test_cli_exposes_safe_validation_reason_but_not_arbitrary_exception_body(self):
+        for error, visible in ((P.ProjectError('Unsupported required field data type.'), True),
+                               (ValueError('private provider body'), False)):
+            stderr = io.StringIO()
+            with self.subTest(error=type(error).__name__), patch.object(P, 'collect', side_effect=error), \
+                    patch.object(sys, 'argv', ['audit-project.py', 'collect', '--owner', 'fixture',
+                                              '--number', '1', '--repository', REPO, '--destination', 'unused']), \
+                    patch.object(sys, 'stderr', stderr):
+                self.assertEqual(P.main(), 1)
+                self.assertEqual('Reason:' in stderr.getvalue(), visible)
+                self.assertNotIn('private provider body', stderr.getvalue())
+
     def test_bash_and_cli_collect_with_synthetic_gh(self):
         out = self.collect()
         with tempfile.TemporaryDirectory() as temp:
@@ -376,7 +405,7 @@ verify_project_evidence
         self.fixture.hook = schema_guard
         out = self.collect()
         P.verify(out, "organization", "fixture", 1, REPO)
-        self.assertEqual(out['project-coverage.json']['evidence_schema_version'], '1.2.0')
+        self.assertEqual(out['project-coverage.json']['evidence_schema_version'], '1.3.0')
         for kind in ('Text', 'Number', 'Date', 'SingleSelect', 'MultiSelect'):
             value = next(v for v in out['project-values.json']
                          if v['item_id'] == 'I1' and v['field_id'] == 'F' + kind + 'Org')
@@ -385,9 +414,97 @@ verify_project_evidence
             with self.subTest(version=version), self.assertRaises(P.ProjectError):
                 P.collect('organization', 'fixture', 1, REPO, self.fixture, evidence_version=version)
         # An invalid nested value query must fail independently of definitions.
-        with patch.dict(P.VALUE_SELECTIONS, {'1.2.0': P.VALUE_SELECTIONS['1.1.0']}):
+        with patch.dict(P.VALUE_SELECTIONS, {'1.3.0': P.VALUE_SELECTIONS['1.1.0']}):
             with self.assertRaises(P.ProjectError):
                 self.collect()
+
+    def test_computed_metadata_preserves_distinct_sources_null_and_zero(self):
+        self.fixture = builtin_fixture()
+        self.fixture.fields[-1]['name'] = 'Updated "translated"'
+        out = self.collect()
+        P.verify(out, 'organization', 'fixture', 1, REPO)
+        records = {(v['item_id'], v['field_id']): v for v in out['project-values.json']}
+        created = records['I1', 'FCREATED']
+        self.assertEqual(created['value'], {'project_item': TIME, 'content': '2026-09-01T09:00:00Z'})
+        self.assertEqual(created['source_paths'], ['ProjectV2Item.createdAt', 'Issue.createdAt'])
+        self.assertFalse(created['display_value_reconstructed'])
+        self.assertIsNone(created['direct_project_value'])
+        for kind in ('PARENT_ISSUE', 'CLOSED'):
+            self.assertEqual(records['I1', 'F' + kind]['disposition'], 'present')
+            self.assertIsNone(records['I1', 'F' + kind]['value'])
+        self.assertEqual(records['I1', 'FSUB_ISSUES_PROGRESS']['value'],
+                         {'total': 0, 'completed': 0, 'percentCompleted': 0})
+        self.assertEqual(records['I2', 'FCREATED']['disposition'], 'present')
+        self.assertEqual(records['I2', 'FCLOSED']['disposition'], 'inapplicable')
+        self.assertEqual(records['I5', 'FPARENT_ISSUE']['disposition'], 'inapplicable')
+        self.assertEqual(records['I4', 'FCREATED']['disposition'], 'inaccessible-redacted')
+        self.assertTrue(any('Updated \\"translated\\"' in q for q, _ in self.fixture.requests))
+
+    def test_parent_reference_and_progress_are_metadata_not_recursive_fetches(self):
+        self.fixture = builtin_fixture()
+        parent = {'id': 'FOREIGN', 'number': 99, 'url': 'https://github.com/other/repo/issues/99',
+                  'repository': {'id': 'OTHER', 'nameWithOwner': 'other/repo', 'url': 'https://github.com/other/repo'}}
+        self.fixture.items[0]['content'].update(parent=parent,
+            subIssuesSummary={'total': 3, 'completed': 1, 'percentCompleted': 33}, closedAt=TIME)
+        out = self.collect()
+        P.verify(out, 'organization', 'fixture', 1, REPO)
+        record = next(v for v in out['project-values.json'] if v['item_id'] == 'I1' and v['field_id'] == 'FPARENT_ISSUE')
+        self.assertEqual(record['value'], parent)
+        self.assertEqual(record['reference_scope'], 'external')
+        self.assertFalse(any(v.get('id') == 'FOREIGN' for _, v in self.fixture.requests))
+
+    def test_missing_or_malformed_builtin_observation_fails(self):
+        mutations = (
+            lambda i: i.pop('builtin_CREATED'),
+            lambda i: i.update(builtin_CREATED={'__typename': 'NewDirectValue'}),
+            lambda i: i['content'].pop('createdAt'),
+            lambda i: i['content'].update(updatedAt='2026-10-23T12:00:00'),
+            lambda i: i['content'].update(closedAt='not-a-date'),
+            lambda i: i['content'].pop('parent'),
+            lambda i: i['content'].update(parent={'number': 1}),
+            lambda i: i['content'].update(subIssuesSummary={'total': 1, 'completed': 2, 'percentCompleted': 50}),
+            lambda i: i['content'].update(subIssuesSummary={'total': True, 'completed': 0, 'percentCompleted': 0}),
+            lambda i: i['content'].update(subIssuesSummary=None),
+        )
+        for mutate in mutations:
+            self.fixture = builtin_fixture()
+            mutate(self.fixture.items[0])
+            with self.subTest(mutate=mutate), self.assertRaises(P.ProjectError):
+                self.collect()
+
+    def test_direct_builtin_field_value_is_not_silently_reinterpreted(self):
+        self.fixture = builtin_fixture()
+        self.fixture.values['I1'].append({'__typename': 'ProjectV2ItemFieldDateValue',
+                                           'field': {'id': 'FCREATED'}})
+        with self.assertRaisesRegex(P.ProjectError, 'representation'):
+            self.collect()
+
+    def test_builtin_metadata_drift_and_offline_tampering_fail(self):
+        self.fixture = builtin_fixture()
+        out = self.collect()
+        record = next(v for v in out['project-values.json'] if v['item_id'] == 'I1' and v['field_id'] == 'FCREATED')
+        record['value']['project_item'] = '2020-01-01T00:00:00Z'
+        with self.assertRaises(P.ProjectError):
+            P.verify(out, 'organization', 'fixture', 1, REPO)
+        seen = [0]
+        def drift(query, variables, response):
+            if 'items(first:' in query and variables.get('cursor') is None:
+                seen[0] += 1
+                if seen[0] > 1:
+                    response['data']['node']['items']['nodes'][0]['content']['closedAt'] = TIME
+            return response
+        self.fixture.hook = drift
+        with self.assertRaisesRegex(P.ProjectError, 'changed during observation'):
+            self.collect()
+
+    def test_builtin_scope_is_versioned_and_future_types_still_fail(self):
+        self.fixture = builtin_fixture()
+        for version in ('1.0.0', '1.1.0', '1.2.0'):
+            with self.subTest(version=version), self.assertRaises(P.ProjectError):
+                P.collect('organization', 'fixture', 1, REPO, self.fixture, evidence_version=version)
+        self.fixture.fields.append(field('FutureType'))
+        with self.assertRaisesRegex(P.ProjectError, 'Unsupported required field'):
+            self.collect()
 
 
 if __name__ == "__main__":
