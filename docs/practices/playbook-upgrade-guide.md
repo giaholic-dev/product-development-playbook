@@ -16,11 +16,14 @@ Identify changed governing sources and their impact on the repository's product 
 
 For executable or served software, explicitly assess [Software Environments](../standards/software-environments.md): three existing, distinct Development, Test and Production contexts, verified isolation before implementation, same-candidate promotion, scoped approval and verification/recovery evidence. Names or planned tasks are insufficient. Existing adopters record current gaps and accountable remediation; further production promotion follows that source's requirements or its governed exception treatment. A methodology-only repository's supporting utilities do not by themselves create a runtime product.
 
+For material persistent state, assess [Rollback Strategy](../standards/rollback-strategy.md#persistent-state-and-recovery-evidence) and [Data Model](../standards/data-model.md#state-evolution-and-migration): recovered point/loss and restoration-time boundaries, compatible restoration, migration sequencing, failure/retry and later-write reconciliation evidence. Include local-only and provider-managed authoritative state. A genuinely stateless scope records its state/authority rationale; missing knowledge or a failed restore remains unresolved or a gap. Review recovery-copy access/retention and isolated verification under data governance and Software Environments. Preserve prior actual outcomes and identify accountable remediation or permitted exception before relying on future material stateful readiness; never backfill fictional historical tests. The [optional practice](data-recovery-and-migrations.md) and [record](../../templates/stateful-recovery-record.md) support existing primary owners without creating mandatory new artifacts.
+
 One lightweight comparison record can use:
 
 | Changed source/obligation | Applicable scope and rationale | Existing evidence or gap | Remediation owner and dependency | Verification / exception reference |
 | --- | --- | --- | --- | --- |
 | Software Environments | Runtime product, if present | Actual provisioning and isolation observations, or explicit gap | Assigned environment preparation work | Candidate, Test, approval, Production and recovery evidence |
+| Stateful recovery / migration | Material persistent state or evidenced stateless boundary | Representative restore/compatibility evidence, or explicit gap | Recovery/data owner and dependent release work | Point/time/loss, failed/inconclusive checks, governed exception and reassessment |
 | Classification representation | Selected work-tracking mapping | Required Project fields, or documented equivalent outside that mapping | Mapping owner | Actual field/record observations; issue text does not mutate Project fields |
 
 These are assessment examples, not completed evidence or a universal checklist of every upgrade.

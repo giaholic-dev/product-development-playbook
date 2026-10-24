@@ -176,6 +176,8 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 ### Releases
 
+- [v0.7.0 audit release notes](docs/releases/v0.7.0.md) — published audit-only baseline and actual validation evidence.
+- [v0.8.0 candidate notes and M8 review](docs/releases/v0.8.0.md) — stateful recovery/migration obligations; publication pending.
 - [v0.6.0 release notes and M6 review](docs/releases/v0.6.0.md) — published baseline and release evidence.
 
 ### Practices
