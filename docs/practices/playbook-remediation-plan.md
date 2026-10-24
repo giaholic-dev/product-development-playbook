@@ -10,9 +10,9 @@ The review findings R01–R12 and the four follow-up research scopes are preserv
 
 ## Release boundaries
 
-The latest verified published release is [v0.6.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.6.0) (2026-10-22), from immutable commit `c7c0bc67b53433e4a549d807bb04f37c4c9f0002`. The historical v0.1.0 release remains published (2026-09-12). The closed v0.2.0–v0.5.0 milestones represent accepted delivery boundaries, not proof that those versions were published. Do not reopen them or publish historical versions merely to fill a numbering sequence.
+The latest verified published release is [v0.7.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.7.0) (2026-10-24), immutable commit `6901304985b36ecfb842d519d5ddb636f5f05698`. It is an audit-only release branch; O01–O03 stateful work on main is excluded. v0.6.0 remains preserved at `c7c0bc67b53433e4a549d807bb04f37c4c9f0002` and v0.1.0 remains historical publication. Closed v0.2.0–v0.5.0 milestones are delivery boundaries, not missing releases to create.
 
-The current development target is **v0.7.0 — Audit Evidence Coverage**. v0.7.0 and v0.8.0 remain planned delivery boundaries, not published releases or date commitments. The selected 0.x versions identify reviewed adoption baselines; they do not establish a full external Semantic Versioning compatibility promise. [C09 / #323](https://github.com/giaholic-dev/product-development-playbook/issues/323) documents the detailed adoption/upgrade policy before publication.
+The current development target is **v0.8.0 — Stateful Recovery and Migrations**, with O04 release acceptance still pending. Selected 0.x versions identify reviewed adoption baselines, not an automatic external compatibility/conformance promise. Main and the released baseline are explicitly distinct; preserve immutable prior evidence when upgrading.
 
 | Local boundary | Intended version and outcome | Included records |
 | --- | --- | --- |
@@ -268,3 +268,10 @@ The authorized rerun at `fb642bb978d29d07dc9b03d4ef60233883b727dc` passed reposi
 ## A06 computed built-in metadata coverage — 2026-10-23
 
 The corrected definition query at `4348e468b84fa560a8f464783e04fc318e3ab496` enumerated 17 fields; five previously unsupported built-ins correctly stopped the profile. Maintainer-operated read-only sampling then returned null for their direct Project values on an issue and PR while exposing Project-item/content timestamps, parent reference and summary counts. The [bounded additive policy](audit-package-contract.md#computed-built-in-metadata--2026-10-23) now preserves those observations with provenance and explicit rendered-value/hierarchy limits. Tool 2.1.0 / Project evidence 1.3.0 separates item/content time sources, nullable closure/parent observations, summary counts, inapplicability and redaction; missing/changed/unknown representations fail. Initial/final item traversals include the metadata and direct aliases, so observed drift fails. Historical fingerprints remain replayable unchanged. No complete live package, independent comparison or A06/release completion is claimed; those remain the next acceptance steps after the maintainer reruns the integrated implementation.
+
+
+## v0.7.0 publication verified — 2026-10-24
+
+A06 / #331 completed its actual source/PR/Project comparison, [validation record](audit-evidence-validation-2026-10-24.md), reviewed audit-only candidate and verified [native publication](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.7.0). PR #367 integrated into release/v0.7.0 at `6901304985b36ecfb842d519d5ddb636f5f05698`; tag/selected commit equality, tagged note bytes, Latest status and absence of private attachments were verified. Candidate CI 40105004062 and 40105003989 passed, as did 78 audit +7 documentation-checker tests. This main update reconciles status/evidence without importing or removing governing changes: O01–O03 remain on main and outside v0.7.0. A06/M7 native closure follows this verified default-branch record.
+
+Owner @giaholic retains release/v0.7.0 as the published audit-only maintenance line while main targets v0.8.0; reassess on v0.8.0 publication or by 2026-11-05. The preparation branch can be removed after its evidence is integrated; no deletion is claimed here. The local validation package remains unmodified and unredistributed. O04 can now complete its separate aggregate/adopter/release review; no v0.8.0 publication is implied.
