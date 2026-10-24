@@ -63,6 +63,7 @@ class Client:
 
     def collect(self, suffix, params, target, key):
         started, page, records, pages, seen = P.now(), 1, {}, [], set()
+        cursors = set()
         endpoint = 'repos/' + self.repository + '/' + suffix + '?' + urlencode(dict(params, per_page=100, page=page))
         for _ in range(10000):
             P.require(endpoint not in seen, 'Repeated repository page request.')
@@ -85,7 +86,17 @@ class Client:
             if next_links:
                 parsed = self.target(next_links[0], suffix)
                 expected = {k: [str(v)] for k, v in dict(params, per_page=100, page=page + 1).items()}
-                P.require(parse_qs(parsed.query, keep_blank_values=True) == expected, 'Nonadvancing/changed page parameters.')
+                query = parse_qs(parsed.query, keep_blank_values=True)
+                # GitHub may return page + an opaque after cursor. Preserve the
+                # provider link, but never permit changed filters or cursor loops.
+                after = query.pop('after', None)
+                P.require(query == expected, 'Nonadvancing/changed page parameters.')
+                if after is not None:
+                    P.require(len(after) == 1 and bool(after[0]) and after[0] not in cursors,
+                              'Invalid/repeated repository page cursor.')
+                    cursors.add(after[0])
+                else:
+                    P.require(not cursors, 'Repository page cursor disappeared.')
                 next_endpoint = parsed.path.lstrip('/') + '?' + parsed.query
             pages.append({'request': endpoint, 'next': next_endpoint, 'status': 200,
                           'returned_count': len(payload), 'observed_at': P.now()})

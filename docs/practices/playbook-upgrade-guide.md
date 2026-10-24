@@ -44,3 +44,8 @@ The Playbook repository's current 0.x sequence names reviewed methodology baseli
 - [Playbook Remediation Plan](playbook-remediation-plan.md)
 - [Definition of Ready](../standards/definition-of-ready.md)
 - [Definition of Done](../standards/definition-of-done.md)
+
+
+## Audit exporter upgrade candidate — v0.7.0
+
+The [v0.7.0 candidate](../releases/v0.7.0.md) preserves v0.6.0 governing standards while upgrading optional audit coverage. Tool version 2.1.0 and package schema 2.0.0 are separate from the Playbook's 0.x release numbering. Keep old packages unchanged; use the current verifier only for supported version pairs and run a fresh explicitly authorized export for new coverage. Review committed-source sensitivity, selected repository/Project, authorized read scope and local retention/disclosure before running. A source hash is not secret detection, and a complete observable package is not provider-administration, approval or conformance certification. Preserve the prior adopted release until publication and the candidate's immutable identity are verified; record the scoped upgrade decision and remaining limits. Stateful recovery/migration obligations are excluded from the audit-only candidate and remain the separately governed M8 target.

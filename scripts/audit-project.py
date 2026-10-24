@@ -56,6 +56,20 @@ SINGULAR = {
     "Repository": ("REPOSITORY", "repository", "id nameWithOwner url"),
     "Milestone": ("MILESTONE", "milestone", "id number title url"),
 }
+REVIEWER_SELECTIONS = {
+    "1.0.0": RELATIONS["Reviewer"][2],
+    "1.1.0": ("__typename ... on User { id login url } ... on Bot { id login url } "
+              "... on Team { id name url } ... on Mannequin { id login url } "
+              "... on EnterpriseTeam { id name slug }"),
+}
+REVIEWER_TYPES = {
+    "1.0.0": {"User", "Team", "Mannequin"},
+    "1.1.0": {"User", "Bot", "Team", "Mannequin", "EnterpriseTeam"},
+}
+REVIEWER_SELECTIONS["1.2.0"] = REVIEWER_SELECTIONS["1.1.0"]
+REVIEWER_TYPES["1.2.0"] = REVIEWER_TYPES["1.1.0"]
+REVIEWER_SELECTIONS["1.3.0"] = REVIEWER_SELECTIONS["1.2.0"]
+REVIEWER_TYPES["1.3.0"] = REVIEWER_TYPES["1.2.0"]
 SUPPORTED = {"TEXT", "TITLE", "NUMBER", "DATE", "SINGLE_SELECT", "MULTI_SELECT", "ITERATION",
              "LABELS", "ASSIGNEES", "LINKED_PULL_REQUESTS", "REVIEWERS", "REPOSITORY", "MILESTONE"}
 VALUES = "__typename\n"
@@ -72,6 +86,18 @@ VALUES += "... on ProjectV2ItemIssueFieldValue { " + FIELD_REF + """ issueFieldV
  ... on IssueFieldSingleSelectValue { id optionId name }
  ... on IssueFieldMultiSelectValue { id options { id name } }
 } }"""
+# IssueFieldCommon exposes metadata, not Node.id. Keep historical query bytes
+# for transcript replay; new reads select identity through the Node interface.
+FIELD_SELECTIONS = {version: FIELDS for version in ("1.0.0", "1.1.0")}
+FIELD_SELECTIONS["1.2.0"] = FIELDS.replace(
+    "... on IssueFieldCommon { id name dataType }",
+    "... on Node { id } ... on IssueFieldCommon { name dataType }")
+VALUE_SELECTIONS = {version: VALUES for version in ("1.0.0", "1.1.0")}
+VALUE_SELECTIONS["1.2.0"] = VALUES.replace(
+    "... on IssueFieldCommon { id }", "... on Node { id }")
+FIELD_SELECTIONS["1.3.0"] = FIELD_SELECTIONS["1.2.0"]
+VALUE_SELECTIONS["1.3.0"] = VALUE_SELECTIONS["1.2.0"]
+BUILTINS = {"CREATED", "UPDATED", "CLOSED", "PARENT_ISSUE", "SUB_ISSUES_PROGRESS"}
 OUTPUTS = ("project-items.json", "project-fields.json", "project-values.json", "project-coverage.json",
            "project-requests.json", "project-views.json")
 
@@ -205,7 +231,9 @@ def field_options(field):
     return field.get("options", field.get("multiSelectOptions", []))
 
 
-def validate_fields(fields):
+def validate_fields(fields, evidence_version="1.3.0"):
+    supported = SUPPORTED | (BUILTINS if evidence_version == "1.3.0" else set())
+    builtin_types = set()
     for field in fields:
         identity(field.get("id"))
         require(isinstance(field.get("name"), str) and isinstance(field.get("isIssueField"), bool),
@@ -213,7 +241,10 @@ def validate_fields(fields):
         require(field.get("__typename") in {"ProjectV2Field", "ProjectV2SingleSelectField",
                                            "ProjectV2MultiSelectField", "ProjectV2IterationField"},
                 "Unsupported Project field type.")
-        require(field.get("dataType") in SUPPORTED, "Unsupported required field data type.")
+        require(field.get("dataType") in supported, "Unsupported required field data type.")
+        if field["dataType"] in BUILTINS:
+            require(field["dataType"] not in builtin_types, "Duplicate built-in field type.")
+            builtin_types.add(field["dataType"])
         specific = {"SINGLE_SELECT": "ProjectV2SingleSelectField", "MULTI_SELECT": "ProjectV2MultiSelectField",
                     "ITERATION": "ProjectV2IterationField"}
         require(field["__typename"] == specific.get(field["dataType"], "ProjectV2Field"),
@@ -307,9 +338,11 @@ def scalar_payload(raw, field, item_id):
             "created_at": value.get("createdAt"), "updated_at": value.get("updatedAt")}
 
 
-def relationship(client, item, field, kind):
+def relationship(client, item, field, kind, evidence_version):
     config = RELATIONS.get(kind, SINGULAR.get(kind))
     _, name, selection = config
+    if kind == "Reviewer":
+        selection = REVIEWER_SELECTIONS[evidence_version]
     value_type = "ProjectV2ItemField" + kind + "Value"
     if kind in RELATIONS:
         query = ("query($id:ID!,$name:String!,$cursor:String){ node(id:$id){ __typename id "
@@ -331,6 +364,9 @@ def relationship(client, item, field, kind):
     if kind in RELATIONS:
         payload = client.traverse(query, variables, resolve, lambda v: v.get("id"),
                                   ["relationship", item["id"], field["id"]])
+        if kind == "Reviewer":
+            require(all(v.get("__typename") in REVIEWER_TYPES[evidence_version] for v in payload),
+                    "Unsupported required reviewer actor type.")
     else:
         payload = resolve(client.read(query, variables))
         require(payload is not None, "Required relationship inaccessible.")
@@ -370,7 +406,98 @@ def normalize_item(raw, project_id, repository):
     return result
 
 
-def collect(owner_kind, owner, number, repository, transport=gh_query):
+def item_selection(fields, evidence_version):
+    """Observe computed metadata separately from the direct Project value API."""
+    selected = [f for f in fields if f["dataType"] in BUILTINS]
+    if evidence_version != "1.3.0" or not selected:
+        return ITEMS
+    kinds = {f["dataType"] for f in selected}
+    dates = " ".join(name for kind, name in (("CREATED", "createdAt"), ("UPDATED", "updatedAt"),
+                                             ("CLOSED", "closedAt")) if kind in kinds)
+    draft_dates = " ".join(name for kind, name in (("CREATED", "createdAt"), ("UPDATED", "updatedAt"))
+                           if kind in kinds)
+    hierarchy = ""
+    if "PARENT_ISSUE" in kinds:
+        hierarchy += "parent { id number url repository { id nameWithOwner url } } "
+    if "SUB_ISSUES_PROGRESS" in kinds:
+        hierarchy += "subIssuesSummary { total completed percentCompleted } "
+    selection = ITEMS.replace("... on Issue {", "... on Issue { " + dates + " " + hierarchy)
+    selection = selection.replace("... on PullRequest {", "... on PullRequest { " + dates + " ")
+    selection = selection.replace("... on DraftIssue {", "... on DraftIssue { " + draft_dates + " ")
+    for field in selected:
+        selection += (" builtin_" + field["dataType"] + ": fieldValueByName(name:"
+                      + json.dumps(field["name"], ensure_ascii=True) + "){ __typename }")
+    return selection
+
+
+def timestamp(value):
+    require(isinstance(value, str), "Missing built-in timestamp.")
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ProjectError("Invalid built-in timestamp.") from exc
+    require(parsed.tzinfo is not None, "Built-in timestamp lacks timezone.")
+    return value
+
+
+def builtin_payload(item, field, raw, repository):
+    kind = field["dataType"]
+    alias = "builtin_" + kind
+    require(alias in item and item[alias] is None and raw is None,
+            "Built-in Project value API changed; review the new provider representation.")
+    result = {"provider_type": "ProjectV2Item", "value_type": kind,
+              "value_id": None, "origin": "built-in-provider-metadata",
+              "direct_project_value": None, "display_value_reconstructed": False}
+    content = item["content"]
+    if content is None:
+        return dict(result, disposition="inaccessible-redacted", value=None, source_paths=[])
+    if kind in {"PARENT_ISSUE", "SUB_ISSUES_PROGRESS", "CLOSED"} and (
+            item["type"] == "DRAFT_ISSUE" or (kind != "CLOSED" and item["type"] != "ISSUE")):
+        return dict(result, disposition="inapplicable", value=None, source_paths=[])
+    if kind in {"CREATED", "UPDATED"}:
+        name = "createdAt" if kind == "CREATED" else "updatedAt"
+        require(name in content, "Missing linked-content timestamp.")
+        # Project-item and linked-content times can differ (e.g. draft conversion).
+        # Retain both with provenance, never guess the UI's computed display value.
+        value = {"project_item": timestamp(item.get(name)), "content": timestamp(content[name])}
+        paths = ["ProjectV2Item." + name, content["__typename"] + "." + name]
+    elif kind == "CLOSED":
+        require("closedAt" in content, "Missing linked-content closure observation.")
+        value = content["closedAt"]
+        if value is not None:
+            timestamp(value)
+        paths = [content["__typename"] + ".closedAt"]
+    elif kind == "PARENT_ISSUE":
+        require("parent" in content, "Missing parent-issue observation.")
+        value = content["parent"]
+        if value is not None:
+            require(isinstance(value, dict), "Malformed parent-issue reference.")
+            identity(value.get("id"))
+            require(isinstance(value.get("number"), int) and not isinstance(value["number"], bool)
+                    and value["number"] > 0 and isinstance(value.get("url"), str),
+                    "Invalid parent-issue reference.")
+            repo = value.get("repository")
+            require(isinstance(repo, dict), "Missing parent repository reference.")
+            identity(repo.get("id"))
+            require(all(isinstance(repo.get(k), str) and repo[k] for k in ("nameWithOwner", "url")),
+                    "Invalid parent repository reference.")
+            result["reference_scope"] = "local" if repo["nameWithOwner"].casefold() == repository.casefold() else "external"
+        paths = ["Issue.parent"]
+    else:
+        require("subIssuesSummary" in content and isinstance(content["subIssuesSummary"], dict),
+                "Missing sub-issues summary observation.")
+        value = content["subIssuesSummary"]
+        require(all(isinstance(value.get(k), int) and not isinstance(value[k], bool)
+                    for k in ("total", "completed", "percentCompleted")), "Invalid sub-issues summary counts.")
+        require(0 <= value["completed"] <= value["total"] and 0 <= value["percentCompleted"] <= 100
+                and (value["total"] != 0 or value["percentCompleted"] == 0),
+                "Inconsistent sub-issues summary counts.")
+        paths = ["Issue.subIssuesSummary"]
+    return dict(result, disposition="present", value=value, source_paths=paths)
+
+
+def collect(owner_kind, owner, number, repository, transport=gh_query, evidence_version="1.3.0"):
+    require(evidence_version in REVIEWER_SELECTIONS, "Unsupported Project evidence version.")
     require(owner_kind in {"organization", "user"} and re.fullmatch(r"[A-Za-z0-9-]+", owner),
             "Invalid selected Project owner.")
     require(isinstance(number, int) and number > 0 and re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository),
@@ -394,11 +521,12 @@ def collect(owner_kind, owner, number, repository, transport=gh_query):
     identity(principal.get("login"))
     require(isinstance(project.get("url"), str), "Missing Project URL.")
     project = dict(project, owner_kind=owner_kind, owner_login=actor["login"], owner_id=actor["id"])
-    fields = client.traverse(project_query("fields", FIELDS), {"id": project_id},
+    fields = client.traverse(project_query("fields", FIELD_SELECTIONS[evidence_version]), {"id": project_id},
                              lambda d: node_connection(d, project_id, "ProjectV2", "fields"),
                              lambda f: f.get("id"), ["fields", project_id])
-    validate_fields(fields)
-    raw_items = client.traverse(project_query("items", ITEMS), {"id": project_id},
+    validate_fields(fields, evidence_version)
+    selected_items = item_selection(fields, evidence_version)
+    raw_items = client.traverse(project_query("items", selected_items), {"id": project_id},
                                 lambda d: node_connection(d, project_id, "ProjectV2", "items"),
                                 lambda i: i.get("id"), ["items", project_id])
     items = [normalize_item(i, project_id, repository) for i in raw_items]
@@ -407,7 +535,7 @@ def collect(owner_kind, owner, number, repository, transport=gh_query):
                             lambda v: v.get("id"), ["views", project_id])
     values = []
     value_query = ("query($id:ID!,$cursor:String){ node(id:$id){ __typename id ... on ProjectV2Item { "
-                   "fieldValues(first:100,after:$cursor){ nodes { " + VALUES + " } " + PAGE + " } } } }")
+                   "fieldValues(first:100,after:$cursor){ nodes { " + VALUE_SELECTIONS[evidence_version] + " } " + PAGE + " } } } }")
     field_map = {f["id"]: f for f in fields}
     for item in items:
         raw_values = client.traverse(value_query, {"id": item["id"]},
@@ -418,6 +546,9 @@ def collect(owner_kind, owner, number, repository, transport=gh_query):
         for field in fields:
             base = {"project_id": project_id, "item_id": item["id"], "field_id": field["id"]}
             raw = observed.get(field["id"])
+            if field["dataType"] in BUILTINS:
+                values.append(dict(base, **builtin_payload(item, field, raw, repository)))
+                continue
             if raw is None:
                 if item["content_disposition"] == "inaccessible-redacted":
                     status = "inaccessible-redacted"
@@ -435,7 +566,7 @@ def collect(owner_kind, owner, number, repository, transport=gh_query):
             if kind:
                 require(field["dataType"] == (RELATIONS.get(kind) or SINGULAR[kind])[0],
                         "Relationship type differs from field definition.")
-                payload = relationship(client, item, field, kind)
+                payload = relationship(client, item, field, kind, evidence_version)
             else:
                 payload = scalar_payload(raw, field, item["id"])
             values.append(dict(base, disposition="present", **payload))
@@ -443,22 +574,30 @@ def collect(owner_kind, owner, number, repository, transport=gh_query):
     require(len(set(value_ids)) == len(value_ids), "Scalar identity reused across distinct item/field pairs.")
     final_data = client.read(query, {"login": owner, "number": number})
     require(final_data == data, "Project identity/revision or principal changed during collection.")
-    final_fields = client.traverse(project_query("fields", FIELDS), {"id": project_id},
+    final_fields = client.traverse(project_query("fields", FIELD_SELECTIONS[evidence_version]), {"id": project_id},
                                    lambda d: node_connection(d, project_id, "ProjectV2", "fields"),
                                    lambda f: f.get("id"), ["fields-final", project_id])
-    final_items = client.traverse(project_query("items", ITEMS), {"id": project_id},
+    final_items = client.traverse(project_query("items", selected_items), {"id": project_id},
                                   lambda d: node_connection(d, project_id, "ProjectV2", "items"),
                                   lambda i: i.get("id"), ["items-final", project_id])
     require({f["id"]: f for f in fields} == {f["id"]: f for f in final_fields}
             and {i["id"]: i for i in raw_items} == {i["id"]: i for i in final_items},
             "Project fields/items changed during observation; retry as a new run.")
-    coverage = {"evidence_schema_version": "1.0.0", "endpoint": "https://api.github.com/graphql",
+    coverage = {"evidence_schema_version": evidence_version, "endpoint": "https://api.github.com/graphql",
                 "scope": "authorized-observable-project-values", "repository": repository,
                 "project": project, "started_at": started, "ended_at": now(),
                 "identity_query_sha256": fingerprint(query), "observations": client.observations,
                 "principal": principal, "revision_rechecked": True,
                 "request_count": len(client.requests),
                 "unobservable_history_reconstructed": False}
+    if evidence_version == "1.3.0":
+        coverage["computed_metadata_policy"] = {
+            "configured_types": sorted({f["dataType"] for f in fields} & BUILTINS),
+            "direct_project_values_available": False,
+            "timestamp_sources_retained_separately": True,
+            "display_values_reconstructed": False,
+            "sub_issue_descendants_collected": False,
+        }
     return {"project-items.json": items, "project-fields.json": fields,
             "project-values.json": values, "project-coverage.json": coverage,
             "project-requests.json": client.requests, "project-views.json": views}
@@ -485,7 +624,9 @@ def verify(outputs, owner_kind, owner, number, repository):
                 and record.get("variables") == variables, "Retained query target/cursor mismatch.")
         return record.get("response")
 
-    expected = collect(owner_kind, owner, number, repository, replay)
+    evidence_version = outputs["project-coverage.json"].get("evidence_schema_version")
+    require(evidence_version in REVIEWER_SELECTIONS, "Unsupported Project evidence version.")
+    expected = collect(owner_kind, owner, number, repository, replay, evidence_version=evidence_version)
     require(offset == len(requests), "Unexpected extra retained Project response.")
     for name in OUTPUTS:
         if name != "project-coverage.json":
@@ -546,8 +687,10 @@ def main():
         else:
             outputs = {name: json_load((args.destination / name).read_bytes()) for name in OUTPUTS}
             verify(outputs, args.owner_kind, args.owner, args.number, args.repository)
-    except (ProjectError, OSError, ValueError, KeyError, TypeError, AttributeError):
+    except (ProjectError, OSError, ValueError, KeyError, TypeError, AttributeError) as error:
         print("ERROR: Required Project evidence unavailable, invalid or incomplete; no complete profile.", file=sys.stderr)
+        if isinstance(error, ProjectError):
+            print("Reason: " + str(error), file=sys.stderr)
         return 1
     return 0
 

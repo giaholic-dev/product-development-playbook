@@ -76,6 +76,54 @@ class RecordTests(unittest.TestCase):
         with self.assertRaises(R.PR.EvidenceError):
             self.collect()
 
+    def test_page_and_after_cursor_preserved_and_replayed(self):
+        first = 'repos/' + REPO + '/issues?state=all&per_page=100&page=1'
+        second = 'repositories/1/issues?state=all&per_page=100&page=2&after=opaque%2Bcursor%3D'
+        third = 'repositories/1/issues?state=all&per_page=100&page=3&after=next%3D'
+        self.fixture.routes[first] = response([self.fixture.issue], '<https://api.github.com/' + second + '>; rel="next"')
+        self.fixture.routes[second] = response([], '<https://api.github.com/' + third + '>; rel="next"')
+        self.fixture.routes[third] = response([])
+        out = self.collect()
+        R.verify(out, REPO, False)
+        observation = out['records-coverage.json']['observations'][0]
+        self.assertEqual([p['request'] for p in observation['pages']], [first, second, third])
+        self.assertEqual(len(out['issues.json']), 1)
+
+    def test_cursor_does_not_allow_changed_scope_or_parameters(self):
+        first = 'repos/' + REPO + '/issues?state=all&per_page=100&page=1'
+        prefix = 'https://api.github.com/repositories/1/issues?'
+        for query in ('state=closed&per_page=100&page=2&after=a',
+                      'state=all&per_page=50&page=2&after=a',
+                      'state=all&per_page=100&page=1&after=a',
+                      'state=all&per_page=100&page=3&after=a',
+                      'state=all&per_page=100&page=2&after=',
+                      'state=all&per_page=100&page=2&after=a&after=b',
+                      'state=all&per_page=100&page=2&after=a&before=b',
+                      'state=all&per_page=100&page=2&after=a&unexpected=b',
+                      'state=all&per_page=100&after=a'):
+            with self.subTest(query=query):
+                self.fixture.routes[first] = response([], '<' + prefix + query + '>; rel="next"')
+                with self.assertRaises(R.P.ProjectError):
+                    self.collect()
+        for url in ('https://evil.example/repositories/1/issues',
+                    'https://api.github.com/repositories/2/issues',
+                    'https://api.github.com/repositories/1/pulls'):
+            self.fixture.routes[first] = response([], '<' + url + '?state=all&per_page=100&page=2&after=a>; rel="next"')
+            with self.assertRaises(R.P.ProjectError):
+                self.collect()
+
+    def test_repeated_or_disappearing_cursor_fails(self):
+        first = 'repos/' + REPO + '/issues?state=all&per_page=100&page=1'
+        second = 'repositories/1/issues?state=all&per_page=100&page=2&after=a'
+        third = 'repositories/1/issues?state=all&per_page=100&page=3&after=b'
+        self.fixture.routes[first] = response([], '<https://api.github.com/' + second + '>; rel="next"')
+        self.fixture.routes[second] = response([], '<https://api.github.com/' + third + '>; rel="next"')
+        for suffix in ('&after=b', '&after=a', ''):
+            fourth = 'repositories/1/issues?state=all&per_page=100&page=4' + suffix
+            self.fixture.routes[third] = response([], '<https://api.github.com/' + fourth + '>; rel="next"')
+            with self.subTest(suffix=suffix), self.assertRaises(R.P.ProjectError):
+                self.collect()
+
     def test_foreign_or_conflicting_records_fail(self):
         for variant in ('foreign', 'conflict', 'missing'):
             with self.subTest(variant=variant):

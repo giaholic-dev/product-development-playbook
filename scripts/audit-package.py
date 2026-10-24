@@ -2,6 +2,7 @@
 """Seal, verify and safely finalize schema-2 offline audit packages."""
 
 import argparse
+import copy
 import hashlib
 import json
 import os
@@ -29,6 +30,7 @@ PR = helper('audit-pr-evidence')
 S = helper('audit-source')
 VERSION = '2.0.0'
 CONTRACT = 'audit-package-coverage/2.0.0'
+SUPPORTED_TOOLS = {'2.0.0', '2.0.1', '2.0.2', '2.0.3', '2.1.0'}
 
 
 def read(root, name):
@@ -155,8 +157,8 @@ def validate_interval(coverage):
 def derive(root, base):
     root = Path(root)
     # Reject unknown/legacy versions rather than validating them as full coverage.
-    P.require(base.get('schema_version') == VERSION and base.get('tool_version') == VERSION,
-              'Full validation requires schema/tool 2.0.0; legacy packages require a new authorized export.')
+    P.require(base.get('schema_version') == VERSION and base.get('tool_version') in SUPPORTED_TOOLS,
+              'Full validation requires schema 2.0.0 and a supported tool 2.x; legacy packages need a new authorized export.')
     repository = base['repository']['owner'] + '/' + base['repository']['name']
     P.require(R.re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repository), 'Invalid manifest repository name.')
     repo_meta = base['repository']
@@ -230,6 +232,13 @@ def derive(root, base):
             work = (issues if item['type'] == 'ISSUE' else pulls).get(content.get('number'))
             P.require(work is not None and work.get('node_id') == content.get('id'),
                       'Local Project content does not join observed repository work.')
+    for value in project['project-values.json']:
+        if value.get('origin') == 'built-in-provider-metadata' and value.get('value_type') == 'PARENT_ISSUE':
+            parent = value.get('value')
+            if parent is not None and value.get('reference_scope') == 'local':
+                work = issues.get(parent['number'])
+                P.require(work is not None and work.get('node_id') == parent['id'],
+                          'Local parent issue does not join observed repository work.')
     for name in ('branches.txt', 'tags.txt', 'recent-commits.tsv', 'status.txt'):
         P.require((root / 'git' / name).is_file(), 'Missing required local Git evidence.')
     P.require(len((root / 'git/recent-commits.tsv').read_bytes().splitlines()) <= 100,
@@ -307,6 +316,8 @@ def derive(root, base):
                              'pr_relations_verified': True, 'project_replay_verified': True,
                              'repository_replay_verified': True, 'local_references_verified': True,
                              'payload_hashes_verified': True, 'manifest_self_hash_excluded': True})
+    if 'computed_metadata_policy' in project_coverage:
+        result['project_computed_metadata'] = copy.deepcopy(project_coverage['computed_metadata_policy'])
     P.require(complete, 'Required coverage is incomplete.')
     return result
 
