@@ -177,7 +177,7 @@ The Playbook defines reusable standards that can be adopted across software prod
 ### Releases
 
 - [v0.7.0 audit release notes](docs/releases/v0.7.0.md) — published audit-only baseline and actual validation evidence.
-- [v0.8.0 candidate notes and M8 review](docs/releases/v0.8.0.md) — stateful recovery/migration obligations; publication pending.
+- [v0.8.0 release notes and M8 review](docs/releases/v0.8.0.md) — published stateful recovery/migration guidance and adopter actions.
 - [v0.6.0 release notes and M6 review](docs/releases/v0.6.0.md) — published baseline and release evidence.
 
 ### Practices
@@ -303,11 +303,11 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 ## Current Status
 
-Latest published release: **[v0.7.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.7.0)**
+Latest published release: **[v0.8.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.8.0)**
 
-Development target: **v0.8.0 — Stateful Recovery and Migrations (in development; release acceptance pending)**
+Development target: **None declared.** F01–F04 remain unversioned research candidates in the remediation plan.
 
-The [v0.7.0 notes](docs/releases/v0.7.0.md) and [actual audit validation](docs/practices/audit-evidence-validation-2026-10-24.md) distinguish the published audit-only baseline from stateful work on main.
+The [v0.8.0 notes](docs/releases/v0.8.0.md) document changed recovery/migration obligations and adopter actions. The [v0.7.0 notes](docs/releases/v0.7.0.md) and [actual audit validation](docs/practices/audit-evidence-validation-2026-10-24.md) preserve the preceding audit-only baseline and its bounded evidence.
 
 Scope and work records: [Playbook Remediation Plan](docs/practices/playbook-remediation-plan.md).
 

@@ -10,9 +10,9 @@ The review findings R01–R12 and the four follow-up research scopes are preserv
 
 ## Release boundaries
 
-The latest verified published release is [v0.7.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.7.0) (2026-10-24), immutable commit `6901304985b36ecfb842d519d5ddb636f5f05698`. It is an audit-only release branch; O01–O03 stateful work on main is excluded. v0.6.0 remains preserved at `c7c0bc67b53433e4a549d807bb04f37c4c9f0002` and v0.1.0 remains historical publication. Closed v0.2.0–v0.5.0 milestones are delivery boundaries, not missing releases to create.
+The latest verified published release is [v0.8.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.8.0) (2026-10-24), immutable commit `cb18da31a79eebf192b38bc815aff905a5ef5a56`. v0.7.0 remains preserved as the audit-only baseline at `6901304985b36ecfb842d519d5ddb636f5f05698`, alongside v0.6.0 and historical v0.1.0. Closed v0.2.0–v0.5.0 milestones are delivery boundaries, not missing releases to create.
 
-The current development target is **v0.8.0 — Stateful Recovery and Migrations**, with O04 release acceptance still pending. Selected 0.x versions identify reviewed adoption baselines, not an automatic external compatibility/conformance promise. Main and the released baseline are explicitly distinct; preserve immutable prior evidence when upgrading.
+No new versioned development target is declared. F01–F04 remain unversioned research candidates, with implementation conditional on their scoped evidence/decision. Selected 0.x versions identify reviewed adoption baselines, not an automatic external compatibility/conformance promise. Preserve immutable prior evidence when upgrading.
 
 | Local boundary | Intended version and outcome | Included records |
 | --- | --- | --- |
@@ -282,3 +282,10 @@ Owner @giaholic retains release/v0.7.0 as the published audit-only maintenance l
 A06/M7 completed with published audit-only v0.7.0 / `6901304985b36ecfb842d519d5ddb636f5f05698`. Current assessed main is `1cb5952913aa0b78dc24b865ada8c871b712e710`. O01–O03 / #332–#334 are closed; native M8 includes exactly those and O04 / #335. Refreshed [v0.8.0 candidate notes](../releases/v0.8.0.md) replace the blocked historical draft, compare changed obligations with the actual v0.7.0 tag and preserve baseline/adopter/fictional-evidence distinctions. All 25 scripts/workflow/devcontainer blobs are unchanged from v0.7.0; audit validation is carried only for that unchanged implementation, not as stateful restoration evidence.
 
 Source-owner, stateful/stateless/local/provider/cache/hybrid, migration/compatibility, later-write, data-protection and approval/exception cases found no blocking mismatch in the scoped documentary increment. The existing-owner guide and optional record do not add mandatory artifacts or grant production access. O04 owns exact-head candidate checks, scoped release decision, tag/source/notes observation and native closure. The published adopted baseline stays v0.7.0 until actual v0.8.0 verification. Review remains AI-assisted self-review, not independent approval.
+
+
+## v0.8.0 publication verified — 2026-10-24
+
+O04 / #335 reviewed combined O01–O03 scope against published v0.7.0, updated adopter guidance/conformance, exercised the documented semantic cases and verified [native v0.8.0 publication](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.8.0). Refreshed PR #362, head `4a924064a594adcf8103f8f2029c884fed79ef24`, integrated at `cb18da31a79eebf192b38bc815aff905a5ef5a56`; exact tree/readback and Documentation CI 40107588274 passed (118 files/2310 links locally). Tag/candidate equality, tagged notes, Latest/non-draft/non-prerelease and no uploaded private assets were independently verified. This follow-up reconciles main before native O04/M8 closure. No actual production restoration/migration or independent approval is claimed.
+
+The audit-only release/v0.7.0 line was reassessed at v0.8.0 publication: retain temporarily for audit/maintenance provenance, owner @giaholic, next review by 2026-11-05 or before reuse. Remediation preparation/publication branches have the same bounded audit purpose until that review; no deletion is claimed. Historical releases and local audit evidence stay unchanged. All selected C/A/O delivery boundaries have verified releases; the four F research candidates remain open without an invented next release or implementation promise.
