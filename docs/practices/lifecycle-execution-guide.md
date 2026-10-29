@@ -50,6 +50,12 @@ Compare the actual result with acceptance evidence, record validation and applic
 
 Then assess the phase outcome and the next activity's entry conditions separately. Closed items do not by themselves establish phase completion; phase completion does not automatically authorize the next execution attempt. Use the [boundary review](milestone-boundary-review.md) when checking the combined result and the [Foundation example](../../examples/foundation-completion-example.md) for a bounded illustration.
 
+## Resuming interrupted work
+
+When a selected activity is interrupted, use the optional [Work Continuity practice](work-continuity.md) to recover the current objective, integrated baseline, pending proposals, decisions, validation evidence, unresolved gaps and next permitted action.
+
+Verify the observed state and applicable authority before continuing. A previous handoff or approval does not automatically authorize a new execution attempt. This guidance complements the governing readiness, execution, review and completion requirements without introducing a mandatory handoff artifact or replacing existing records.
+
 ## Repository reading map
 
 Under [Documentation Navigation](../standards/documentation-navigation.md), a reading map can be a short ordered list in the root entry point or a linked guide. Start with purpose and current state, continue through governing sources and decisions, then point to implementation and validation details.
