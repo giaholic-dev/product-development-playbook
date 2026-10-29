@@ -44,6 +44,59 @@ def write_provider_fixtures(destination, repository=REPO, populated=True):
 
 
 class PackageTests(unittest.TestCase):
+    def test_seal_and_verify_reject_invalid_temporal_evidence(self):
+        paths = ['repository/source-inventory.json', 'github/pr-evidence-coverage.json', 'manifest.json']
+        originals = {name: (self.package / name).read_bytes() for name in paths}
+        mutations = [
+            ('repository/source-inventory.json', lambda c: c.update(observation_started_at='not-a-date')),
+            ('repository/source-inventory.json', lambda c: c.update(observation_ended_at='2026-10-22T12:00:00')),
+            ('repository/source-inventory.json', lambda c: c.update(observation_started_at='2999-01-01T00:00:00Z')),
+            ('repository/source-inventory.json', lambda c: c.update(observation_ended_at='2999-01-01T00:00:00Z')),
+            ('github/pr-evidence-coverage.json', lambda c: c.update(identity_observed_at='not-a-date')),
+            ('github/pr-evidence-coverage.json', lambda c: c.update(identity_observed_at='2999-01-01T00:00:00Z')),
+            ('manifest.json', lambda c: c.update(generated_at='1900-01-01T00:00:00Z')),
+            ('manifest.json', lambda c: c.update(generated_at='2026-10-22T12:00:00')),
+        ]
+        for name, mutation in mutations:
+            with self.subTest(name=name, mutation=mutation):
+                for path, data in originals.items():
+                    (self.package / path).write_bytes(data)
+                self.mutate(name, mutation)
+                before = (self.package / 'manifest.json').read_bytes()
+                for action in ('seal', 'verify'):
+                    result = subprocess.run([sys.executable, K.__file__, action, '--package', str(self.package)],
+                                            capture_output=True, text=True)
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertIn('ERROR:', result.stderr)
+                    self.assertNotIn('Traceback', result.stderr)
+                # Failed sealing must not rewrite the manifest into a new claim.
+                self.assertEqual((self.package / 'manifest.json').read_bytes(), before)
+        for path, data in originals.items():
+            (self.package / path).write_bytes(data)
+        K.verify(self.package)
+
+    def test_generation_precision_and_supported_tool_versions(self):
+        # Existing Bash output has whole-second generation timestamps. Its
+        # containing second must admit the finer collector timestamps.
+        original = (self.package / 'manifest.json').read_bytes()
+        for version in sorted(K.SUPPORTED_TOOLS):
+            (self.package / 'manifest.json').write_bytes(original)
+            self.mutate('manifest.json', lambda m: m.update(tool_version=version))
+            self.assertTrue(K.seal(self.package)['full_profile_complete'])
+        generated = K.PR.observation_time(json.loads(original)['generated_at'])
+        source_path = self.package / 'repository/source-inventory.json'
+        source_original = source_path.read_bytes()
+        same_second = generated.replace(microsecond=999999).isoformat()
+        self.mutate('repository/source-inventory.json', lambda s: s.update(observation_ended_at=same_second))
+        self.assertTrue(K.seal(self.package)['full_profile_complete'])
+        # Fractional generation is an exact bound rather than a whole-second bucket.
+        self.mutate('manifest.json', lambda m: m.update(generated_at=same_second))
+        self.assertTrue(K.seal(self.package)['full_profile_complete'])
+        self.mutate('manifest.json', lambda m: m.update(generated_at=generated.isoformat(timespec='microseconds')))
+        with self.assertRaises(K.P.ProjectError):
+            K.seal(self.package)
+        source_path.write_bytes(source_original)
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

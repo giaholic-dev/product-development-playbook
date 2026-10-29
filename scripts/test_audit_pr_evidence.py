@@ -69,6 +69,49 @@ class Fixture:
 
 
 class PREvidenceTests(unittest.TestCase):
+    def test_temporal_evidence_cli_rejects_invalid_observations(self):
+        self.collect()
+        path = self.destination / 'pr-evidence-coverage.json'
+        original = json.loads(path.read_text())
+        prs = Path(self.temp.name) / 'prs.json'
+        prs.write_text(json.dumps(self.prs))
+        mutations = [
+            lambda c: c.update(identity_observed_at='not-a-date'),
+            lambda c: c.update(identity_observed_at='2999-01-01T00:00:00Z'),
+            lambda c: c['observations'][0].update(started_at='2026-02-30T00:00:00Z'),
+            lambda c: c['observations'][0].update(started_at='2026-10-22T12:00:00'),
+            lambda c: c['observations'][0].update(started_at='2026-10-22T12:00:00+00:60'),
+            lambda c: c['observations'][0].update(ended_at='1900-01-01T00:00:00Z'),
+            lambda c: c['observations'][0]['pages'][0].update(observed_at='1900-01-01T00:00:00Z'),
+            lambda c: c['observations'][0]['pages'][0].update(observed_at='2999-01-01T00:00:00Z'),
+            lambda c: c['observations'][0]['pages'][0].update(observed_at=None),
+        ]
+        for mutation in mutations:
+            with self.subTest(mutation=mutation):
+                coverage = copy.deepcopy(original)
+                mutation(coverage)
+                path.write_text(json.dumps(coverage))
+                result = subprocess.run([sys.executable, PR.__file__, 'verify', '--repository', REPO,
+                                         '--prs', str(prs), '--destination', str(self.destination)],
+                                        capture_output=True, text=True)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('ERROR:', result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+        path.write_text(json.dumps(original))
+        PR.verify_evidence(REPO, self.prs, self.destination)
+
+    def test_temporal_offsets_and_zero_length_intervals_are_valid(self):
+        self.collect()
+        path = self.destination / 'pr-evidence-coverage.json'
+        coverage = json.loads(path.read_text())
+        coverage['identity_observed_at'] = '2026-10-22T09:00:00-03:00'
+        for observation in coverage['observations']:
+            observation.update(started_at=TIME, ended_at='2026-10-22T14:00:00+02:00')
+            for page in observation['pages']:
+                page['observed_at'] = TIME
+        path.write_text(json.dumps(coverage))
+        PR.verify_evidence(REPO, self.prs, self.destination)
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

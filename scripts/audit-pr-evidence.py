@@ -30,6 +30,25 @@ def now():
     return datetime.now(timezone.utc).isoformat()
 
 
+def observation_time(value):
+    """Parse an explicit ISO date/time and offset; never log retained values."""
+    if not isinstance(value, str) or not re.fullmatch(
+            r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"
+            r"(?:\.[0-9]{1,6})?(?:Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])", value):
+        raise EvidenceError("Invalid observation timestamp format or timezone.")
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
+    except (ValueError, OverflowError) as exc:
+        raise EvidenceError("Invalid observation timestamp.") from exc
+
+
+def observation_interval(start, end):
+    start, end = observation_time(start), observation_time(end)
+    if start > end:
+        raise EvidenceError("Inverted observation interval.")
+    return start, end
+
+
 def positive_id(value):
     return isinstance(value, int) and not isinstance(value, bool) and value > 0
 
@@ -290,6 +309,7 @@ def verify_evidence(repository, prs, destination):
             or coverage.get("current_approval_inferred") is not False):
         raise EvidenceError("PR coverage identity/version/approval claim mismatch.")
     principal = coverage.get("principal")
+    identity_time = observation_time(coverage.get("identity_observed_at"))
     if (not isinstance(principal, dict) or set(principal) != {"id", "login"}
             or not positive_id(principal.get("id")) or not isinstance(principal.get("login"), str)
             or not principal["login"]):
@@ -317,6 +337,9 @@ def verify_evidence(repository, prs, destination):
         raise EvidenceError("Missing per-PR collection observations.")
     observed = set()
     for observation in observations:
+        start, end = observation_interval(observation.get("started_at"), observation.get("ended_at"))
+        if identity_time > start:
+            raise EvidenceError("PR observation precedes observed principal identity.")
         kind, number = observation["kind"], observation["pull_request_number"]
         key = kind, number
         if kind not in FILES or number not in numbers or key in observed:
@@ -334,6 +357,8 @@ def verify_evidence(repository, prs, destination):
         suffix = f"{suffix_kind}/{number}/{suffix_end}"
         seen_requests = set()
         for index, page in enumerate(pages, 1):
+            if not start <= observation_time(page.get("observed_at")) <= end:
+                raise EvidenceError("PR page observation escapes collection interval.")
             target = client.target("https://api.github.com/" + page["request"], suffix)
             query = parse_qs(target.query)
             if query != {"per_page": ["100"], "page": [str(index)]}:
