@@ -2,6 +2,7 @@
 """Check supported local Markdown links and heading fragments; no network access."""
 
 import argparse
+import os
 import re
 import sys
 import unicodedata
@@ -67,11 +68,24 @@ def local_links(source):
             yield text.count("\n", 0, match.start()) + 1, definitions[normalized]
 
 
+def markdown_files(root):
+    """Prune known generated output trees relative to the selected check root."""
+    excluded = {("audit", "exports"), ("audit", ".staging")}
+    files = []
+    for directory, children, names in os.walk(root):
+        relative = Path(directory).relative_to(root)
+        children[:] = [name for name in children
+                       if name not in {".git", "node_modules", ".venv"}
+                       and (relative / name).parts not in excluded]
+        files.extend(Path(directory) / name for name in names if name.endswith(".md"))
+    return sorted(files)
+
+
 def check(root):
     root = Path(root).resolve()
     errors = []
     count = 0
-    files = sorted(p for p in root.rglob("*.md") if not any(x in {".git", "node_modules", ".venv"} for x in p.relative_to(root).parts))
+    files = markdown_files(root)
     cache = {}
     for path in files:
         source = path.read_text(encoding="utf-8")
