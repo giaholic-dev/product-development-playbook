@@ -1,5 +1,9 @@
 # Repository conformance declaration
 
+## Current decision navigation — 2026-10-29
+
+The [F01–F04 current disposition summary](playbook-remediation-plan.md#current-f01f04-dispositions--2026-10-29) links the completed research decisions, retained implementation deferrals/recommendations and owner/reassessment conditions. Research closure is distinct from implemented guidance or empirical recovery. Later dated adoption records below identify published/unreleased baselines; earlier checkpoints retain their historical context. This navigation update adds no governing obligation, applicability change or adopted runtime.
+
 ## Purpose and scope
 
 Record adoption and review evidence for this methodology repository under [Repository Standards](../standards/repository-standards.md#conformance-declaration). This is a repository-specific record, not another standard, a certification, or a claim that every Playbook product activity has been executed.

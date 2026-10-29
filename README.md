@@ -307,7 +307,18 @@ The Playbook defines reusable standards that can be adopted across software prod
 
 Latest published release: **[v0.8.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.8.0)**
 
-Development target: **None declared.** F01–F04 remain unversioned research candidates in the remediation plan.
+Development target: **None declared.** F01–F04 research is closed with the bounded decisions below; deferred implementation has no release version.
+
+### Current research decisions — reviewed 2026-10-29
+
+| Record | Current result | Implementation limit |
+| --- | --- | --- |
+| [F01 / #336](https://github.com/giaholic-dev/product-development-playbook/issues/336) | Completed research; non-software specialization/pilot selection deferred. | No physical/service/hybrid method or production readiness delivered. |
+| [F02 / #337](https://github.com/giaholic-dev/product-development-playbook/issues/337) | Completed research; retain execution schema/parser/runtime deferral. | AI readership and the audit manifest do not establish a lifecycle execution consumer. |
+| [F03 / #338](https://github.com/giaholic-dev/product-development-playbook/issues/338) | Completed research; optional software-retirement practice recommended, deferred until a concrete case. | No new practice, eighth phase or actual shutdown delivered. |
+| [F04 / #339](https://github.com/giaholic-dev/product-development-playbook/issues/339) | Expert research complete; same-conversation reconstruction supports limited continuity recommendations. | No clean-room restart trial or empirical operational recovery established; shared guidance is separate work. |
+
+The [current decision summary and reassessment triggers](docs/practices/playbook-remediation-plan.md#current-f01f04-dispositions--2026-10-29) link the governing issue decisions. Earlier dated checkpoints stay historical; research closure is not implemented capability or permission to act on an adopter.
 
 Current repository adoption also includes the **unreleased** [validation-correction baseline](docs/practices/validation-reliability-acceptance-2026-10-29.md) at `9ac4f6027095ceeb54f425bb7333c15bec678d2d`. AP00–AP03 are accepted with recorded compatibility limits and AP04–AP10 dispositions; no new release is selected. The prior published v0.8.0 and its evidence remain preserved.
 
