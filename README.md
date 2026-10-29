@@ -33,6 +33,8 @@ The conceptual method is independent of hosting vendors. This repository deliber
 
 The Playbook supports manual, AI-assisted, and authorized AI-automated execution. No lifecycle phase, standard, or workflow requires an AI provider, model, prompt, integration, or automation platform; every execution mode follows the same accountability, evidence, review, and completion rules.
 
+The optional [AI Input Trust Boundary practice](docs/practices/ai-input-trust-boundary.md) illustrates hostile and benign retrieved inputs under those existing rules. It records a conceptual research decision, not an agent security test or autonomous-execution certification.
+
 ## Documentation Language
 
 The primary documentation language of this repository is English.

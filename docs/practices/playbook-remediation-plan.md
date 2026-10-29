@@ -311,3 +311,9 @@ AP00–AP03 / #370–#373 are complete through #383–#385. AP11 / #381's [accep
 
 AP04–AP10 / #374–#380 are deferred beyond the corrective lot with @giaholic accountable and individual triggers in that record; their milestones/issues remain open. This is a disposition, not delivery of optional research or broader-plan implementation. Branch review #382 remains due by 2026-11-05 or before reuse. Existing F decisions are not reinterpreted by this checkpoint. Final exact-head CI, solo review, integration and native issue closure are recorded in the acceptance PR/#381, without independent-approval or publication claims.
 
+## AP05 trust-boundary research — 2026-10-29
+
+AP05 / [#375](https://github.com/giaholic-dev/product-development-playbook/issues/375) selects the [optional input trust-boundary practice](ai-input-trust-boundary.md): existing AI Collaboration, Integration, Execution Protocol and authority/data/evidence owners suffice for the bounded hostile/benign conceptual cases, so no normative standard change is selected. The example distinguishes useful input and genuine scoped-approval evidence from a payload's unverified authority claim; it compares manual, assisted and automated execution without claiming an observed runtime result.
+
+The earlier AP11 deferral is preserved as history; this later selected research increment has its documentary validation/review/integration and completion record in its PR/#375. No agent-security evaluation or release is implied. Owner @giaholic must reassess before expanding material automation using a selected executor and separately scoped isolated synthetic evidence, or sooner on contradictory behavior or governing changes. AP06 may consume this decision after integration; AP07 still needs its own authorized real case.
+
