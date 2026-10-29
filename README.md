@@ -309,6 +309,8 @@ Latest published release: **[v0.8.0](https://github.com/giaholic-dev/product-dev
 
 Development target: **None declared.** F01–F04 remain unversioned research candidates in the remediation plan.
 
+Current repository adoption also includes the **unreleased** [validation-correction baseline](docs/practices/validation-reliability-acceptance-2026-10-29.md) at `9ac4f6027095ceeb54f425bb7333c15bec678d2d`. AP00–AP03 are accepted with recorded compatibility limits and AP04–AP10 dispositions; no new release is selected. The prior published v0.8.0 and its evidence remain preserved.
+
 The [v0.8.0 notes](docs/releases/v0.8.0.md) document changed recovery/migration obligations and adopter actions. The [v0.7.0 notes](docs/releases/v0.7.0.md) and [actual audit validation](docs/practices/audit-evidence-validation-2026-10-24.md) preserve the preceding audit-only baseline and its bounded evidence.
 
 Scope and work records: [Playbook Remediation Plan](docs/practices/playbook-remediation-plan.md).
