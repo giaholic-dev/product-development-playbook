@@ -11,7 +11,6 @@ import stat
 import sys
 import tempfile
 import zipfile
-from datetime import datetime
 from pathlib import Path
 
 import importlib.util
@@ -142,14 +141,12 @@ def check_source(root):
 
 
 def validate_interval(coverage):
-    start, end = datetime.fromisoformat(coverage['started_at']), datetime.fromisoformat(coverage['ended_at'])
-    P.require(start.tzinfo is not None and end.tzinfo is not None and start <= end, 'Invalid observation interval.')
+    start, end = PR.observation_interval(coverage['started_at'], coverage['ended_at'])
     for observation in coverage.get('observations', []):
-        observed_start = datetime.fromisoformat(observation['started_at'])
-        observed_end = datetime.fromisoformat(observation['ended_at'])
+        observed_start, observed_end = PR.observation_interval(observation['started_at'], observation['ended_at'])
         P.require(start <= observed_start <= observed_end <= end, 'Collection interval escapes run interval.')
         for page in observation.get('pages', []):
-            timestamp = datetime.fromisoformat(page['observed_at'])
+            timestamp = PR.observation_time(page['observed_at'])
             P.require(observed_start <= timestamp <= observed_end, 'Page interval escapes collection.')
     return {'started_at': coverage['started_at'], 'ended_at': coverage['ended_at']}
 
@@ -168,13 +165,24 @@ def derive(root, base):
               'Invalid manifest repository metadata types.')
     P.require(not repo_meta['detached_head'] or (repo_meta.get('branch') is None
               and repo_meta['selected_ref'] == repo_meta['commit']), 'Detached source ref mismatch.')
-    generated = datetime.fromisoformat(base['generated_at'])
-    P.require(generated.tzinfo is not None, 'Manifest generation time lacks timezone.')
+    generated = PR.observation_time(base['generated_at'])
+    # Legacy Bash manifests truncate generation to seconds. Treat that as the
+    # containing second, not permission for observations in a later second.
+    generation_second_only = '.' not in base['generated_at']
+    def before_generation(value):
+        observed = PR.observation_time(value)
+        if generation_second_only:
+            P.require(observed.replace(microsecond=0) <= generated,
+                      'Observation is later than manifest generation second.')
+        else:
+            P.require(observed <= generated, 'Observation is later than manifest generation.')
     P.require(all(isinstance(v, int) and not isinstance(v, bool) and v >= 0 for v in base['collection_counts'].values())
               and all(v is True for v in base['collection_pagination'].values()), 'Invalid compatibility count/pagination types.')
     P.require(base['repository']['remote_identity'] == 'github.com/' + repository, 'Repository identity mismatch.')
     payloads = inventory(root)  # Reject unsafe filesystem entries before any JSON/payload reads.
     source = check_source(root)
+    PR.observation_interval(source['observation_started_at'], source['observation_ended_at'])
+    before_generation(source['observation_ended_at'])
     P.require(source['commit'] == base['repository']['commit'], 'Manifest/source commit mismatch.')
     summary = base['source_snapshot']
     for key in ('commit', 'tree', 'source_kind', 'working_tree_bytes_included', 'all_tracked_blobs_retained',
@@ -187,15 +195,21 @@ def derive(root, base):
     P.require(isinstance(selected_discussions, bool), 'Unknown Discussions selection.')
     records_coverage = R.verify(records, repository, selected_discussions)
     validate_interval(records_coverage)
+    before_generation(records_coverage['ended_at'])
     project = {name: read(root, 'github/' + name) for name in P.OUTPUTS}
     project_identity = project['project-coverage.json']['project']
     P.verify(project, project_identity['owner_kind'], project_identity['owner_login'], project_identity['number'], repository)
     project_coverage = project['project-coverage.json']
+    validate_interval(project_coverage)
+    before_generation(project_coverage['ended_at'])
     P.require(base['project_evidence']['project'] == project_identity, 'Selected Project identity mismatch.')
     P.require(project_coverage['principal']['login'].casefold() == records_coverage['principal']['login'].casefold(),
               'Required collectors used different observed principals.')
     prs = records['pull-requests.json']
     pr_coverage = PR.verify_evidence(repository, prs, root / 'github')
+    before_generation(pr_coverage['identity_observed_at'])
+    for observation in pr_coverage['observations']:
+        before_generation(observation['ended_at'])
     P.require(pr_coverage['repository_id'] == records_coverage['repository_id']
               and pr_coverage['scope'] == 'authorized-observable-pr-evidence', 'PR/repository scope mismatch.')
     P.require(pr_coverage['principal'] == records_coverage['principal'], 'Repository/PR principal identity mismatch.')
