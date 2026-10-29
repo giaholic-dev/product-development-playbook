@@ -277,6 +277,9 @@ create_manifest
                     (self.package / 'github' / name).write_text(json.dumps(value))
                 self.mutate('manifest.json', lambda m: (m.update(tool_version=tool_version),
                             m['project_evidence'].update(evidence_schema_version=evidence_version)))
+                # This is newly collected synthetic evidence, not the sealed
+                # package from setUp. Generate its manifest after collection.
+                self.mutate('manifest.json', lambda m: m.update(generated_at=K.PR.now()))
                 K.seal(self.package)
                 before = (self.package / 'github/project-requests.json').read_bytes()
                 verified = K.verify(self.package)
@@ -293,6 +296,7 @@ create_manifest
             (self.package / 'github' / name).write_text(json.dumps(value))
         self.mutate('manifest.json', lambda m: m['collection_counts'].update(
             project_fields=5, project_items=1, project_values=5, project_views=1))
+        self.mutate('manifest.json', lambda m: m.update(generated_at=K.PR.now()))
         manifest = K.seal(self.package)
         self.assertTrue(manifest['full_profile_complete'])
         self.assertEqual(manifest['project_computed_metadata']['configured_types'], sorted(K.P.BUILTINS))
@@ -306,6 +310,7 @@ create_manifest
         output = K.P.collect('organization', 'fixture', 1, REPO, fixture)
         for name, value in output.items():
             (self.package / 'github' / name).write_text(json.dumps(value))
+        self.mutate('manifest.json', lambda m: m.update(generated_at=K.PR.now()))
         with self.assertRaisesRegex(K.P.ProjectError, 'Local parent issue'):
             K.seal(self.package)
 
