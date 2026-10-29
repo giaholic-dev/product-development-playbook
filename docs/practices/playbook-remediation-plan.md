@@ -12,14 +12,29 @@ The review findings R01–R12 and the four follow-up research scopes are preserv
 
 The latest verified published release is [v0.8.0](https://github.com/giaholic-dev/product-development-playbook/releases/tag/v0.8.0) (2026-10-24), immutable commit `cb18da31a79eebf192b38bc815aff905a5ef5a56`. v0.7.0 remains preserved as the audit-only baseline at `6901304985b36ecfb842d519d5ddb636f5f05698`, alongside v0.6.0 and historical v0.1.0. Closed v0.2.0–v0.5.0 milestones are delivery boundaries, not missing releases to create.
 
-No new versioned development target is declared. F01–F04 remain unversioned research candidates, with implementation conditional on their scoped evidence/decision. Selected 0.x versions identify reviewed adoption baselines, not an automatic external compatibility/conformance promise. Preserve immutable prior evidence when upgrading.
+No new versioned development target is declared. F01–F04 research is complete with the dispositions below; deferred implementation remains unversioned and conditional on its own scoped evidence/decision. Selected 0.x versions identify reviewed adoption baselines, not an automatic external compatibility/conformance promise. Preserve immutable prior evidence when upgrading.
 
 | Local boundary | Intended version and outcome | Included records |
 | --- | --- | --- |
 | M6 | v0.6.0 — coherent standards, practical three-environment guidance, regression/documentation validation, and adopter upgrades. | C01–C11 |
 | M7 | v0.7.0 — offline audit evidence coverage under an approved contract, with explicit completeness and compatibility limits. | A01–A06 |
 | M8 | v0.8.0 — approved stateful recovery and migration requirements with proportionate examples. | O01–O04 |
-| Research backlog | No release assigned; implementation depends on evidence and a separate scope decision. | F01–F04 |
+| Completed research / conditional follow-up | No release assigned; research decisions complete, implementation conditional on evidence and a separate scope decision. | F01–F04 |
+
+## Current F01–F04 dispositions — 2026-10-29
+
+AP04 / [#374](https://github.com/giaholic-dev/product-development-playbook/issues/374) re-read the complete current bodies and comment collections of #336–#339: all four are closed, with no comments superseding their final body decisions. Those final 2026-10-24 decisions supersede earlier checkpoints that left research open or called it a candidate. Preserve dated history rather than rewriting it. Accountable owner for every row: @giaholic.
+
+| Governing issue and final decision | Current research outcome and limit | Reassessment / separate follow-up |
+| --- | --- | --- |
+| [F01 / #336](https://github.com/giaholic-dev/product-development-playbook/issues/336), “F01 pilot selection decision — 2026-10-24” | Completed research with accepted non-software pilot/specialization deferral. Selected adopters are software; physical/service/hybrid methods and production readiness remain undelivered. | Real opportunity with users/outcome, bounded pilot, domain owner, permitted evidence and constraints; then select a separate applicability/implementation increment. |
+| [F02 / #337](https://github.com/giaholic-dev/product-development-playbook/issues/337), “F02 reassessment and decision — 2026-10-24” | Completed research; retain new execution schema/manifest and formal parser/runtime deferral. AI consumption and completed prerequisites do not demonstrate need; audit evidence is not lifecycle execution. | Named consumer and bounded task existing records cannot support, inputs/outputs/success criteria and source/identity strategy; or materially changed governing semantics. |
+| [F03 / #338](https://github.com/giaholic-dev/product-development-playbook/issues/338), “F03 retirement scope decision — 2026-10-24” | Completed research; keep seven phases and existing rule owners. Optional software-retirement practice/example recommended but not written/adopted; no actual retirement occurred. | Concrete sunset/replacement case, users/dependencies, permitted evidence and obligations; material source changes or contradictory observations can trigger earlier review. |
+| [F04 / #339](https://github.com/giaholic-dev/product-development-playbook/issues/339), “Controlled continuation reconstruction and research disposition — 2026-10-24” | Completed expert research using owner feedback and same-conversation read-only reconstruction. Limited recommendations, not clean-room/new-agent restart, timing evidence or operational recovery. | Contradictory observations, material record/authority changes or selection of a broader claim. [AP06 / #376](https://github.com/giaholic-dev/product-development-playbook/issues/376) owns optional guidance after AP04 and [AP05 / #375](https://github.com/giaholic-dev/product-development-playbook/issues/375); [AP07 / #377](https://github.com/giaholic-dev/product-development-playbook/issues/377) needs a separately authorized real case. |
+
+Current issue decisions govern research disposition; old candidate wording in historical source checkpoints does not reopen them. This summary introduces no method, mandatory artifact, autonomous-safety claim or operational permission. Source owners and existing software/applicability obligations are unchanged.
+
+Integrated main inspected: `7302203c9d21b97e1332d3c162ba507e724f5b91`. [AP11 acceptance](validation-reliability-acceptance-2026-10-29.md) separately identifies the adopted unreleased validator/test baseline `9ac4f6027095ceeb54f425bb7333c15bec678d2d`. No open PR existed before AP04's documentation change; that change is proposed until its PR integrates. Future continuation must inspect the actual current issue/PR/head and later evidence, not treat this dated observation as permanent current state. No release/version or adopter operation is selected here.
 
 All three environments remain mandatory for in-scope executable products under [Software Environments](../standards/software-environments.md). This plan neither provisions adopting-product environments nor changes the methodology repository's recorded applicability.
 
