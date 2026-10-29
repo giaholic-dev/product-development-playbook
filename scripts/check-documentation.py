@@ -45,18 +45,26 @@ def anchors(source):
     return found
 
 
+def reference_label(label):
+    """Compare supported single-line labels without case or spacing differences."""
+    return " ".join(label.split()).casefold()
+
+
 def local_links(source):
     text = prose(source)
     text = re.sub(r"(`+).*?\1", "", text)
-    definitions = dict(re.findall(r"^ {0,3}\[([^]]+)\]:\s*<?([^\s>]+)>?", text, re.M))
+    definitions = {}
+    for label, target in re.findall(r"^ {0,3}\[([^]\n]+)\]:[^\S\n]*<?([^\s>]+)>?", text, re.M):
+        definitions.setdefault(reference_label(label), target)
     for match in re.finditer(r"!?\[[^]\n]*\]\(\s*(<[^>]+>|[^\s)]+)(?:\s+\"[^\"]*\")?\s*\)", text):
         yield text.count("\n", 0, match.start()) + 1, match[1].strip("<>")
     for match in re.finditer(r"!?\[([^]\n]+)\]\[([^]\n]*)\]", text):
         key = match[2] or match[1]
-        if key not in definitions:
+        normalized = reference_label(key)
+        if normalized not in definitions:
             yield text.count("\n", 0, match.start()) + 1, "!undefined-reference:" + key
         else:
-            yield text.count("\n", 0, match.start()) + 1, definitions[key]
+            yield text.count("\n", 0, match.start()) + 1, definitions[normalized]
 
 
 def check(root):

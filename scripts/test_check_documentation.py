@@ -41,6 +41,36 @@ class DocumentationChecks(unittest.TestCase):
     def test_repository_escape_fails(self):
         self.assertTrue(self.run_case("[escape](../outside.md)"))
 
+    def test_reference_labels_normalize_case_and_whitespace(self):
+        for source in (
+            "[go][OWNER]\n\n[owner]: target.md#valid\n",
+            "[go][  Product\t OWNER ]\n\n[product owner]: target.md\n",
+            "[go][product owner]\n\n[ Product   OWNER ]: target.md\n",
+            "[Product  OWNER][]\n\n[product owner]: target.md\n",
+            "![image][OWNER]\n\n[owner]: target.md\n",
+            "[go][STRASSE]\n\n[Straße]: target.md\n",
+        ):
+            with self.subTest(source=source):
+                self.assertFalse(self.run_case(source))
+        self.assertTrue(self.run_case("[go][ OTHER  owner ]\n\n[owner]: target.md\n"))
+
+    def test_first_normalized_reference_definition_wins(self):
+        for first, second, fails in (
+            ('missing.md', 'target.md', True),
+            ('target.md', 'missing.md', False),
+            ('target.md#missing', 'target.md#valid', True),
+            ('target.md#valid', 'target.md#missing', False),
+        ):
+            for labels in (('owner', 'owner'), (' OWNER ', 'owner'), ('Product  OWNER', 'product\towner')):
+                with self.subTest(first=first, second=second, labels=labels):
+                    source = f"[go][{labels[1]}]\n\n[{labels[0]}]: {first}\n[{labels[1]}]: {second}\n"
+                    self.assertEqual(bool(self.run_case(source)), fails)
+
+    def test_code_example_definition_cannot_override_real_reference(self):
+        source = "[go][OWNER]\n\n[owner]: missing.md\n```md\n[OWNER]: target.md\n```\n"
+        self.assertTrue(self.run_case(source))
+        self.assertFalse(self.run_case(source.replace('missing.md', 'target.md')))
+
 
 if __name__ == "__main__":
     unittest.main()
