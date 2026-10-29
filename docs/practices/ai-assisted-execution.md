@@ -15,6 +15,8 @@ Offer non-normative guidance for applying the AI Collaboration Standard to a mat
 
 This practice does not require a provider, model, prompt format, or integration.
 
+For a source-linked conceptual comparison of hostile retrieved instructions and useful benign input, see [AI Input Trust Boundary](ai-input-trust-boundary.md). It applies existing authority/data/evidence owners without certifying a runtime or adding a mandatory prompt or approval step.
+
 ## References
 
 - [AI Collaboration Standard](../standards/ai-collaboration.md)
